@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	@@include("source/html/base/head.html")
+	<title>CellTrade | Главная</title>
+</head>
+<body style="overflow-y: hidden">
+	<div style="display: none">@@include("build/img/icons-sprite.svg")</div>
+	<div class="preloader preloader--main preloader--show">
+		<div class="preloader__fragment">
+			<svg class="circle" viewBox="0 0 100 100" width="100" height="100">
+				<g class="circle__blend">
+					<path class="circle__path" d="M 50 96 a 46 46 0 0 1 0 -92 46 46 0 0 1 0 92" />
+				</g>
+			</svg>
+		</div>
+	</div>
+	<div class="wrapper">
+		@@include("source/html/base/header.html")
+		<div class="page">
+			<div class="container">
+				<form class="visually-hidden form" action="" method="POST">
+					<div class="
+								form__container form__container--sm form__container--center
+							">
+						<h1 class="form__title">Вход</h1>
+						<div class="form__content">
+							<div class="form__column form__column--center">
+								<label class="form__label">
+									<input class="form__input form__input--text" type="text" name="LOGIN" placeholder="Логин" />
+								</label>
+								<label class="form__label">
+									<input class="form__input form__input--text" type="password" name="PASSWORD" placeholder="Пароль" />
+								</label>
+								<button class="
+												form__btn
+												form__btn--fill-color-main
+												form__btn--indent-top
+												form__btn--resolve
+											" type="submit">
+									Войти
+								</button>
+							</div>
+						</div>
+					</div>
+				</form>
+				<form class="form" action="" method="POST">
+					<div class="form__step" id="check-numbers">
+						<div class="
+						form__container form__container--sm form__container--center
+					">
+							<h1 class="form__title form__title--center">Проверка IMEI</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__description form__description--center">
+										<p class="form__paragraph">Введите IMEI для проверки</p>
+									</div>
+									<label class="form__label form__label--radio">
+										<input class="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" />
+										<span class="form__radio-custom"></span>
+										Телефон
+									</label>
+									<label class="form__label form__label--radio">
+										<input class="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" />
+										<span class="form__radio-custom"></span>
+										Смарт-часы
+									</label>
+									<label class="form__label">
+										<input class="
+										form__input form__input--number form__input--numbers
+									" type="number" name="IMEI" placeholder="IMEI" disabled />
+										<span class="error"></span>
+									</label>
+									<button class="
+									form__btn
+									form__btn--fill-color-main
+									form__btn--indent-top
+									form__btn--resolve
+								" type="submit" disabled>
+										Проверить
+									</button>
+									<div class="tooltip">
+										<img class="tooltip__img" src="img/content/scanner.jpg" alt="Сканер" width="350" height="350" />
+										<div class="tooltip__content">
+											<p class="form__paragraph">
+												IMEI устройства можно проверить запросом USSD-команды
+												<a class="form__link form__link--bold" href="tel:*#06#">*#06#</a>
+												в приложении "Телефон"
+											</p>
+											<p class="form__paragraph">
+												Отсканируйте штрих-код сканером или введите IMEI
+												устройства вручную
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<form class="form" action="" method="POST">
+					<div class="form__step" id="check-device">
+						<div class="form__container form__container-sm">
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__container form__container--center">
+										<img class="form__img form__img--border" src="img/content/mobile.jpg" alt="Телефон" width="450"
+											height="450" />
+									</div>
+								</div>
+								<div class="form__column">
+									<div class="
+												form__container
+												form__container--sm
+												form__container--center
+											">
+										<h1 class="form__title">Проверьте устройство</h1>
+										<div class="form__description">
+											<p class="form__paragraph form__name"></p>
+										</div>
+										<label class="form__label form__label--select">
+											<select class="form__select form__select--colors"></select>
+										</label>
+										<label class="form__label form__label--select">
+											<select class="form__select form__select--memory"></select>
+										</label>
+										<label class="
+													form__label form__label--checkbox form__label--bold
+												">
+											<input class="
+														visually-hidden
+														form__input form__input--checkbox
+													" type="checkbox" name="DESCRIPTION_MATCHES" />
+											<span class="form__checkbox-custom"></span>
+											Описание совпадает по модели, памяти, цвету
+										</label>
+										<label class="
+													form__label form__label--checkbox form__label--bold
+												">
+											<input class="
+														visually-hidden
+														form__input form__input--checkbox
+													" type="checkbox" name="MOBILE_ON" />
+											<span class="form__checkbox-custom"></span>
+											Телефон включается
+										</label>
+										<label class="
+													form__label form__label--checkbox form__label--bold
+												">
+											<input class="
+														visually-hidden
+														form__input form__input--checkbox
+													" type="checkbox" name="IMEI_MATCHES" />
+											<span class="form__checkbox-custom"></span>
+											Внешний IMEI есть и совпадает с внутренним
+										</label>
+										<div class="tooltip">
+											<div class="check-it check-it--right">
+												<div class="check-it__item" id="phone-android">
+													<a class="form__link check-it__link smart-photo" href="img/content/imei_hint_1.jpg"
+														data-caption="Разблокируйте устройство и откройте приложение <Телефон>"
+														data-group="how-check">
+														<img class="visually-hidden" src="img/content/imei_hint_1.jpg" alt="" />
+														Как это проверить?
+													</a>
+													<div class="visually-hidden">
+														<a class="smart-photo" href="img/content/imei_hint_2.jpg"
+															data-caption="Введите USSD-команду *#06#" data-group="how-check" aria-hidden="true">
+															<img src="img/content/imei_hint_2.jpg" alt="" />
+														</a>
+														<a class="smart-photo" href="img/content/imei_hint_3.jpg"
+															data-caption="На дисплее отобразится внутренний IMEI устройства" data-group="how-check"
+															aria-hidden="true">
+															<img src="img/content/imei_hint_3.jpg" alt="" />
+														</a>
+														<a class="smart-photo" href="img/content/imei_hint_4.jpg"
+															data-caption="Внешний IMEI указывается на устройстве где-то внешне: либо на задней крышке корпуса, либо на лотке для SIM, либо на наклейке под батареей"
+															data-group="how-check" aria-hidden="true">
+															<img src="img/content/imei_hint_4.jpg" alt="" />
+														</a>
+													</div>
+												</div>
+											</div>
+											<div class="tooltip__content">
+												<p class="form__paragraph">
+													Внутренний IMEI проверяется по запросу
+													<a class="form__link form__link--bold" href="tel:*#06#">*#06#</a>
+													Внешний IMEI находится либо на задней поверхности
+													корпуса, либо на отке SIM-карты.
+												</p>
+											</div>
+										</div>
+										<button class="
+													visually-hidden
+													form__btn
+													form__btn--fill-color-main
+													form__btn--indent-bottom
+													form__btn--resolve
+												" type="button">
+											Принять
+										</button>
+										<button class="
+													form__btn
+													form__btn--fill-transparent
+													form__btn--reject
+												" type="button">
+											Отклонить
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="check-defect">
+						<div class="form__container">
+							<h1 class="form__title">
+								Экран не разбит / нет дефектов матрицы?
+							</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__container form__container--center">
+										<img class="
+													form__img form__img--center form__img--fix-height
+												" src="img/content/smashed.jpg" alt="" width="450" height="450" />
+										<button class="
+													form__btn
+													form__btn--fill-red
+													form__btn--center
+													form__btn--indent-top
+													form__btn--reject
+												" type="button">
+											Экран разбит и/или имеет выгорания
+										</button>
+									</div>
+								</div>
+								<div class="form__column">
+									<div class="form__container form__container--center">
+										<img class="
+													form__img form__img--center form__img--fix-height
+												" src="img/content/no-smashed.jpg" alt="" width="450" height="450" />
+										<button class="
+													form__btn
+													form__btn--fill-green
+													form__btn--center
+													form__btn--indent-top
+													form__btn--resolve
+												" type="button">
+											Экран не разбит и не имеет выгораний
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="preliminary-discount">
+						<div class="form__container form__container--center">
+							<h1 class="form__title form__title--center">
+								Предварительная сумма скидки
+							</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__description form__description--center">
+										<p class="form__paragraph form__paragraph--xl form__name"></p>
+										<p class="form__paragraph form__paragraph--red">
+											<b class="form__bold">Состояние устройства:
+												<span class="form__device-state"></span></b>
+										</p>
+									</div>
+									<table class="table">
+										<caption class="table__caption">
+											Сумма без дополнительной скидки
+										</caption>
+										<thead class="table__head">
+											<tr class="table__row">
+												<th class="table__header"></th>
+												<th class="table__header">Отличное</th>
+												<th class="table__header">Рабочее</th>
+											</tr>
+										</thead>
+										<tbody class="table__body">
+											<tr class="table__row">
+												<td class="table__data" data-cell="">
+													Цена SmartPrice
+												</td>
+												<td class="table__data" data-cell="Отличное">
+													50 815 &#8381;
+												</td>
+												<td class="table__data" data-cell="Рабочее">
+													41 547 &#8381;
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="
+												form__container
+												form__container--sm
+												form__container--center
+											">
+										<button class="
+													form__btn
+													form__btn--fill-color-main
+													form__btn--center
+													form__btn--indent-top
+													form__btn--indent-bottom
+													form__btn--resolve
+												" type="button">
+											Клиент согласен
+										</button>
+										<button class="
+													form__btn
+													form__btn--center
+													form__btn--fill-transparent
+													form__btn--reject
+												" type="button">
+											Клиент отказался
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="check-defect-device">
+						<div class="form__container form__container--center">
+							<h1 class="form__title form__title--center">
+								Проверьте дефекты устройства
+							</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__description form__alert">
+										<p class="form__paragraph">
+											<b class="form__bold">Обратите внимание</b>, что перед
+											проверкой экрана с него необходимо
+											<b class="form__bold">снять все защитные элементы</b>:
+											плёнки, защитные стекла и т.п.
+										</p>
+									</div>
+									<div class="defects-list">
+										<div class="defects-list__item">
+											<label class="
+														form__label form__label--bold form__label--checkbox
+													">
+												<input class="
+															visually-hidden
+															form__input form__input--checkbox
+														" type="checkbox" name="SCREEN_IS_BROKEN" />
+												<span class="form__checkbox-custom"></span>
+												Экран разбит или есть отслоения
+											</label>
+											<a class="
+														defects-list__link
+														defects-list__link--no-indent-top-mobile
+														smart-photo
+													" href="img/content/samsung_cracked_screen2.jpg" data-caption="Экран разбит или есть отслоения"
+												data-group="examples-1" aria-hidden="true">
+												<img class="visually-hidden" src="img/content/samsung_cracked_screen2.jpg" alt="" />
+												Примеры
+											</a>
+											<div class="visually-hidden">
+												<a class="smart-photo" href="img/content/samsung_otsloenie1.jpg"
+													data-caption="Экран разбит или есть отслоения" data-group="examples-1" aria-hidden="true">
+													<img src="img/content/samsung_otsloenie1.jpg" alt="" />
+												</a>
+											</div>
+										</div>
+										<div class="defects-list__item">
+											<label class="
+														form__label form__label--bold form__label--checkbox
+													">
+												<input class="
+															visually-hidden
+															form__input form__input--checkbox
+														" type="checkbox" name="SCREEN_WITH_IMAGE" />
+												<span class="form__checkbox-custom"></span>
+												Экран с различными повреждениями (потёртости,
+												царапины)
+											</label>
+											<a class="
+														defects-list__link
+														defects-list__link--no-indent-top-mobile
+														smart-photo
+													" href="img/content/samsung_small_scratches1.jpg"
+												data-caption="Экран с различными повреждениями (потертости, царапины)" data-group="examples-2"
+												aria-hidden="true">
+												<img class="visually-hidden" src="img/content/samsung_small_scratches1.jpg" alt="" />
+												Примеры
+											</a>
+											<div class="visually-hidden">
+												<a class="smart-photo" href="img/content/samsung_big_scratches1.jpg"
+													data-caption="Экран с различными повреждениями (потертости, царапины)" data-group="examples-2"
+													aria-hidden="true">
+													<img src="img/content/samsung_big_scratches1.jpg" alt="" />
+												</a>
+											</div>
+										</div>
+										<div class="defects-list__item">
+											<label class="
+														form__label form__label--bold form__label--checkbox
+													">
+												<input class="
+															visually-hidden
+															form__input form__input--checkbox
+														" type="checkbox" name="DETECTIVE_PIXELS" />
+												<span class="form__checkbox-custom"></span>
+												Есть выгорания, битые пиксели, полосы, пятна
+											</label>
+											<a class="
+														defects-list__link
+														defects-list__link--no-indent-top-mobile
+														smart-photo
+													" href="img/content/burnout_samsung.jpg" data-caption="Есть выгорания, битые пиксели, полосы, пятна"
+												data-group="examples-3" aria-hidden="true">
+												<img class="visually-hidden" src="img/content/burnout_samsung.jpg" alt="" />
+												Примеры
+											</a>
+											<div class="visually-hidden">
+												<a class="smart-photo" href="img/content/remaining_picture.jpg"
+													data-caption="Есть выгорания, битые пиксели, полосы, пятна" data-group="examples-3"
+													aria-hidden="true">
+													<img src="img/content/remaining_picture.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="img/content/bad_pixels_samsung.jpg"
+													data-caption="Есть выгорания, битые пиксели, полосы, пятна" data-group="examples-3"
+													aria-hidden="true">
+													<img src="img/content/bad_pixels_samsung.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="img/content/samsung_lines2.jpg"
+													data-caption="Есть выгорания, битые пиксели, полосы, пятна" data-group="examples-3"
+													aria-hidden="true">
+													<img src="img/content/samsung_lines2.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="img/content/lines_samsung.jpg"
+													data-caption="Есть выгорания, битые пиксели, полосы, пятна" data-group="examples-3"
+													aria-hidden="true">
+													<img src="img/content/lines_samsung.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="img/content/flaws_samsung.jpg"
+													data-caption="Есть выгорания, битые пиксели, полосы, пятна" data-group="examples-3"
+													aria-hidden="true">
+													<img src="img/content/flaws_samsung.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="img/content/samsung_flaws3.jpg"
+													data-caption="Есть выгорания, битые пиксели, полосы, пятна" data-group="examples-3"
+													aria-hidden="true">
+													<img src="img/content/samsung_flaws3.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="img/content/samsung_flaws2.jpg"
+													data-caption="Есть выгорания, битые пиксели, полосы, пятна" data-group="examples-3"
+													aria-hidden="true">
+													<img src="img/content/samsung_flaws2.jpg" alt="" />
+												</a>
+											</div>
+										</div>
+										<div class="defects-list__item">
+											<label class="
+														form__label form__label--bold form__label--checkbox
+													">
+												<input class="
+															visually-hidden
+															form__input form__input--checkbox
+														" type="checkbox" name="CASE_IS_DAMAGED" />
+												<span class="form__checkbox-custom"></span>
+												Корпус имеет видемые повреждения
+											</label>
+											<a class="
+														defects-list__link
+														defects-list__link--no-indent-top-mobile
+														smart-photo
+													" href="img/content/body_cracks_big_samsung.jpg" data-caption="Корпус имеет видимые повреждения"
+												data-group="examples-4" aria-hidden="true">
+												<img class="visually-hidden" src="img/content/body_cracks_big_samsung.jpg" alt="" />
+												Примеры
+											</a>
+											<div class="visually-hidden">
+												<a class="smart-photo" href="img/content/body_cracks_small_samsung.jpg"
+													data-caption="Корпус имеет видимые повреждения" data-group="examples-4" aria-hidden="true">
+													<img src="img/content/body_cracks_small_samsung.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="img/content/body_attrictions_samsung.jpg"
+													data-caption="Корпус имеет видимые повреждения" data-group="examples-4" aria-hidden="true">
+													<img src="img/content/body_attrictions_samsung.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="img/content/body_small_scratches3.jpg"
+													data-caption="Корпус имеет видимые повреждения" data-group="examples-4" aria-hidden="true">
+													<img src="img/content/body_small_scratches3.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="img/content/samsung_glass1.jpg"
+													data-caption="Корпус имеет видимые повреждения" data-group="examples-4" aria-hidden="true">
+													<img src="img/content/samsung_glass1.jpg" alt="" />
+												</a>
+											</div>
+										</div>
+									</div>
+									<div class="
+												form__container
+												form__container--sm
+												form__container--center
+											">
+										<button class="
+													form__btn
+													form__btn--fill-color-main
+													form__btn--center
+													form__btn--indent-top
+													form__btn--indent-bottom
+													form__btn--resolve
+												" type="button">
+											Далее
+										</button>
+										<button class="
+													form__btn
+													form__btn--center
+													form__btn--fill-transparent
+													form__btn--reject
+												" type="button">
+											Отклонить
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="check-photos">
+						<div class="
+									form__container form__container--sm form__container--center
+								">
+							<h1 class="form__title form__title--center">
+								Проверка фотографий устройства
+							</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__description">
+										<p class="form__paragraph">
+											<b class="form__bold">Перейдите по ссылке с помощью QR-кода, ссылки или
+												номера заявки</b>
+										</p>
+									</div>
+									<div class="
+												form__container
+												form__container--light-gray
+												form__container--padding
+												form__container--indent-bottom
+											">
+										<p class="form__paragraph">Сфотографируйте QR-код</p>
+										<img class="form__img" src="img/content/qr-code.jpg" alt="" width="450" height="450"
+											aria-hidden="true" />
+									</div>
+									<div class="
+												form__container
+												form__container--light-gray
+												form__container--padding
+												form__container--indent-bottom
+											">
+										<p class="form__paragraph">
+											или перейдите по этой ссылке
+											<a class="form__link form__link--bold"
+												href="https://smartprice/su/hMG38w">https://smartprice/su/hMG38w</a>
+										</p>
+									</div>
+									<div class="
+												form__container
+												form__container--light-gray
+												form__container--padding
+											">
+										<p class="form__paragraph">
+											или введите этот код заявки на этой странице
+											<a class="form__link form__link--bold"
+												href="https://smartprice.ru/tradein/upload">https://smartprice.ru/tradein/upload</a>
+										</p>
+										<p class="
+													form__paragraph
+													form__paragraph--bold
+													form__paragraph--xl
+													form__paragraph--center
+												">
+											2705153
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="check-marking">
+						<div class="
+									form__container form__container--sm form__container--center
+								">
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__description">
+										<p class="form__paragraph">
+											Отправьте фотографию маркировки с задней крышки
+											устройства
+										</p>
+									</div>
+									<img class="form__img" src="img/content/tradein_back.jpg" alt="Задняя крышка телефона" />
+									<p class="form__paragraph form__paragraph--indent-top">
+										На фото должны быть чётко различны надписи на корпусе или
+										IMEI. Если IMEI на СИМ-лотке, просьба положить рядом с
+										телефоном SIM-лоток с IMEI.
+									</p>
+									<button class="
+												form__btn
+												form__btn--fill-color-main
+												form__btn--indent-top
+												form__btn--resolve
+											" type="button">
+										Сделать фото
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="thanks">
+						<div class="
+									form__container form__container--sm form__container--center
+								">
+							<h1 class="form__title">Спасибо!</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__description">
+										<p class="form__paragraph">
+											<b class="form__bold">Фото отправлено на проверку в Celltrade</b>
+										</p>
+									</div>
+									<div class="tooltip">
+										<div class="tooltip__content">
+											<p class="form__paragraph">
+												В течение нескольких минут результаты проверки будут
+												доступны в основном интерфейсе
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="verification">
+						<div class="
+									form__container form__container--sm form__container--center
+								">
+							<h1 class="form__title">Ожидается проверка в Celltrade</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="counter">
+										<svg class="counter__svg" width="150" height="150" viewBox="0 0 150 150">
+											<circle class="counter__circle counter__circle--bg" cx="75" cy="75" r="65" />
+											<circle class="counter__circle counter__circle--fill" cx="75" cy="75" r="65" />
+										</svg>
+										<div class="counter__number"></div>
+									</div>
+									<div class="form__description">
+										<p class="form__paragraph">
+											Если ожидание составило более 5 минут, пожалуйста,
+											обратитесь в группу поддержки по Trade-In в мессенджере
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="total-discount">
+						<div class="form__container">
+							<h1 class="form__title form__title--center">
+								Итоговая сумма скидки
+							</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__description form__description--center">
+										<p class="form__paragraph form__paragraph--xl form__name"></p>
+										<p class="form__paragraph form__paragraph--bold">
+											Состояние устройства:
+											<span class="form__device-state">Отличное</span>
+										</p>
+										<p class="form__paragraph form__paragraph--bold">
+											Дефект:
+											<span class="form__state-defects">дефектов нет</span>
+										</p>
+									</div>
+									<table class="table">
+										<caption class="table__caption">
+											Сумма без учёта скидки
+										</caption>
+										<thead class="table__head">
+											<tr class="table__row">
+												<th class="table__header"></th>
+												<th class="table__header">Отличное</th>
+											</tr>
+										</thead>
+										<tbody class="table__body">
+											<tr class="table__row">
+												<td class="table__data" data-cell="">
+													Цена CellTrade
+												</td>
+												<td class="table__data" data-cell="Отличное">
+													50 814 &#8381;
+												</td>
+											</tr>
+										</tbody>
+									</table>
+									<div class="
+												form__container
+												form__container--sm
+												form__container--center
+											">
+										<button class="
+													form__btn
+													form__btn--center
+													form__btn--fill-color-main
+													form__btn--indent-top
+													form__btn--indent-bottom
+													form__btn--resolve
+												" type="button">
+											Клиент согласен
+										</button>
+										<button class="
+													form__btn
+													form__btn--center
+													form__btn--fill-transparent
+													form__btn--reject
+												" type="button">
+											Клиент отказался
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="pick-up-device">
+						<div class="
+									form__container form__container--sm form__container--center
+								">
+							<h1 class="form__title form__title--center">
+								Заберите устройство
+							</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__description">
+										<p class="form__paragraph">Подвтердите продукты</p>
+									</div>
+									<label class="
+												form__label form__label--bold form__label--checkbox
+											">
+										<input class="
+													visually-hidden
+													form__input form__input--checkbox
+												" type="checkbox" name="CHECK_THE_QUALITY" />
+										<span class="form__checkbox-custom"></span>
+										Я проверил качество
+									</label>
+									<label class="
+												form__label form__label--bold form__label--checkbox
+											">
+										<input class="
+													visually-hidden
+													form__input form__input--checkbox
+												" type="checkbox" name="SIMCARD_IS_MISSING" />
+										<span class="form__checkbox-custom"></span>
+										Симкарта отсутствует
+									</label>
+									<label class="
+												form__label form__label--bold form__label--checkbox
+											">
+										<input class="
+													visually-hidden
+													form__input form__input--checkbox
+												" type="checkbox" name="UNLINKED_FROM_THE_DEVICE" />
+										<span class="form__checkbox-custom"></span>
+										Все учетные записи Клиента отвязаны от устройства
+									</label>
+									<div class="
+												check-it
+												check-it--right
+												check-it--no-indent-top
+												check-it--indent-bottom
+											">
+										<div class="check-it__item" id="phone-android">
+											<a class="form__link check-it__link smart-photo" href="/img/content/unlock_hint_1_samsung.jpg"
+												data-caption="Перейдите в меню [Настройки]" data-group="phone-android" aria-hidden="true">
+												<img class="visually-hidden" src="/img/content/unlock_hint_1_samsung.jpg" alt="" />Как это
+												проверить?</a>
+											<div class="visually-hidden">
+												<a class="smart-photo" href="/img/content/unlock_hint_2_samsung.jpg"
+													data-caption="Выберите раздел [Учётные записи]" data-group="phone-android" aria-hidden="true">
+													<img src="/img/content/unlock_hint_2_samsung.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="/img/content/unlock_hint_3_samsung.jpg"
+													data-caption="Выберите аккаунт, который хотите удалить" data-group="phone-android"
+													aria-hidden="true">
+													<img src="/img/content/unlock_hint_3_samsung.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="/img/content/unlock_hint_4_samsung.jpg"
+													data-caption="Нажмите кнопку [Меню] (внизу слева) или [Опции] (может выглядеть как [︙] вверху справа)"
+													data-group="phone-android" aria-hidden="true">
+													<img src="/img/content/unlock_hint_4_samsung.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="/img/content/unlock_hint_5_samsung.jpg"
+													data-caption="Выберите пункт [Удалить учётную запись]" data-group="phone-android"
+													aria-hidden="true">
+													<img src="/img/content/unlock_hint_5_samsung.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="/img/content/unlock_hint_6_samsung.jpg"
+													data-caption="Убедитесь в том, что все учётные записи на устройстве отвязаны"
+													data-group="phone-android" aria-hidden="true">
+													<img src="/img/content/unlock_hint_6_samsung.jpg" alt="" />
+												</a>
+											</div>
+										</div>
+										<div class="check-it__item" id="phone-apple">
+											<a class="form__link check-it__link smart-photo" href="/img/content/unlock_hint_1.jpg"
+												data-caption="Перейдите в приложение [Настройки]" data-group="phone-apple" aria-hidden="true">
+												<img class="visually-hidden" src="/img/content/unlock_hint_1.jpg" alt="" />
+												Как это проверить?</a>
+											<div class="visually-hidden">
+												<a class="smart-photo" href="/img/content/unlock_hint_2.jpg"
+													data-caption="Выберите раздел учётной записи" data-group="phone-apple" aria-hidden="true">
+													<img src="/img/content/unlock_hint_2.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="/img/content/unlock_hint_3.jpg"
+													data-caption="Прокрутите вниз и нажмите кнопку [Выйти]" data-group="phone-apple"
+													aria-hidden="true">
+													<img src="/img/content/unlock_hint_3.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="/img/content/unlock_hint_4.jpg"
+													data-caption="Введите пароль от учётной записи iCloud и нажмите [Выкл.]"
+													data-group="phone-apple" aria-hidden="true">
+													<img src="/img/content/unlock_hint_4.jpg" alt="" />
+												</a>
+											</div>
+										</div>
+										<div class="check-it__item" id="watch-android">
+											<a class="form__link check-it__link smart-photo" href="/img/content/unlock_hint_w_s_1.jpg"
+												data-caption="Откройте приложение 'Galaxy Wearable' на смартфоне Samsung"
+												data-group="watch-android" aria-hidden="true">
+												<img class="visually-hidden" src="/img/content/unlock_hint_w_s_1.jpg" alt="" />
+												Как это проверить?</a>
+											<div class="visually-hidden">
+												<a class="smart-photo" href="/img/content/unlock_hint_w_s_2.jpg"
+													data-caption="Выберите раздел 'Учётная запись и рез. копир.'" data-group="watch-android"
+													aria-hidden="true">
+													<img src="/img/content/unlock_hint_w_s_2.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="/img/content/unlock_hint_w_s_3.jpg"
+													data-caption="Нажмите кнопку 'Сбросить'" data-group="watch-android" aria-hidden="true">
+													<img src="/img/content/unlock_hint_w_s_3.jpg" alt="" />
+												</a>
+												<a class="smart-photo" href="/img/content/unlock_hint_w_s_4.jpg"
+													data-caption="Подтвердите сброс" data-group="watch-android" aria-hidden="true">
+													<img src="/img/content/unlock_hint_w_s_4.jpg" alt="" />
+												</a>
+											</div>
+										</div>
+										<div class="check-it__item" id="watch-apple">
+											<a class="form__link check-it__link smart-photo" href="/img/content/unlock_hint_w_a_1.png"
+												data-caption="Откройте приложение 'Apple Watch' на iPhone, перейдите на вкладку 'Мои часы' и нажмите кнопку информации рядом с часами"
+												data-group="watch-apple" aria-hidden="true">
+												<img class="visually-hidden" src="/img/content/unlock_hint_w_a_1.png" alt="" />
+												Как это проверить?</a>
+											<div class="visually-hidden">
+												<a class="smart-photo" href="/img/content/unlock_hint_w_a_2.png"
+													data-caption="Выберите 'Разорвать пару с Apple Watch'. По завершении разрыва пары с Apple Watch выводится сообщение «Создать пару»"
+													data-group="watch-apple" aria-hidden="true">
+													<img src="/img/content/unlock_hint_w_a_2.png" alt="" />
+												</a>
+											</div>
+										</div>
+									</div>
+									<label class="
+												form__label form__label--bold form__label--checkbox
+											">
+										<input class="
+													visually-hidden
+													form__input form__input--checkbox
+												" type="checkbox" name="RESET_TO_FACTORY" />
+										<span class="form__checkbox-custom"></span>
+										Устройство сброшено к заводским установкам
+									</label>
+									<button class="
+												visually-hidden
+												form__btn
+												form__btn--fill-color-main
+												form__btn--indent-top
+												form__btn--resolve
+											" type="button">
+										Принять устройство
+									</button>
+									<button class="
+												form__btn
+												form__btn--fill-transparent
+												form__btn--indent-top
+												form__btn--reject
+											" type="button">
+										Отменить операцию
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="consignment-agreements">
+						<div class="form__container">
+							<h1 class="form__title">
+								Заполните инфомрацию для Договора Консигнации
+							</h1>
+							<div class="form__content">
+								<div class="form__column">
+									<div class="form__container">
+										<div class="form__description">
+											<p class="form__paragraph">Укажите данные клиента</p>
+											<p class="form__paragraph">
+												Усдостоверение личности: Паспорт
+											</p>
+										</div>
+										<fieldset class="form__fieldset">
+											<label class="form__label">
+												<input class="form__input form__input--text" type="text" name="PASSPORT_SERIES"
+													placeholder="Серия" required />
+												<span class="error"></span>
+											</label>
+											<label class="form__label">
+												<input class="form__input form__input--text" type="text" name="PASSPORT_NUMBER"
+													placeholder="Номер" required />
+												<span class="error"></span>
+											</label>
+										</fieldset>
+										<label class="form__label">
+											<input class="form__input form__input--text" type="text" name="NAME" placeholder="Имя" required />
+											<span class="error"></span>
+										</label>
+										<label class="form__label">
+											<input class="form__input form__input--text" type="text" name="SURNAME" placeholder="Фамилия"
+												required />
+											<span class="error"></span>
+										</label>
+										<label class="form__label">
+											<input class="form__input form__input--text" type="text" name="PATRONYMIC" placeholder="Отчество"
+												required />
+											<span class="error"></span>
+										</label>
+										<fieldset class="form__fieldset">
+											<label class="form__label">
+												<input class="form__input form__input--text" type="text" name="PLACE_OF_BIRTH"
+													placeholder="Место рождения" required />
+												<span class="error"></span>
+											</label>
+											<label class="form__label">
+												<input class="form__input form__input--text" type="text" name="DATE_OF_BIRTH"
+													placeholder="Дата рождения" required />
+												<span class="error"></span>
+											</label>
+										</fieldset>
+									</div>
+								</div>
+								<div class="form__column form__column--no-indent-top-mobile">
+									<div class="form__container">
+										<fieldset class="form__fieldset">
+											<label class="form__label">
+												<input class="form__input form__input--text" type="text" name="DEPARTAMENT_CODE"
+													placeholder="Код подразделения" />
+												<span class="error"></span>
+											</label>
+											<label class="form__label">
+												<input class="form__input form__input--text" type="text" name="WHEN_ISSUED"
+													placeholder="Когда выдан" />
+												<span class="error"></span>
+											</label>
+										</fieldset>
+										<label class="form__label">
+											<input class="form__input form__input--text" type="text" name="ISSIED_BY"
+												placeholder="Кем выдан" />
+											<span class="error"></span>
+										</label>
+										<label class="form__label">
+											<textarea class="form__textarea" name="PLACE_OF_RESIDENCE"
+												placeholder="Адрес прописки"></textarea>
+											<span class="error"></span>
+										</label>
+										<fieldset class="form__fieldset">
+											<label class="form__label">
+												<input class="form__input form__input--text" type="email" name="EMAIL" placeholder="E-mail" />
+												<span class="error"></span>
+											</label>
+											<label class="form__label">
+												<input class="form__input form__input--text" type="text" name="PHONE"
+													placeholder="Контактный телефон" />
+												<span class="error"></span>
+											</label>
+										</fieldset>
+										<label class="form__label form__label--checkbox">
+											<input class="
+												visually-hidden
+												form__input form__input--checkbox
+											" type="checkbox" name="DESCRIPTION_MATCHES" />
+											<span class="form__checkbox-custom"></span>
+											Отказаться от рассылки
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form__content">
+								<div class="form__column">
+									<button class="
+												form__btn
+												form__btn--fill-color-main
+												form__btn--indent-bottom
+												form__btn--resolve
+											" type="submit">
+										Подписать договор
+									</button>
+								</div>
+								<div class="form__column form__column--no-indent-top-mobile">
+									<button class="
+												form__btn form__btn--fill-transparent form__btn--reject
+											" type="button">
+										Отменить проверку
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="contract">
+						<div class="
+									form__container form__container--md form__container--center
+								">
+							<h1 class="form__title">Договор</h1>
+							<div class="form__content">
+								<div class="form__column form__column--full-width">
+									<div class="contract">
+										<div class="contract__item">
+											<h3 class="form__subtitle">Устройства</h3>
+											<p class="form__paragraph form__name"></p>
+											<div class="contract__horizontal-items">
+												<p class="form__paragraph">Общая цена</p>
+												<p class="
+															form__paragraph
+															form__paragraph--bold
+															form__paragraph--xl
+															form__paragraph--right
+														">
+													50 813 &#8381;
+												</p>
+											</div>
+										</div>
+										<div class="contract__item">
+											<h3 class="form__subtitle">Персональные данные</h3>
+											<p class="form__paragraph form__paragraph--bold">
+												Петров Петр Петрович
+											</p>
+											<p class="form__paragraph">
+												01.01.2000, Москва, +7 (964) 580-58-19,
+												south96@yandex.ru
+											</p>
+											<p class="form__paragraph form__paragraph--bold">
+												Паспорт
+											</p>
+											<p class="form__paragraph">
+												4545 346346 ОУФМС России по гор. Москве по району
+												Беговой, 01.01.2013, 245-899, Москва, ул. Строителей,
+												дом 2, кв. 14
+											</p>
+											<div class="form__content">
+												<div class="form__column">
+													<label class="form__label">
+														<input class="
+																	form__input form__input form__input--number
+																" type="number" name="CODE" placeholder="Код из СМС" />
+													</label>
+												</div>
+												<div class="
+															form__column form__column--no-indent-top-mobile
+														">
+													<button class="
+																form__btn
+																form__btn--fill-color-main
+																form__btn--sm
+																form__btn--resolve
+															" type="button" disabled>
+														Подтвердить
+													</button>
+												</div>
+											</div>
+											<p class="
+														form__paragraph form__paragraph--indent-top-desktop
+													">
+												Повторная отправка СМС возможна через 2 минуты
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form__step" id="contract-is-signed">
+						<div class="
+									form__container form__container--md form__container--center
+								">
+							<h1 class="form__title">Договор подписан</h1>
+							<div class="form__content">
+								<div class="form__column form__column--full-width">
+									<div class="contract">
+										<div class="contract__item">
+											<div class="form__content">
+												<div class="form__column">
+													<p class="
+																form__paragraph
+																form__paragraph--xl
+																form__paragraph--bold
+																form__paragraph--no-wrap
+															">
+														50 813 &#8381;
+													</p>
+												</div>
+												<div class="
+															form__column form__column--no-indent-top-mobile
+														">
+													<button class="
+																form__btn
+																form__btn--fill-color-main
+																form__btn--indent-top-mobile
+																form__btn--resolve
+															" type="submit">
+														Завершить операцию
+													</button>
+												</div>
+											</div>
+											<p class="
+														form__paragraph form__paragraph--indent-top-desktop
+													">
+												Финальная скидка на покупку
+											</p>
+										</div>
+										<div class="contract__item">
+											<h4 class="list-title">
+												Перед тем, как сдать своё устройство в Trade-In,
+												рекомендуем:
+											</h4>
+											<ul class="list">
+												<li class="list__item">
+													на устройствах Appple: октлючить функцию "Найти
+													iPhone";
+												</li>
+												<li class="list__item">
+													сделать резервную копию на устройстве;
+												</li>
+												<li class="list__item">
+													снять все защитные пленки/стёкла c экрана.
+												</li>
+											</ul>
+										</div>
+										<img class="form__img" src="img/content/barcode.png" alt="" aria-hidden="true" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="preloader preloader--inner">
+					<div class="preloader__fragment">
+						<svg class="circle" viewBox="0 0 100 100" width="100" height="100">
+							<g class="circle__blend">
+								<path class="circle__path" d="M 50 96 a 46 46 0 0 1 0 -92 46 46 0 0 1 0 92" />
+							</g>
+						</svg>
+					</div>
+				</div>
+			</div>
+		</div>
+		@@include("source/html/base/footer.html")
+	</div>
+	<div class="cookies cookies--hidden">
+		<p class="cookies__paragraph">
+			Пользуясь нашим сайтом, вы соглашаетесь с тем, что мы используем cookies
+			🍪
+		</p>
+		<button class="cookies__btn" type="button">Хорошо</button>
+	</div>
+	<button class="btn-top btn-top--hide" aria-label="Прокрутка в начало страницы">
+		<svg class="icon-arrow-top" width="38" height="38" stroke="#227e58" stroke-width="1.5" fill="none" focusable="false"
+			aria-hidden="true">
+			<use xlink:href="#icon-arrow"></use>
+		</svg>
+	</button>
+	<script>
+		const preloaderMain = document.querySelector(".preloader--main");
+		const preloaderMainCirclePath =
+			preloaderMain.querySelector(".circle__path");
+
+		window.onload = () => {
+			setTimeout(() => {
+				preloaderMainCirclePath.style.opacity = "0";
+				preloaderMain.classList.remove("preloader--show");
+
+				document.body.style.removeProperty("overflow-y");
+			}, 1000);
+
+			preloaderMainCirclePath.style.opacity = "";
+		};
+	</script>
+	<script src="js/smartphoto.min.js"></script>
+	<script src="js/node-imei.min.js"></script>
+	<script src="js/slimselect.min.js"></script>
+	<script src="js/imask.min.js"></script>
+	<script src="js/main.min.js"></script>
+	<script src="js/focus-visible.min.js"></script>
+</body>
+</html>
