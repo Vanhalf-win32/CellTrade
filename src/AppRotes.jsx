@@ -12,6 +12,7 @@ import CheckPhoto from "./components/checkphoto";
 export default function AppRoutes() {
     return (
         <Routes>
+            <Route path='' element={<Index/>}/>
             <Route path='/login' element={<Index/>}/>
             <Route path='/checkimei' element={<CheckImei/>}/>
             <Route path='/checkphone' element={<CheckPhone/>}/>
