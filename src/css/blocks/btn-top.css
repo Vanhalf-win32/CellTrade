@@ -1,0 +1,42 @@
+.btn-top {
+	position: fixed;
+	right: 25px;
+	bottom: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	--size: 48px;
+	width: var(--size);
+	height: var(--size);
+	padding: 0;
+	/* Fiw width/height in IE 6 */
+	font-size: 0;
+	z-index: 1;
+	opacity: 1;
+	--transitionInner: 0.218s;
+	transition: opacity var(--transitionInner) ease,
+		background-color var(--transitionInner) ease,
+		transform var(--transitionInner) ease;
+	border-radius: var(--borderRadius);
+	transform: translateY(0);
+	border: 2px solid var(--colorMain);
+	background-color: #ffffff;
+	cursor: pointer;
+}
+
+.btn-top:hover {
+	background-color: var(--colorMain);
+}
+
+.icon-arrow-top {
+	transition: stroke var(--transition);
+}
+
+.btn-top:hover .icon-arrow-top {
+	stroke: #ffffff;
+}
+
+.btn-top--hide {
+	opacity: 0;
+	transform: translateY(calc(100% + 1rem));
+}

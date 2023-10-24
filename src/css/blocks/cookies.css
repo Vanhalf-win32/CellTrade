@@ -1,0 +1,58 @@
+.cookies {
+	position: fixed;
+	bottom: 24px;
+	left: 24px;
+	display: flex;
+	align-items: center;
+	width: 100%;
+	max-width: 420px;
+	padding: 20px 15px;
+	background-color: #242424;
+	border-radius: 10px;
+	z-index: 2;
+	color: #ffffff;
+}
+
+@media (--vw-xl) {
+	.cookies {
+		bottom: 12px;
+		left: 50%;
+		transform: translateX(-50%);
+	}
+}
+
+.cookies--hidden {
+	display: none;
+}
+
+.cookies__paragraph {
+	margin: 0 15px 0 0;
+	font: 14px/1.15 var(--fontMain);
+}
+
+@media (--vw-md) {
+	.cookies__paragraph {
+		font-size: 0.9rem;
+	}
+}
+
+.cookies__btn {
+	padding: 7px 10px;
+	background-color: #383837;
+	color: currentColor;
+	cursor: pointer;
+	border-radius: 2px;
+	transition: transform var(--transition), background-color var(--transition);
+	border: none;
+	font-weight: bold;
+}
+
+@media (--vw-md) {
+	.cookies__btn {
+		font-size: 0.9rem;
+	}
+}
+
+.cookies__btn:hover {
+	background-color: #000000;
+}

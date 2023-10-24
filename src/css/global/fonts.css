@@ -1,0 +1,28 @@
+@font-face {
+	font-family: var(--fontMain);
+	font-style: normal;
+	font-weight: 300;
+	/* src: url("../fonts/FiraSans-Light.tff") format("tff"); */
+	/* Download font */
+	font-display: swap;
+}
+
+@font-face {
+	font-family: var(--fontMain);
+	size-adjust: 110%;
+	font-style: normal;
+	font-weight: 400;
+	/* src: url("../../fonts/FiraSans-Regular.tff") format("tff"); */
+	/* Download font */
+	font-display: swap;
+	/* src: local("Arial"); */
+}
+
+@font-face {
+	font-family: var(--fontMain);
+	font-style: normal;
+	font-weight: 700;
+	/* src: url("../../fonts/FiraSans-Bold.tff") format("tff"); */
+	/* Download font */
+	font-display: swap;
+}

@@ -1,13 +1,11 @@
 import React from "react";
-// import '../style/style.min.css';
 import { Link } from "react-router-dom";
-
 
 
 const CheckPhone = () => {
     return(
         <div>
-				<div class="" id="check-device">
+				<div class="form__step" id="check-device">
 					<div class="form__container form__container-sm">
 						<div class="form__content">
 							<div class="form__column">
@@ -32,7 +30,7 @@ const CheckPhone = () => {
 										</label>
 										<label class="
 													form__label form__label--checkbox form__label--bold">
-											<input class=" " type="checkbox" name="DESCRIPTION_MATCHES" />
+											<input class="visually-hidden form__input form__input--radio" type="checkbox" name="DESCRIPTION_MATCHES" />
 											    <span class="form__checkbox-custom"></span>
 											    Описание совпадает по модели, памяти, цвету
 										</label>
@@ -52,23 +50,23 @@ const CheckPhone = () => {
 													<a class="form__link check-it__link smart-photo" href="img/content/imei_hint_1.jpg"
 														data-caption="Разблокируйте устройство и откройте приложение <Телефон>"
 														data-group="how-check">
-														<img class="visually-hidden" src="img/content/imei_hint_1.jpg" alt="" />
+														<img class="visually-hidden" src="../img/content/imei_hint_1.jpg" alt="" />
 														Как это проверить?
 													</a>
 													<div class="visually-hidden">
-														<a class="smart-photo" href="img/content/imei_hint_2.jpg"
+														<a class="smart-photo" href="../img/content/imei_hint_2.jpg"
 															data-caption="Введите USSD-команду *#06#" data-group="how-check" aria-hidden="true">
-															<img src="img/content/imei_hint_2.jpg" alt="" />
+															<img src="../img/content/imei_hint_2.jpg" alt="nuul" />
 														</a>
-														<a class="smart-photo" href="img/content/imei_hint_3.jpg"
+														<a class="smart-photo" href="../img/content/imei_hint_3.jpg"
 															data-caption="На дисплее отобразится внутренний IMEI устройства" data-group="how-check"
 															aria-hidden="true">
-															<img src="img/content/imei_hint_3.jpg" alt="" />
+															<img src="../img/content/imei_hint_3.jpg" alt="" />
 														</a>
-														<a class="smart-photo" href="img/content/imei_hint_4.jpg"
+														<a class="smart-photo" href="../img/content/imei_hint_4.jpg"
 															data-caption="Внешний IMEI указывается на устройстве где-то внешне: либо на задней крышке корпуса, либо на лотке для SIM, либо на наклейке под батареей"
 															data-group="how-check" aria-hidden="true">
-															<img src="img/content/imei_hint_4.jpg" alt="" />
+															<img src="../img/content/imei_hint_4.jpg" alt="" />
 														</a>
 													</div>
 												</div>

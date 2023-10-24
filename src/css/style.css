@@ -1,0 +1,23 @@
+@import "variables.css";
+@import "mixins.css";
+
+@import "global/fonts.css";
+@import "global/container.css";
+@import "global/reboot.css";
+@import "global/utils.css";
+
+@import "blocks/header.css";
+@import "blocks/footer.css";
+@import "blocks/cookies.css";
+@import "blocks/btn-top.css";
+@import "blocks/nav.css";
+@import "blocks/toggle-menu.css";
+@import "blocks/dropdown-menu.css";
+@import "blocks/form.css";
+@import "blocks/table.css";
+@import "blocks/defects-list.css";
+@import "blocks/tooltip.css";
+@import "blocks/counter.css";
+@import "blocks/check-it.css";
+@import "blocks/contract.css";
+@import "blocks/list.css";

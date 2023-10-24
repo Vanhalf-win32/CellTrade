@@ -1,23 +1,11 @@
 import React from "react";
-import '../style/style.min.css';
 import { Link } from 'react-router-dom';
 
 
 const Index = () => {
     return(
         <div>
-            <div></div>
-                <div class="preloader preloader--main preloader--show">
-                    <div class="preloader__fragment">
-                        <svg class="circle" viewBox="0 0 100 100" width="100" height="100">
-                            <g class="circle__blend">
-                                <path class="circle__path" d="M 50 96 a 46 46 0 0 1 0 -92 46 46 0 0 1 0 92" />
-                            </g>
-                        </svg>
-                    </div>
-                </div>
             <div class="wrapper">
-
                 <div class="page">
                     <div class="container">
                         <form action="" method="POST">

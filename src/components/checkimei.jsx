@@ -1,13 +1,11 @@
 import React from "react";
-import '../style/style.min.css';
 import { Link } from "react-router-dom";
-
 
 const CheckImei = () => {
     return(
         <div>
             <form class="form" action="" method="POST">
-					<div id="">
+					<div class="form__step" id="check-numbers">
 						<div class="form__container form__container--sm form__container--center">
 							<h1 class="form__title form__title--center">Проверка IMEI</h1>
 							<div class="form__content">
@@ -16,12 +14,12 @@ const CheckImei = () => {
 										<p class="form__paragraph">Введите IMEI для проверки</p>
 									</div>
 									<label class="form__label form__label--radio">
-										<input class="" type="radio" name="RADIO_NUMBERS" />
+										<input class="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" />
 										<span class="form__radio-custom"></span>
 										Телефон
 									</label>
 									<label class="form__label form__label--radio">
-										<input class="" type="radio" name="RADIO_NUMBERS" />
+										<input class="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" />
 										<span class="form__radio-custom"></span>
 										Смарт-часы
 									</label>
@@ -40,7 +38,7 @@ const CheckImei = () => {
 										Проверить
 									</button>
 									<div class="tooltip">
-										<img class="tooltip__img" src="img/content/scanner.jpg" alt="Сканер" width="350" height="350" />
+										<img class="tooltip__img" src="../img/content/scanner.jpg" alt="Сканер" width="350" height="350" />
 										<div class="tooltip__content">
 											<p class="form__paragraph">
 												IMEI устройства можно проверить запросом USSD-команды

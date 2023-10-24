@@ -1,0 +1,22 @@
+:root {
+	/* Colors  */
+	--colorMain: #227e58;
+	--colorSecondary: #404040;
+	--colorGray: #b8b8b8;
+	--colorLightGray: #eeeeee;
+	--colorGreen: #2a8400;
+	--colorRed: #b61702;
+	/* Border */
+	--borderRadius: 5px;
+	/* Animation */
+	--transition: 0.2s cubic-bezier(0.79, 0.21, 0.06, 0.81);
+	--modalTransition: 0.6s cubic-bezier(0.55, 0, 0.1, 1);
+	/* Fonts */
+	--fontMain: "FiraSans", sans-serif;
+	/* Gradient */
+	--blackToRight: linear-gradient(
+		90deg,
+		rgba(0, 0, 0, 0.75) 0%,
+		rgba(0, 0, 0, 0) 75%
+	);
+}

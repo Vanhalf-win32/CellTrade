@@ -1,0 +1,51 @@
+.visually-hidden {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	margin: -1px;
+	clip: rect(0 0 0 0);
+}
+
+.wrapper {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	/*min-height: calc(100 * var(--vh));*/
+	overflow-x: hidden;
+}
+
+.wrapper--no-scrollbar {
+	height: 100vh;
+	/*height: calc(100 * var(--vh));*/
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.wrapper--no-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+.scroll-lock {
+	position: fixed;
+	overflow-y: auto;
+}
+
+.btn-reset {
+	padding: 0;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+@keyframes disableBreakpointAnimation {
+	0% {
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	100% {
+		visibility: hidden;
+		opacity: 0;
+	}
+}

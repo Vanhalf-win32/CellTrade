@@ -1,0 +1,25 @@
+.check-it--no-indent-top {
+	margin-top: -11px;
+}
+
+.check-it--indent-bottom {
+	margin-bottom: 15px;
+}
+
+.check-it--right {
+	text-align: right;
+}
+
+.check-it__link {
+	display: inline-block;
+	color: var(--colorMain);
+	font-weight: bold;
+}
+
+.check-it__item {
+	display: none;
+}
+
+.check-it__item--active {
+	display: block;
+}

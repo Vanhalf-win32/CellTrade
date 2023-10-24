@@ -1,0 +1,44 @@
+.counter {
+	position: relative;
+	width: 150px;
+	height: 150px;
+	margin: 0 auto 15px;
+}
+
+.counter__svg {
+	position: relative;
+}
+
+.counter__circle {
+	width: 100%;
+	height: 100%;
+	fill: none;
+	stroke-width: 10;
+	stroke-linecap: round;
+}
+
+.counter__circle--bg {
+	stroke: var(--colorLightGray);
+}
+
+.counter__circle--fill {
+	transition: stroke-dashoffset 0.35s;
+	stroke: var(--colorMain);
+	transform-origin: 50% 50%;
+	transform: rotate(-90deg);
+	stroke-dasharray: 409 409;
+	stroke-dashoffset: 409;
+}
+
+.counter__number {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	font-size: 42px;
+	color: var(--colorSecondary);
+}

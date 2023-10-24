@@ -246,7 +246,7 @@ button:active {
 
 .visually-hidden {
     position: absolute;
-    display: none;
+    /* display: none; */
     width: 1px;
     height: 1px;
     margin: -1px;
@@ -1094,11 +1094,11 @@ button:active {
 }
 
 .form__step {
-    display: none
+    /* display: none */
 }
 
 .form__step--active {
-    display: block
+    /* display: block */
 }
 
 .form__container {

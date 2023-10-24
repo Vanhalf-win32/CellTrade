@@ -1,7 +1,4 @@
 import React from "react";
-import '../style/style.min.css';
-
-
 
 const Footer = () => {
     return (

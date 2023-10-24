@@ -1,0 +1,50 @@
+.defects-list {
+	width: 100%;
+	margin-bottom: 15px;
+	padding: 15px 15px 0 15px;
+	background-color: var(--colorLightGray);
+}
+
+.defects-list__item {
+	position: relative;
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	width: 100%;
+	margin-bottom: 15px;
+}
+
+@media (--vw-md) {
+	.defects-list__item {
+		align-items: flex-end;
+	}
+}
+
+.defects-list__item .form__label {
+	margin-bottom: 0;
+}
+
+@media (--vw-md) {
+	.defects-list__item .form__label {
+		padding-right: 76px;
+	}
+}
+
+.defects-list__link {
+	font-weight: 700;
+	color: var(--colorMain);
+}
+
+@media (--vw-md) {
+	.defects-list__link {
+		font-size: 0.9rem;
+	}
+}
+
+.defects-list__link:hover {
+	text-decoration: underline;
+}
+
+.defects-list__link--no-indent-top-mobile {
+	margin-top: -12px;
+}

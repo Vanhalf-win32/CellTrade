@@ -1,0 +1,60 @@
+@media (min-width: 1024px) {
+	.toggle-menu-wrapper {
+		display: none;
+	}
+}
+
+.toggle-menu {
+	--size: 48px;
+	width: var(--size);
+	height: var(--size);
+	padding: 10px;
+	border: none;
+	background-color: transparent;
+	cursor: pointer;
+}
+
+.toggle-menu--active {
+	z-index: 3;
+}
+
+.toggle-menu__line,
+.toggle-menu__line::before,
+.toggle-menu__line::after {
+	position: relative;
+	display: block;
+	height: 1px;
+	transition: var(--transition);
+	backface-visibility: hidden;
+	background-color: #ffffff;
+	z-index: 0;
+}
+
+.toggle-menu__line {
+	width: 100%;
+}
+
+.toggle-menu__line::before,
+.toggle-menu__line::after {
+	content: "";
+}
+
+.toggle-menu__line::before {
+	top: -8px;
+}
+
+.toggle-menu__line::after {
+	top: 6px;
+}
+
+.toggle-menu--active .toggle-menu__line {
+	background-color: transparent;
+}
+
+.toggle-menu--active .toggle-menu__line::before {
+	transform: rotate(45deg) translate(5px, 5px);
+}
+
+.toggle-menu--active .toggle-menu__line::after {
+	transform: rotate(-45deg) translate(6px, -6px);
+}

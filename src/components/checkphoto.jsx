@@ -1,7 +1,6 @@
 import React from "react";
 
 const CheckPhoto = () => {
-    
     return (
         <div>
             <div class="" id="check-photos">

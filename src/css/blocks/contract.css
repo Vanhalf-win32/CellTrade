@@ -1,0 +1,20 @@
+.contract__item {
+	margin-bottom: 15px;
+	padding: 15px;
+	border: 1px solid var(--colorGray);
+	border-radius: var(--borderRadius);
+}
+
+.contract__item:last-child {
+	margin-bottom: 0;
+}
+
+.contract__title {
+	margin: 0;
+	font-size: 1.3rem;
+}
+
+.contract__horizontal-items {
+	display: flex;
+	justify-content: space-between;
+}

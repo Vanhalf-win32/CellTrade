@@ -1,0 +1,27 @@
+.tooltip {
+	margin: 15px 0;
+}
+
+.tooltip--xl {
+	width: 370px;
+}
+
+.tooltip__img {
+	margin-bottom: 10px;
+}
+
+.tooltip__content {
+	margin-top: 5px;
+	padding: 15px;
+	background-color: var(--colorLightGray);
+	border-radius: var(--borderRadius);
+}
+
+.main__preloader {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	z-index: 1;
+	display: none;
+	transform: translate(-50%, -50%);
+}
