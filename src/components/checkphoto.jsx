@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from "../img/content/qr-code.jpg";
 
 const CheckPhoto = () => {
     return (
@@ -24,7 +25,7 @@ const CheckPhoto = () => {
 								form__container--indent-bottom"
                                 >
 								<p class="form__paragraph">Сфотографируйте QR-код</p>
-									<img class="form__img" src="img/content/qr-code.jpg" alt="" width="450" height="450"
+									<img class="form__img" src={img} alt="" width="450" height="450"
 										aria-hidden="true" />
 							</div>
 								<div class="
@@ -63,7 +64,7 @@ const CheckPhoto = () => {
 				</div>
 			</div>
             <div>
-                <Link to='/thanks'>Следующий шаг</Link>  
+                <Link to='/verification'>Следующий шаг</Link>  
             </div>
             <div>
                 <Link to='/prelimdiscount'>Предыдущий шаг</Link>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from "../img/content/scanner.jpg";
 
 const CheckImei = () => {
     return(
@@ -38,7 +39,7 @@ const CheckImei = () => {
 										Проверить
 									</button>
 									<div class="tooltip">
-										<img class="tooltip__img" src="../img/content/scanner.jpg" alt="Сканер" width="350" height="350" />
+										<img class="tooltip__img" src={img} alt="Сканер" width="350" height="350" />
 										<div class="tooltip__content">
 											<p class="form__paragraph">
 												IMEI устройства можно проверить запросом USSD-команды

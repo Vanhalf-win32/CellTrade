@@ -7,7 +7,6 @@ import CheckDisplay from "./components/checkdisplay";
 import PrelimDiscount from "./components/prelimdiscount";
 import CheckDefect from "./components/checkdefect";
 import CheckPhoto from "./components/checkphoto";
-import Thanks from "./components/thanks";
 import Verification from "./components/verification";
 import TotalDiscount from "./components/totaldiscount";
 import PickUpDevice from "./components/pickupdevice";
@@ -27,7 +26,6 @@ export default function AppRoutes() {
             <Route path='/prelimdiscount' element={<PrelimDiscount/>}/>
             <Route path='/checkdefect' element={<CheckDefect/>}/>
             <Route path='/checkphoto' element={<CheckPhoto/>}/>
-            <Route path='/thanks' element={<Thanks/>}/>
             <Route path='/verification' element={<Verification/>}/>
             <Route path='/totaldiscount' element={<TotalDiscount/>}/> 
             <Route path='/pickupdevice' element={<PickUpDevice/>}/>

@@ -33,7 +33,7 @@ const Verification = () => {
                 <Link to='/totaldiscount'>Следующий шаг</Link>  
             </div>
             <div>
-                <Link to='/thanks'>Предыдущий шаг</Link>
+                <Link to='/checkphoto'>Предыдущий шаг</Link>
             </div>   
         </div>
     );

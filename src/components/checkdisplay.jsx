@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from "../img/content/smashed.jpg";
+import img1 from "../img/content/no-smashed.jpg";
 
 const CheckDisplay = () => {
     return(
@@ -12,7 +14,7 @@ const CheckDisplay = () => {
 					<div class="form__content">
 						<div class="form__column">
 							<div class="form__container form__container--center">
-								<img class="form__img form__img--center form__img--fix-height" src="../img/content/smashed.jpg" alt="" width="450" height="450" />
+								<img class="form__img form__img--center form__img--fix-height" src={img} alt="" width="450" height="450" />
 									<button class="
 												form__btn
 												form__btn--fill-red
@@ -26,7 +28,7 @@ const CheckDisplay = () => {
 						</div>
 						<div class="form__column">
 							<div class="form__container form__container--center">
-								<img class="form__img form__img--center form__img--fix-height" src="../img/content/no-smashed.jpg" alt="" width="450" height="450" />
+								<img class="form__img form__img--center form__img--fix-height" src={img1} alt="" width="450" height="450" />
 									<button class="
 										form__btn
 										form__btn--fill-green

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from "../img/content/mobile.jpg";
 
 
 const CheckPhone = () => {
@@ -10,7 +11,7 @@ const CheckPhone = () => {
 						<div class="form__content">
 							<div class="form__column">
 								<div class="form__container form__container--center">
-									<img class="form__img form__img--border" src="img/content/mobile.jpg" alt="Телефон" width="450" height="450"/>
+									<img class="form__img form__img--border" src={img} alt="Телефон" width="450" height="450"/>
 								</div>
 							</div>
 								<div class="form__column">
@@ -28,8 +29,7 @@ const CheckPhone = () => {
 										<label class="form__label form__label--select">
 											<select class="form__select form__select--memory"></select>
 										</label>
-										<label class="
-													form__label form__label--checkbox form__label--bold">
+										<label class="form__label form__label--checkbox form__label--bold">
 											<input class="visually-hidden form__input form__input--radio" type="checkbox" name="DESCRIPTION_MATCHES" />
 											    <span class="form__checkbox-custom"></span>
 											    Описание совпадает по модели, памяти, цвету
@@ -47,7 +47,7 @@ const CheckPhone = () => {
 										<div class="tooltip">
 											<div class="check-it check-it--right">
 												<div class="check-it__item" id="phone-android">
-													<a class="form__link check-it__link smart-photo" href="img/content/imei_hint_1.jpg"
+													<a class="form__link check-it__link smart-photo" href="../img/content/imei_hint_1.jpg"
 														data-caption="Разблокируйте устройство и откройте приложение <Телефон>"
 														data-group="how-check">
 														<img class="visually-hidden" src="../img/content/imei_hint_1.jpg" alt="" />

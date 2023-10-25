@@ -1,4 +1,6 @@
 import React from "react";
+import img from "../img/svg/logo.svg";
+
 
 const Header = () => {
     return(
@@ -61,7 +63,7 @@ const Header = () => {
 					        <a class="header__logo-wrap" href="/" aria-label="Перейти на главную">
 						        <img
                                     class="header__logo"
-                                    src="img/svg/logo.svg"
+                                    src={img}
                                     alt="Логотип"
                                     width="150"
                                     height="75"

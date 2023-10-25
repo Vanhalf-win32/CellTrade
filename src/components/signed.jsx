@@ -61,7 +61,7 @@ const Signed = () => {
 						</div>
 				</div>
                 <div>
-                <Link to='/signed'>Следующий шаг</Link>  
+                <Link to='/'>Следующий шаг</Link>  
             </div>
             <div>
                 <Link to='/consigagree'>Предыдущий шаг</Link>
