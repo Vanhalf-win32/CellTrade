@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CheckPhoto = () => {
     return (
@@ -61,6 +62,12 @@ const CheckPhoto = () => {
 					</div>
 				</div>
 			</div>
+            <div>
+                <Link to='/thanks'>Следующий шаг</Link>  
+            </div>
+            <div>
+                <Link to='/prelimdiscount'>Предыдущий шаг</Link>
+            </div>			
         </div>
     );
 };
