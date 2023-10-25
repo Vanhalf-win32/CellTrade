@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from "../img/content/barcode.png";
 
 const Signed = () => {
     return(
@@ -55,7 +56,7 @@ const Signed = () => {
 												</li>
 											</ul>
 									</div>
-										<img class="form__img" src="img/content/barcode.png" alt="" aria-hidden="true" />
+										<img class="form__img" src={img} alt="" aria-hidden="true" />
 								</div>
 							</div>
 						</div>
