@@ -10,6 +10,10 @@ import CheckPhoto from "./components/checkphoto";
 import Thanks from "./components/thanks";
 import Verification from "./components/verification";
 import TotalDiscount from "./components/totaldiscount";
+import PickUpDevice from "./components/pickupdevice";
+import ConsigAgree from "./components/consigagree";
+import Contract from "./components/contract";
+import Signed from "./components/signed";
 
 
 export default function AppRoutes() {
@@ -25,7 +29,11 @@ export default function AppRoutes() {
             <Route path='/checkphoto' element={<CheckPhoto/>}/>
             <Route path='/thanks' element={<Thanks/>}/>
             <Route path='/verification' element={<Verification/>}/>
-            <Route path='/totaldiscount' element={<TotalDiscount/>}/>  
+            <Route path='/totaldiscount' element={<TotalDiscount/>}/> 
+            <Route path='/pickupdevice' element={<PickUpDevice/>}/>
+            <Route path='/consigagree' element={<ConsigAgree/>}/>
+            <Route path='/contract' element={<Contract/>}/> 
+            <Route path='/signed' element={<Signed/>}/>
       </Routes>
     );
 };

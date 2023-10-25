@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const PickUpDevice = () => {
     return(
@@ -147,6 +148,12 @@ const PickUpDevice = () => {
                     </div>
                 </div>
             </div>
+            <div>
+                <Link to='/consigagree'>Следующий шаг</Link>  
+            </div>
+            <div>
+                <Link to='/totaldiscount'>Предыдущий шаг</Link>
+            </div>  
         </div>
     );
 };

@@ -72,7 +72,7 @@ const TotalDiscount = () => {
 				</div>
 			</div>
             <div>
-                <Link to='/'>Следующий шаг(prelimdiscount)</Link><br/> 
+                <Link to='/pickupdevice'>Следующий шаг(prelimdiscount)</Link><br/> 
             </div>
             <div>
                 <Link to='/verification'>Предыдущий шаг</Link>
