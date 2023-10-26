@@ -1,8 +1,22 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import img from "../img/content/scanner.jpg";
 
+
 const CheckImei = () => {
+
+	const productData = {imei: 0};
+
+	const [getImei, setGetImei] = useState(0);
+
+	useEffect(()=> {
+		productData.imei = getImei;
+		console.log(productData);
+	},[getImei]);
+
+	
+	
     return(
         <div>
             <form class="form" action="" method="POST">
@@ -27,17 +41,17 @@ const CheckImei = () => {
 									<label class="form__label">
 										<input class="
 										form__input form__input--number form__input--numbers
-									" type="number" name="IMEI" placeholder="IMEI" disabled />
+									" type="number" name="IMEI" placeholder="IMEI"  onChange={setGetImei}/>
 										<span class="error"></span>
 									</label>
 									<button class="
-									form__btn
-									form__btn--fill-color-main
-									form__btn--indent-top
-									form__btn--resolve
-								" type="submit" disabled>
+										form__btn
+										form__btn--fill-color-main
+										form__btn--indent-top
+										form__btn--resolve">
 										Проверить
 									</button>
+									<button>TETS</button>
 									<div class="tooltip">
 										<img class="tooltip__img" src={img} alt="Сканер" width="350" height="350" />
 										<div class="tooltip__content">
