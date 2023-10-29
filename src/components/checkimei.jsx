@@ -2,65 +2,173 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import img from "../img/content/scanner.jpg";
+import axios from "axios";
+
+
 
 
 const CheckImei = () => {
 
-	const productData = {imei: 0};
+	// const imei = require('node-imei');
 
-	const [getImei, setGetImei] = useState(0);
 
-	useEffect(()=> {
-		productData.imei = getImei;
-		console.log(productData);
-	},[getImei]);
+	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
+	const [butEnable, setButEnable] = useState('disable')
+	
+	// console.log(getImei);
+
+
+	const productDataDefault = {
+		device: {
+			numbers: "",
+			name: "",
+			type: "",
+			system: "",
+			vendor: "",
+			model: "",
+			state: ""
+		},
+		status: "",
+		grade: "",
+		namesNeedPhotos: [],
+		steps: {
+			current: {
+				number: 0,
+				name: ""
+			},
+			checkDevice: {
+				currentCheckboxes: []
+			},
+			checkDefect: {
+				currentBtn: ""
+			},
+			preliminaryDiscount: null,
+			checkDefectDevice: {
+				currentCheckboxes: []
+			},
+			checkPhotos: null,
+			checkMarking: {
+				currentPhotos: []
+			},
+			thanks: null,
+			verification: null,
+			totalDiscount: null,
+			pickUpDevice: {
+				currentCheckboxes: []
+			},
+			consignmentAgreements: {
+				dataForm: null
+			},
+			contract: null,
+			contractIsSigned: null,
+		}
+	}
+	// const test = {
+	// 	"post": {
+	// 	  "PRODUCT_DATA": JSON.stringify(productDataDefault),
+	// 	  "FULL_SPEC": '' ,
+	// 	  "CHECKING_DEVICE" : 2342342,
+	// 	}
+ 	// }
+	
+	const test = {};
+
+ 	const checkImei= (test) => {
+		const data = axios.post(	
+			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo',
+				getImei,
+			)
+			data.then((value) => {
+				return value.data
+			})
+		}	
+
+		
+		console.log(test);
+			
+
 
 	
+
+	useEffect(() =>{
+		const setVision = document.querySelectorAll('.form__step');
+		setVision[0].style.display = 'flex';
+	},[butEnable]);
+
+	function extend(obj1, obj2){
+		function copyObject(obj){
+			var result = {};
+			for (let key in obj) {
+				if(typeof(obj[key]) != 'object'){
+					result[key] = obj[key];
+				}
+				else {
+					result[key] = copyObject(obj[key])
+				}
+			}
+			return result;
+		}
+		for (let key in obj2){
+			if(typeof(obj2[key]) != 'object'){
+				obj1[key] = obj2[key];
+			}
+			else {
+				obj1[key] = copyObject(obj2[key]);
+			}
+		}
+		return obj1;
+	}
+
+
 	
+
+
+
     return(
         <div>
-            <form class="form" action="" method="POST">
-					<div class="form__step" id="check-numbers">
-						<div class="form__container form__container--sm form__container--center">
-							<h1 class="form__title form__title--center">Проверка IMEI</h1>
-							<div class="form__content">
-								<div class="form__column">
-									<div class="form__description form__description--center">
-										<p class="form__paragraph">Введите IMEI для проверки</p>
+            <form className="form" action="" method="POST">
+					<div className="form__step" id="check-numbers">
+						<div className="form__container form__container--sm form__container--center">
+							<h1 className="form__title form__title--center">Проверка IMEI</h1>
+							<div className="form__content">
+								<div className="form__column">
+									<div className="form__description form__description--center">
+										<p className="form__paragraph">Введите IMEI для проверки</p>
 									</div>
-									<label class="form__label form__label--radio">
-										<input class="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" />
-										<span class="form__radio-custom"></span>
+									<label className="form__label form__label--radio">
+										<input className="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" onClick={event => setButEnable('')}/>
+										<span className="form__radio-custom"></span>
 										Телефон
 									</label>
-									<label class="form__label form__label--radio">
-										<input class="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" />
-										<span class="form__radio-custom"></span>
+									<label className="form__label form__label--radio">
+										<input className="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" onClick={event => setButEnable('')} />
+										<span className="form__radio-custom"></span>
 										Смарт-часы
 									</label>
-									<label class="form__label">
-										<input class="
-										form__input form__input--number form__input--numbers
-									" type="number" name="IMEI" placeholder="IMEI"  onChange={setGetImei}/>
-										<span class="error"></span>
+									<label disabled='disable' className="form__label">
+										<input className="form__input form__input--number form__input--numbers" 
+											type="number" name="IMEI" placeholder="IMEI" 
+											disabled={butEnable} 
+											onChange={event => setGetImei({...getImei, post:{ imei: + event.target.value}})}
+										/>
+										<span className="error"></span>
 									</label>
-									<button class="
+									<button className="
 										form__btn
 										form__btn--fill-color-main
 										form__btn--indent-top
-										form__btn--resolve">
+										form__btn--resolve" type="button"  onClick={checkImei(test)} disabled={butEnable}>
 										Проверить
 									</button>
-									<button>TETS</button>
-									<div class="tooltip">
-										<img class="tooltip__img" src={img} alt="Сканер" width="350" height="350" />
-										<div class="tooltip__content">
-											<p class="form__paragraph">
+									<div className="tooltip">
+										<img className="tooltip__img" src={img} alt="Сканер" width="350" height="350" />
+										<div className="tooltip__content">
+											<p className="form__paragraph">
 												IMEI устройства можно проверить запросом USSD-команды
-												<a class="form__link form__link--bold" href="tel:*#06#">*#06#</a>
+												<a className="form__link form__link--bold" href="tel:*#06#">*#06#</a>
 												в приложении "Телефон"
 											</p>
-											<p class="form__paragraph">
+											<p className="form__paragraph">
 												Отсканируйте штрих-код сканером или введите IMEI
 												устройства вручную
 											</p>
@@ -73,9 +181,6 @@ const CheckImei = () => {
 				</form>
                 <div>
                     <Link to='/checkphone'>Следующий шаг</Link>  
-                </div>
-                <div>
-                    <Link to='/login'>Предыдущий шаг</Link>
                 </div>
         </div>
     );

@@ -1,7 +1,6 @@
 import React from "react";
 import { Route, Routes } from 'react-router-dom';
 import CheckImei from "./components/checkimei";
-import Index from "./components";
 import CheckPhone from "./components/checkphone";
 import CheckDisplay from "./components/checkdisplay";
 import PrelimDiscount from "./components/prelimdiscount";
@@ -18,8 +17,7 @@ import Signed from "./components/signed";
 export default function AppRoutes() {
     return (
         <Routes>
-            <Route path='' element={<Index/>}/>
-            <Route path='/login' element={<Index/>}/>
+            <Route path='' element={<CheckImei/>}/>
             <Route path='/checkimei' element={<CheckImei/>}/>
             <Route path='/checkphone' element={<CheckPhone/>}/>
             <Route path='/checkdisplay' element={<CheckDisplay/>}/>

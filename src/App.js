@@ -9,13 +9,13 @@ import './css/variables.css';
 import './css/blocks/footer.css';
 
 
-
 export default function App() {
   return( 
     <BrowserRouter>
-         {/* <Header/> */}
+         <Header/>
          <AppRoutes/>
          <Footer/>
     </BrowserRouter>
+  
 	)  
 };

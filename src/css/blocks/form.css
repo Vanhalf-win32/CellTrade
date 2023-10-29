@@ -5,11 +5,11 @@
 }
 
 .form__step {
-	/* display: none; */
+	display: none;
 }
 
 .form__step--active {
-	/* display: block; */
+	display: block;
 }
 
 .form__container {
