@@ -11,22 +11,22 @@ const CheckImei = () => {
 
 	// const imei = require('node-imei');
 
-
-	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
-	const [butEnable, setButEnable] = useState('disable')
-	
-	// console.log(getImei);
-
-
-	const productDataDefault = {
+	const [productDataDefault, setProductDataDefault] = useState({
+		data: {
+			Color: '',
+			Description: '',
+			IMEI: '',
+			Model: '',
+			ProdCapacity:'',
+		},
 		device: {
 			numbers: "",
-			name: "",
-			type: "",
-			system: "",
-			vendor: "",
-			model: "",
-			state: ""
+				name: "",
+				type: "",
+				system: "",
+				vendor: "",
+				model: "",
+				state: ""
 		},
 		status: "",
 		grade: "",
@@ -37,7 +37,7 @@ const CheckImei = () => {
 				name: ""
 			},
 			checkDevice: {
-				currentCheckboxes: []
+					currentCheckboxes: []
 			},
 			checkDefect: {
 				currentBtn: ""
@@ -62,44 +62,60 @@ const CheckImei = () => {
 			contract: null,
 			contractIsSigned: null,
 		}
-	}
-	// const test = {
-	// 	"post": {
-	// 	  "PRODUCT_DATA": JSON.stringify(productDataDefault),
-	// 	  "FULL_SPEC": '' ,
-	// 	  "CHECKING_DEVICE" : 2342342,
-	// 	}
- 	// }
-	
-	const test = {};
+	});
 
+	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
+	const [getSpec, setGetSpec] = useState({});
+	const [butEnable, setButEnable] = useState('disable');
+	const [productData, setProductData] = useState({
+			post: {
+				"PRODUCT_DATA": JSON.stringify(),
+				"FULL_SPEC": '' ,
+				"CHECKING_DEVICE" : 0,			
+			}
+		});
+	
  	const checkImei= (test) => {
 		const data = axios.post(	
 			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo',
 				getImei,
 			)
 			data.then((value) => {
-				return value.data
+				setGetSpec(value.data) 
 			})
-		}	
-
-		
-		console.log(test);
+		}
 			
-
-
-	
 
 	useEffect(() =>{
 		const setVision = document.querySelectorAll('.form__step');
 		setVision[0].style.display = 'flex';
 	},[butEnable]);
 
-	function extend(obj1, obj2){
+	useEffect(() => {
+		
+		copyObjects(productDataDefault, getSpec);
+		
+		if(productDataDefault.data.IMEI) { 
+			setProductData({...productData, CHECKING_DEVICE: productDataDefault.data.IMEI,
+				 FULL_SPEC: productDataDefault.data.Model,
+				 PRODUCT_DATA: JSON.stringify(productDataDefault)})
+			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+				productData,
+				);
+				data.then((value) => {
+					console.log(value.data);
+				})
+		}
+	},[getSpec]);
+
+	console.log(productData);
+	console.log(productDataDefault);
+
+	function copyObjects(obj1, obj2){
 		function copyObject(obj){
 			var result = {};
 			for (let key in obj) {
-				if(typeof(obj[key]) != 'object'){
+				if(typeof(obj[key]) != ''){
 					result[key] = obj[key];
 				}
 				else {
@@ -118,11 +134,6 @@ const CheckImei = () => {
 		}
 		return obj1;
 	}
-
-
-	
-
-
 
     return(
         <div>
@@ -157,7 +168,7 @@ const CheckImei = () => {
 										form__btn
 										form__btn--fill-color-main
 										form__btn--indent-top
-										form__btn--resolve" type="button"  onClick={checkImei(test)} disabled={butEnable}>
+										form__btn--resolve" type="button"  onClick={checkImei} disabled={butEnable}>
 										Проверить
 									</button>
 									<div className="tooltip">
