@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import img from "../img/content/scanner.jpg";
 import axios from "axios";
+import CheckPhone from "./checkphone";
 
 
 
@@ -63,7 +64,6 @@ const CheckImei = () => {
 			contractIsSigned: null,
 		}
 	});
-
 	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
 	const [getSpec, setGetSpec] = useState({});
 	const [butEnable, setButEnable] = useState('disable');
@@ -74,42 +74,57 @@ const CheckImei = () => {
 				"CHECKING_DEVICE" : 0,			
 			}
 		});
+
+		
 	
- 	const checkImei= (test) => {
-		const data = axios.post(	
+ 	const checkImei= () => {
+		const responseImei = axios.post(	
 			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo',
 				getImei,
 			)
-			data.then((value) => {
-				setGetSpec(value.data) 
-			})
-		}
+			responseImei.then((value) => {
+				if(value.data.data.MESSAGE === 'Это устройство в чёрном списке!') {
+					alert("Это устройство в чёрном списке!")
+				} else (
+					setGetSpec(value.data)
+				) 
+			});
 			
 
+		// if(getSpec.data.ProdCapacity === '' || getSpec.data.Color === '') {
+		// 	const responseSpec = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getDeviceSpecs',
+		// 		getSpec, 
+		// 	)
+		// 	responseSpec.then((value)=> {
+		// 		console.log('TETS')
+		// 		console.log(value)
+		// 	})
+		// }
+		};
+		
+		console.log(getSpec)
+
 	useEffect(() =>{
-		const setVision = document.querySelectorAll('.form__step');
-		setVision[0].style.display = 'flex';
+		// const setVision = document.querySelectorAll('.form__step');
+		// setVision[0].style.display = 'flex';
 	},[butEnable]);
 
 	useEffect(() => {
-		
 		copyObjects(productDataDefault, getSpec);
-		
-		if(productDataDefault.data.IMEI) { 
-			setProductData({...productData, CHECKING_DEVICE: productDataDefault.data.IMEI,
-				 FULL_SPEC: productDataDefault.data.Model,
-				 PRODUCT_DATA: JSON.stringify(productDataDefault)})
+			if(productDataDefault.data.IMEI) { 
+			setProductData({...productData, 
+					CHECKING_DEVICE: productDataDefault.data.IMEI, 
+					FULL_SPEC: productDataDefault.data.Model,
+					PRODUCT_DATA: JSON.stringify(productDataDefault)
+				});
 			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
 				productData,
 				);
 				data.then((value) => {
 					console.log(value.data);
-				})
-		}
+				});
+		};
 	},[getSpec]);
-
-	console.log(productData);
-	console.log(productDataDefault);
 
 	function copyObjects(obj1, obj2){
 		function copyObject(obj){
@@ -190,9 +205,6 @@ const CheckImei = () => {
 						</div>
 					</div>
 				</form>
-                <div>
-                    <Link to='/checkphone'>Следующий шаг</Link>  
-                </div>
         </div>
     );
 };

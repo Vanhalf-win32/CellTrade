@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import img from "../img/content/mobile.jpg";
 
 
 const CheckPhone = () => {
+
     return(
         <div>
 				<div class="form__step" id="check-device">
@@ -101,13 +102,7 @@ const CheckPhone = () => {
 							</div>
 						</div>
 					</div>
-                    <div>
-                        <Link to='/checkdisplay'>Следующий шаг</Link>  
-                    </div>
-                    <div>
-                        <Link to='/checkimei'>Предыдущий шаг</Link>
-                    </div>
-    </div>
+    	</div>
     );
 };
 

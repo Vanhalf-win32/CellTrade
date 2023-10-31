@@ -5,7 +5,7 @@
 }
 
 .form__step {
-	display: none;
+	display: flex;
 }
 
 .form__step--active {
