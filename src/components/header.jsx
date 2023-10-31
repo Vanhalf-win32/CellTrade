@@ -4,65 +4,65 @@ import img from "../img/svg/logo.svg";
 
 const Header = () => {
     return(
-        <div class="header @@if (context.mod) { header--@@mod }">
-	            <div class="header__content">
-		            <div class="header__row header__row--fill-dark">
-			            <div class="container">
-				            <div class="header__container header__container--no-padding">
-					            <div class="header__point">Huawei Охотный ряд</div>
-					            <nav class="nav">
-						            <ul class="nav__list">
-							            <li class="nav__list-item">
-								            <a class="nav__link" href="#0">Новая оценка</a>
+        <div className="header @@if (context.mod) { header--@@mod }">
+	            <div className="header__content">
+		            <div className="header__row header__row--fill-dark">
+			            <div className="container">
+				            <div className="header__container header__container--no-padding">
+					            <div className="header__point">Huawei Охотный ряд</div>
+					            <nav className="nav">
+						            <ul className="nav__list">
+							            <li className="nav__list-item">
+								            <a className="nav__link" href="#0">Новая оценка</a>
 							            </li>
-							            <li class="nav__list-item">
-								            <a class="nav__link" href="#0">Принятые устройства</a>
+							            <li className="nav__list-item">
+								            <a className="nav__link" href="#0">Принятые устройства</a>
 							            </li>
-							            <li class="nav__list-item">
-								            <a class="nav__link" href="#0">Ждут курьера</a>
+							            <li className="nav__list-item">
+								            <a className="nav__link" href="#0">Ждут курьера</a>
 							            </li>
-							            <li class="nav__list-item nav__list-item--border-left">
-								            <a class="nav__link" href="#0">Выйти</a>
+							            <li className="nav__list-item nav__list-item--border-left">
+								            <a className="nav__link" href="#0">Выйти</a>
 							            </li>
 						            </ul>
 					            </nav>
-                            </div>
-					        <div class="toggle-menu-wrapper">
+                            </div>Name
+					        <div className="toggle-menu-wrapper">
 						        <button
-                                    class="toggle-menu"
+                                    className="toggle-menu"
                                     id="toggle-menu"
                                     aria-label="Переключатель отображения меню"
                                     aria-pressed="false"
                                     aria-expanded="false"
-                                    tabindex="0">
-							            <span class="toggle-menu__line"></span>
+                                    tabIndex="0">
+							            <span className="toggle-menu__line"></span>
 						        </button>
 					        </div>
-					        <div class="dropdown-menu">
-						        <ul class="dropdown-menu__list">
-							        <li class="dropdown-menu__item">
-								        <a class="dropdown-menu__link" href="#0">Новая оценка</a>
+					        <div className="dropdown-menu">
+						        <ul className="dropdown-menu__list">
+							        <li className="dropdown-menu__item">
+								        <a className="dropdown-menu__link" href="#0">Новая оценка</a>
 							        </li>
-							        <li class="dropdown-menu__item">
-								        <a class="dropdown-menu__link" href="#0">Принятые устройства</a>
+							        <li className="dropdown-menu__item">
+								        <a className="dropdown-menu__link" href="#0">Принятые устройства</a>
 							        </li>
-							        <li class="dropdown-menu__item">
-								        <a class="dropdown-menu__link" href="#0">Ждут курьера</a>
+							        <li className="dropdown-menu__item">
+								        <a className="dropdown-menu__link" href="#0">Ждут курьера</a>
 							        </li>
-							        <li class="dropdown-menu__item">
-								        <a class="dropdown-menu__link" href="#0">Выйти</a>
+							        <li className="dropdown-menu__item">
+								        <a className="dropdown-menu__link" href="#0">Выйти</a>
 							        </li>
 						        </ul>
 					        </div>
 				        </div>
 			        </div>
 		        </div>
-		        <div class="header__row">
-			        <div class="container">
-				        <div class="header__container header__container--bottom">
-					        <a class="header__logo-wrap" href="/" aria-label="Перейти на главную">
+		        <div className="header__row">
+			        <div className="container">
+				        <div className="header__container header__container--bottom">
+					        <a className="header__logo-wrap" href="/" aria-label="Перейти на главную">
 						        <img
-                                    class="header__logo"
+                                    className="header__logo"
                                     src={img}
                                     alt="Логотип"
                                     width="150"
@@ -70,14 +70,14 @@ const Header = () => {
 						        />
 					        </a>
                         </div>
-					    <div class="header__info">
-						    <span class="header__description">
+					    <div className="header__info">
+						    <span className="header__description">
                                 Бесплатная линия поддержки (круглосуточно)
                             </span>
-						        <a class="header__link" href="tel:+7(800)302-43-53">
+						        <a className="header__link" href="tel:+7(800)302-43-53">
                                     +7 (800) 302-43-53
                                 </a>
-						        <a class="header__link" href="tel:+7(495)175-43-33">
+						        <a className="header__link" href="tel:+7(495)175-43-33">
                                     +7 (495) 175-43-33</a>
 					    </div>
 				    </div>

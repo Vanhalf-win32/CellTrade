@@ -1,14 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import img from "../img/content/scanner.jpg";
 import axios from "axios";
-import CheckPhone from "./checkphone";
 
 
 
 
-const CheckImei = () => {
+const CheckImei = ({onNextStep}) => {
 
 	// const imei = require('node-imei');
 
@@ -85,11 +83,10 @@ const CheckImei = () => {
 			responseImei.then((value) => {
 				if(value.data.data.MESSAGE === 'Это устройство в чёрном списке!') {
 					alert("Это устройство в чёрном списке!")
-				} else (
-					setGetSpec(value.data)
-				) 
+				} else {
+					setGetSpec(value.data);
+				}
 			});
-			
 
 		// if(getSpec.data.ProdCapacity === '' || getSpec.data.Color === '') {
 		// 	const responseSpec = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getDeviceSpecs',
@@ -101,23 +98,30 @@ const CheckImei = () => {
 		// 	})
 		// }
 		};
-		
-		console.log(getSpec)
 
-	useEffect(() =>{
-		// const setVision = document.querySelectorAll('.form__step');
-		// setVision[0].style.display = 'flex';
-	},[butEnable]);
 
 	useEffect(() => {
 		copyObjects(productDataDefault, getSpec);
-			if(productDataDefault.data.IMEI) { 
-			setProductData({...productData, 
-					CHECKING_DEVICE: productDataDefault.data.IMEI, 
-					FULL_SPEC: productDataDefault.data.Model,
-					PRODUCT_DATA: JSON.stringify(productDataDefault)
-				});
-			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+		setProductDataDefault({...productDataDefault, 
+		steps:{
+			current: {
+				name: "checkIMEI",
+				number: 1,
+			}
+		}})
+		console.log(productDataDefault)
+			
+		if(productDataDefault.data.IMEI) { 
+			setProductData({
+				post: {
+					"PRODUCT_DATA": JSON.stringify(productDataDefault),
+					"FULL_SPEC": productDataDefault.data.Model,
+					"CHECKING_DEVICE" : productDataDefault.data.IMEI, 			
+				}
+			})
+		
+
+			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',
 				productData,
 				);
 				data.then((value) => {
