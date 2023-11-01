@@ -85,6 +85,7 @@ const CheckImei = ({onNextStep}) => {
 					alert("Это устройство в чёрном списке!")
 				} else {
 					setGetSpec(value.data);
+					
 				}
 			});
 
@@ -98,19 +99,20 @@ const CheckImei = ({onNextStep}) => {
 		// 	})
 		// }
 		};
+		
+		console.log(productDataDefault);
+		copyObjects(productDataDefault, getSpec);
 
 
 	useEffect(() => {
-		copyObjects(productDataDefault, getSpec);
+		
 		setProductDataDefault({...productDataDefault, 
 		steps:{
 			current: {
 				name: "checkIMEI",
 				number: 1,
 			}
-		}})
-		console.log(productDataDefault)
-			
+		}})	
 		if(productDataDefault.data.IMEI) { 
 			setProductData({
 				post: {
@@ -118,17 +120,21 @@ const CheckImei = ({onNextStep}) => {
 					"FULL_SPEC": productDataDefault.data.Model,
 					"CHECKING_DEVICE" : productDataDefault.data.IMEI, 			
 				}
-			})
-		
-
-			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',
+			});
+			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
 				productData,
 				);
-				data.then((value) => {
-					console.log(value.data);
+					data.then((value) => { 
+						console.log(value.data.data);
+						setProductDataDefault({...productDataDefault,
+							post: {
+								"TEST" : 'TEST'
+							}
+						});
+						console.log(productDataDefault);
 				});
 		};
-	},[getSpec]);
+	},[]);
 
 	function copyObjects(obj1, obj2){
 		function copyObject(obj){
