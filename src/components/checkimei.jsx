@@ -14,18 +14,9 @@ const CheckImei = ({onNextStep}) => {
 		data: {
 			Color: '',
 			Description: '',
-			IMEI: '',
+			IMEI: 0,
 			Model: '',
 			ProdCapacity:'',
-		},
-		device: {
-			numbers: "",
-				name: "",
-				type: "",
-				system: "",
-				vendor: "",
-				model: "",
-				state: ""
 		},
 		status: "",
 		grade: "",
@@ -73,69 +64,6 @@ const CheckImei = ({onNextStep}) => {
 			}
 		});
 
-		
-	
- 	const checkImei= () => {
-		const responseImei = axios.post(	
-			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo',
-				getImei,
-			)
-			responseImei.then((value) => {
-				if(value.data.data.MESSAGE === 'Это устройство в чёрном списке!') {
-					alert("Это устройство в чёрном списке!")
-				} else {
-					setGetSpec(value.data);
-					
-				}
-			});
-
-		// if(getSpec.data.ProdCapacity === '' || getSpec.data.Color === '') {
-		// 	const responseSpec = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getDeviceSpecs',
-		// 		getSpec, 
-		// 	)
-		// 	responseSpec.then((value)=> {
-		// 		console.log('TETS')
-		// 		console.log(value)
-		// 	})
-		// }
-		};
-		
-		console.log(productDataDefault);
-		copyObjects(productDataDefault, getSpec);
-
-
-	useEffect(() => {
-		
-		setProductDataDefault({...productDataDefault, 
-		steps:{
-			current: {
-				name: "checkIMEI",
-				number: 1,
-			}
-		}})	
-		if(productDataDefault.data.IMEI) { 
-			setProductData({
-				post: {
-					"PRODUCT_DATA": JSON.stringify(productDataDefault),
-					"FULL_SPEC": productDataDefault.data.Model,
-					"CHECKING_DEVICE" : productDataDefault.data.IMEI, 			
-				}
-			});
-			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
-				productData,
-				);
-					data.then((value) => { 
-						console.log(value.data.data);
-						setProductDataDefault({...productDataDefault,
-							post: {
-								"TEST" : 'TEST'
-							}
-						});
-						console.log(productDataDefault);
-				});
-		};
-	},[]);
-
 	function copyObjects(obj1, obj2){
 		function copyObject(obj){
 			var result = {};
@@ -159,6 +87,74 @@ const CheckImei = ({onNextStep}) => {
 		}
 		return obj1;
 	}
+		
+	
+ 	const checkImei= () => {
+		const responseImei = axios.post(	
+			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo',
+				getImei,
+			)
+			responseImei.then((value) => {
+				if(value.data.data.MESSAGE === 'Это устройство в чёрном списке!') {
+					alert("Это устройство в чёрном списке!")
+				} else {
+					setGetSpec(value.data);
+					
+				}
+			});
+		};
+
+		
+
+		useEffect(() => {
+			if(productDataDefault.product_sessid) {
+				onNextStep();
+			} else  {
+				checkProductData();
+			}
+			
+		},[]);
+		
+		copyObjects(productDataDefault, getSpec);		
+
+		const checkProductData = () => {
+
+			setProductDataDefault({...productDataDefault, 
+				steps:{
+					current: {
+						name: "checkIMEI",
+						number: 1,
+					}
+				}});	
+				setProductData({
+						post: {
+							PRODUCT_DATA: JSON.stringify(productDataDefault),
+							FULL_SPEC: productDataDefault.data.Model,
+							CHECKING_DEVICE : productDataDefault.data.IMEI, 			
+						}
+					});
+					console.log(productData);
+				if(productData.CHECKING_DEVICE) { 
+					const data = axios.post(
+						'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+						productData,
+						);
+							return data.then((value) => { 
+								console.log(value.data.data);
+								setProductDataDefault({...productDataDefault,
+									elemente_id : value.data.data.ELEMENT_ID,
+									product_sessid: value.data.data.PRODUCT_SESSID,
+								});
+							});
+					
+				};
+		};
+		console.log(productDataDefault);
+
+
+	
+
+
 
     return(
         <div>
