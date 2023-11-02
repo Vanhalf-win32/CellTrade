@@ -17,7 +17,7 @@
 }
 
 .check-it__item {
-	display: none;
+	display: flex;
 }
 
 .check-it__item--active {

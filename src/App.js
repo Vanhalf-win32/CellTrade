@@ -19,7 +19,7 @@ export default function App() {
   return( 
     <div>
       <Header/>
-        {step === 1 ? <CheckImei onNextStep={onNextStep}/> : null}
+        {step === 1 ? <CheckPhone onNextStep={onNextStep}/> : null}
         {step === 2 ? <CheckPhone onNextStep={onNextStep}/> : null}
         {step === 3 ? <CheckDisplay onNextStep={onNextStep}/> : null}
       <Footer/>

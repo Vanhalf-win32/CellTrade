@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import img from "../img/content/scanner.jpg";
 import axios from "axios";
+import CheckPhone from "./checkphone";
 
 
 
@@ -26,31 +27,6 @@ const CheckImei = ({onNextStep}) => {
 				number: 0,
 				name: ""
 			},
-			checkDevice: {
-					currentCheckboxes: []
-			},
-			checkDefect: {
-				currentBtn: ""
-			},
-			preliminaryDiscount: null,
-			checkDefectDevice: {
-				currentCheckboxes: []
-			},
-			checkPhotos: null,
-			checkMarking: {
-				currentPhotos: []
-			},
-			thanks: null,
-			verification: null,
-			totalDiscount: null,
-			pickUpDevice: {
-				currentCheckboxes: []
-			},
-			consignmentAgreements: {
-				dataForm: null
-			},
-			contract: null,
-			contractIsSigned: null,
 		}
 	});
 	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
@@ -63,33 +39,9 @@ const CheckImei = ({onNextStep}) => {
 				"CHECKING_DEVICE" : 0,			
 			}
 		});
-
-	function copyObjects(obj1, obj2){
-		function copyObject(obj){
-			var result = {};
-			for (let key in obj) {
-				if(typeof(obj[key]) != ''){
-					result[key] = obj[key];
-				}
-				else {
-					result[key] = copyObject(obj[key])
-				}
-			}
-			return result;
-		}
-		for (let key in obj2){
-			if(typeof(obj2[key]) != 'object'){
-				obj1[key] = obj2[key];
-			}
-			else {
-				obj1[key] = copyObject(obj2[key]);
-			}
-		}
-		return obj1;
-	}
 		
 	
- 	const checkImei= () => {
+ 	const getBaseImeiInfo= () => {
 		const responseImei = axios.post(	
 			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo',
 				getImei,
@@ -99,23 +51,27 @@ const CheckImei = ({onNextStep}) => {
 					alert("Это устройство в чёрном списке!")
 				} else {
 					setGetSpec(value.data);
-					
+					console.log(value.data.data);
+					setProductDataDefault({...productDataDefault, 
+						data: {
+							Color: value.data.data.Color,
+							Description: value.data.data.Description,
+							IMEI: value.data.data.IMEI,
+							Model: value.data.data.Model,
+							ProdCapacity: value.data.data.ProdCapacity,
+						}
+					})
 				}
 			});
 		};
 
-		
-
 		useEffect(() => {
-			if(productDataDefault.product_sessid) {
-				onNextStep();
-			} else  {
+			if(productDataDefault.data.IMEI) {
 				checkProductData();
 			}
-			
-		},[]);
-		
-		copyObjects(productDataDefault, getSpec);		
+
+
+		},[productDataDefault.data.IMEI]);		
 
 		const checkProductData = () => {
 
@@ -132,28 +88,29 @@ const CheckImei = ({onNextStep}) => {
 							FULL_SPEC: productDataDefault.data.Model,
 							CHECKING_DEVICE : productDataDefault.data.IMEI, 			
 						}
-					});
-					console.log(productData);
-				if(productData.CHECKING_DEVICE) { 
-					const data = axios.post(
-						'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+					});		
+		};
+		useEffect(() => {
+			if (productData.post.CHECKING_DEVICE) {
+					const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
 						productData,
 						);
-							return data.then((value) => { 
-								console.log(value.data.data);
+							data.then((value) => { 
+								console.log(value);
 								setProductDataDefault({...productDataDefault,
 									elemente_id : value.data.data.ELEMENT_ID,
 									product_sessid: value.data.data.PRODUCT_SESSID,
+									message: value.data.data.MESSAGE
 								});
 							});
-					
-				};
-		};
+				}	
+				
+		},[productData]);
+
+
 		console.log(productDataDefault);
-
-
-	
-
+		console.log(productData);
+		<CheckPhone productDataDefault={productDataDefault}/>
 
 
     return(
@@ -189,7 +146,7 @@ const CheckImei = ({onNextStep}) => {
 										form__btn
 										form__btn--fill-color-main
 										form__btn--indent-top
-										form__btn--resolve" type="button"  onClick={checkImei} disabled={butEnable}>
+										form__btn--resolve" type="button"  onClick={getBaseImeiInfo} disabled={butEnable}>
 										Проверить
 									</button>
 									<div className="tooltip">
@@ -211,6 +168,7 @@ const CheckImei = ({onNextStep}) => {
 						</div>
 					</div>
 				</form>
+				<button onClick={onNextStep}>NEXT</button>
         </div>
     );
 };
