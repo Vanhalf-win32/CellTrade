@@ -7,46 +7,24 @@ import img4 from "../img/content/imei_hint_4.jpg";
 
 
 
-const CheckPhone = () => {
 
-	const [productDataDefault, setProductDataDefault] = useState({
-		data: {
-			Color: '',
-			Description: '',
-			IMEI: 0,
-			Model: '',
-			ProdCapacity:'',
-		},
-		status: "",
-		grade: "",
-		namesNeedPhotos: [],
-		steps: {
-			current: {
-				number: 0,
-				name: ""
-			},
-		}
-	});
+const CheckPhone = ({props, onNextStep}) => {
 
+	
 	const [checkSpec, setCheckSpec] = useState(0);
 	const [button, setButton] = useState('disabled');
+	const [getSpec, setGetSpec] = useState({}); 
 
 	const enable = () => {
 		setCheckSpec(checkSpec + 1);
 	}
-
 	useEffect(() => {
 		if(checkSpec === 3) {
-			setButton('');
-		};		
-	},[checkSpec])
-
-	const data = document.querySelectorAll('.check-it__item');
-	for(let i = 0; i < data.length; i++) {
-		data[i].style.display = 'flex';
-	} 
-
-
+		setButton('');
+		console.log(checkSpec);
+	}
+	},[checkSpec]);
+	
 	
     return(
         <div>
@@ -64,6 +42,7 @@ const CheckPhone = () => {
 											form__container--sm
 											form__container--center">
 										<h1 className="form__title">Проверьте устройство</h1>
+										<h2 className="form__title">{props.data.Description}</h2>
 										<div className="form__description">
 											<p className="form__paragraph form__name"></p>
 										</div>
@@ -73,32 +52,42 @@ const CheckPhone = () => {
 										<label className="form__label form__label--select">
 											<select className="form__select form__select--memory"></select>
 										</label>
-										
-											<input type="checkbox" name="DESCRIPTION_MATCHES" onClick={enable}/>
-											    
-											    Описание совпадает по модели, памяти, цвету <br/>
-									
-										
-											<input className="form__input form__input--checkbox" type="checkbox" name="MOBILE_ON" onClick={enable}/>
-										
-											    Телефон включается <br/>
-										
-										
-											<input className="form__input form__input--checkbox" type="checkbox" name="IMEI_MATCHES" onClick={enable}/>
-											
-											    Внешний IMEI есть и совпадает с внутренним <br/>
-												<button>Как это проверить?</button>
-									
+										<label className="
+													form__label form__label--checkbox form__label--bold
+												">
+											<input className="
+														visually-hidden
+														form__input form__input--checkbox
+													" type="checkbox" name="DESCRIPTION_MATCHES" onClick={enable}/>
+											<span className="form__checkbox-custom"></span>
+											Описание совпадает по модели, памяти, цвету
+										</label>
+										<label className="form__label form__label--checkbox form__label--bold">
+											<input className="
+														visually-hidden
+														form__input form__input--checkbox
+													" type="checkbox" name="MOBILE_ON" onClick={enable}/>
+											<span className="form__checkbox-custom"></span>
+												Телефон включается
+										</label>
+										<label className="form__label form__label--checkbox form__label--bold">
+											<input className="
+												visually-hidden 
+												form__input form__input--checkbox
+												" type="checkbox" name="IMEI_MATCHES" onClick={enable}/>
+												<span className="form__checkbox-custom"></span>
+													Внешний IMEI есть и совпадает с внутренним
+										</label>
 										<div className="tooltip">
 											<div className="check-it check-it--right">
 												<div className="check-it__item" id="phone-android">
-													<a className="form__link check-it__link smart-photo" href="../img/content/imei_hint_1.jpg"
+													<a className="form__link check-it__link smart-photo" href="img/content/imei_hint_1.jpg"
 														data-caption="Разблокируйте устройство и откройте приложение <Телефон>"
-														data-group="how-check" >
-														<img src={img1} alt="img1"/>
-														
+														data-group="how-check">
+															<img className="visually-hidden" src={img1} alt="" />
+														Как это проверить?
 													</a>
-													<div>
+													<div className="visually-hidden">
 														<a className="smart-photo" href="../img/content/imei_hint_2.jpg"
 															data-caption="Введите USSD-команду *#06#" data-group="how-check" aria-hidden="true">
 															<img src={img2} alt="nuul" />
@@ -146,6 +135,7 @@ const CheckPhone = () => {
 							</div>
 						</div>
 					</div>
+					
     	</div>
     );
 };

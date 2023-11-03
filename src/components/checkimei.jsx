@@ -11,6 +11,9 @@ const CheckImei = ({onNextStep}) => {
 
 	// const imei = require('node-imei');
 
+	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
+	const [getSpec, setGetSpec] = useState({});
+	const [butEnable, setButEnable] = useState('disable');
 	const [productDataDefault, setProductDataDefault] = useState({
 		data: {
 			Color: '',
@@ -19,8 +22,11 @@ const CheckImei = ({onNextStep}) => {
 			Model: '',
 			ProdCapacity:'',
 		},
-		status: "",
-		grade: "",
+		grade: {
+			Customer: '',
+			Final: '',
+			Limit: '',
+		},
 		namesNeedPhotos: [],
 		steps: {
 			current: {
@@ -29,9 +35,6 @@ const CheckImei = ({onNextStep}) => {
 			},
 		}
 	});
-	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
-	const [getSpec, setGetSpec] = useState({});
-	const [butEnable, setButEnable] = useState('disable');
 	const [productData, setProductData] = useState({
 			post: {
 				"PRODUCT_DATA": JSON.stringify(),
@@ -51,7 +54,6 @@ const CheckImei = ({onNextStep}) => {
 					alert("Это устройство в чёрном списке!")
 				} else {
 					setGetSpec(value.data);
-					console.log(value.data.data);
 					setProductDataDefault({...productDataDefault, 
 						data: {
 							Color: value.data.data.Color,
@@ -59,6 +61,7 @@ const CheckImei = ({onNextStep}) => {
 							IMEI: value.data.data.IMEI,
 							Model: value.data.data.Model,
 							ProdCapacity: value.data.data.ProdCapacity,
+							Manufacturer:'Apple', // TODO:
 						}
 					})
 				}
@@ -78,7 +81,7 @@ const CheckImei = ({onNextStep}) => {
 			setProductDataDefault({...productDataDefault, 
 				steps:{
 					current: {
-						name: "checkIMEI",
+						name: "checkPhone",
 						number: 1,
 					}
 				}});	
@@ -96,8 +99,8 @@ const CheckImei = ({onNextStep}) => {
 						productData,
 						);
 							data.then((value) => { 
-								console.log(value);
-								setProductDataDefault({...productDataDefault,
+								console.log(value.data);
+								onNextStep({...productDataDefault,
 									elemente_id : value.data.data.ELEMENT_ID,
 									product_sessid: value.data.data.PRODUCT_SESSID,
 									message: value.data.data.MESSAGE
@@ -108,8 +111,10 @@ const CheckImei = ({onNextStep}) => {
 		},[productData]);
 
 
-		console.log(productDataDefault);
-		console.log(productData);
+
+
+		// console.log(productDataDefault);
+		// console.log(productData);
 		<CheckPhone productDataDefault={productDataDefault}/>
 
 
