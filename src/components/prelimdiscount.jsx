@@ -1,7 +1,66 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 
 const PrelimDiscount = ({props, onNextStep}) => {
+	const [gradePriceB, setGradePriceB] = useState(0);
+	const [gradePriceC, setGradePriceC] = useState(0);
+	const [gradePriceD, setGradePriceD] = useState(0);
+	const [condition, setCondition] = useState('');
+	const [getPrice, setGetPrice] = useState({
+		post: {
+			Manufacturer: "",
+			Model: "",
+			Memory: "",
+			Condition: ""
+		}
+	})
+	
+	useEffect(()=> {
+		if(props.grade.CustomerCondition === 'D') {
+			setCondition('Экран разбит и/или имеет выгорания');
+			setGetPrice({
+				post: {
+					Manufacturer: props.data.Manufacturer,
+					Model: props.data.Model,
+					Memory: props.data.ProdCapacity,
+					Condition: props.grade.CustomerCondition,
+				}
+			})
+		} else if (props.grade.CustomerCondition === 'C') {
+			setCondition('Экран не разбит и не имеет выгораний');
+			setGetPrice({
+				post: {
+					Manufacturer: props.data.Manufacturer,
+					Model: props.data.Model,
+					Memory: props.data.ProdCapacity,
+					Condition: props.grade.CustomerCondition,
+				}
+			})
+		}
+	},[]);
+
+	useEffect(() => {
+		if (getPrice.post.Condition !== "") {
+			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getPreliminaryPrice',
+				getPrice
+			);
+			data.then((value) => {
+				console.log(value);
+				setGradePriceB(value.data.data.GRADE_PRICE_B);
+				setGradePriceC(value.data.data.GRADE_PRICE_C);
+				setGradePriceD(value.data.data.GRADE_PRICE_D);
+			})
+		}
+	},[getPrice])
+
+
+		
+	
+
+
+
+
 
 
     return(
@@ -21,6 +80,7 @@ const PrelimDiscount = ({props, onNextStep}) => {
 									<p className="form__paragraph form__paragraph--red">
 										<b className="form__bold">Состояние устройства:<span className="form__device-state"></span></b>
 									</p>
+									<h2>{condition}</h2>
 							</div>
 								<table className="table">
 									<caption className="table__caption">
@@ -39,10 +99,10 @@ const PrelimDiscount = ({props, onNextStep}) => {
 												Цена SmartPrice
 											</td>
 											<td className="table__data" data-cell="Отличное">
-												50 815 &#8381;
+												{gradePriceB}
 											</td>
 											<td className="table__data" data-cell="Рабочее">
-												41 547 &#8381;
+												{gradePriceC} {gradePriceD}
 											</td>
 										</tr>
 									</tbody>
@@ -55,7 +115,13 @@ const PrelimDiscount = ({props, onNextStep}) => {
 										form__btn--indent-top
 										form__btn--indent-bottom
 										form__btn--resolve
-										" type="button">
+										" type="button"
+										onClick={() => {onNextStep({
+											current: {
+												number: 4,
+												name: 'checkDefect',
+											}
+										})}}>
 										Клиент согласен
 									</button>
 									<button className="

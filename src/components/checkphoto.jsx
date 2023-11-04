@@ -1,74 +1,105 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import img from "../img/content/qr-code.jpg";
+import axios from "axios";
 
-const CheckPhoto = () => {
+
+const CheckPhoto = ({props, onNextStep}) => {
+	const [qrCode, setQrCode] = useState('');
+	const [link, setLink] = useState('https://smartprice/su/hMG38w'); //TODO::
+	const [productDataDefault, setProductDataDefault] = useState({});
+	const [productData, setProductData] = useState({
+		post: {
+			"PRODUCT_DATA": JSON.stringify(null),			
+		}
+	});
+	console.log(props)
+	useEffect(() => {
+		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateQRCode',{});
+		data.then((value) => {
+			setQrCode(value.data.data.QRCode);
+			setLink(value.data.data.link);
+		})
+	},[]);
+
+	useEffect(() => {
+		if (qrCode !== '') {
+			setProductDataDefault({...props, 
+				steps: {
+					current : {
+						number: 6,
+						name: 'checkBOT',
+					}
+			}
+		});
+		setProductData({
+			post: {
+				"PRODUCT_DATA" : JSON.stringify(productDataDefault),
+			}
+		});
+		}
+	},[qrCode]);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			console.log('INTERVAL');
+			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',{});
+			data.then((value) => {
+				console.log('RESPONSE FOR BACK', value);
+				if(value.data.data.PHOTOS_UPLOADED_FLAG === 'Y') {
+					onNextStep(productDataDefault);
+				}
+			})
+		}, 10000);
+		return () => clearInterval(interval);
+	},[productData])
+
+
+
+
+
+
     return (
         <div>
-            <div class="" id="check-photos">
-				<div class="form__container form__container--sm form__container--center">
-					<h1 class="form__title form__title--center">
+            <div className="" id="check-photos">
+				<div className="form__container form__container--sm form__container--center">
+					<h1 className="form__title form__title--center">
 						Проверка фотографий устройства
 					</h1>
-					<div class="form__content">
-						<div class="form__column">
-							<div class="form__description">
-								<p class="form__paragraph">
-									<b class="form__bold">Перейдите по ссылке с помощью QR-кода, ссылки или
+					<div className="form__content">
+						<div className="form__column">
+							<div className="form__description">
+								<p className="form__paragraph">
+									<b className="form__bold">Перейдите по ссылке с помощью QR-кода, ссылки или
 										номера заявки</b>
 								</p>
 							</div>
-							<div class="
+							<div className="
 								form__container
 								form__container--light-gray
 								form__container--padding
 								form__container--indent-bottom"
                                 >
-								<p class="form__paragraph">Сфотографируйте QR-код</p>
-									<img class="form__img" src={img} alt="" width="450" height="450"
+								<p className="form__paragraph">Сфотографируйте QR-код</p>
+									<img className="form__img" src={qrCode} alt="" width="450" height="450"
 										aria-hidden="true" />
 							</div>
-								<div class="
+								<div className="
 									form__container
 									form__container--light-gray
 									form__container--padding
 									form__container--indent-bottom
 									">
-									<p class="form__paragraph">
-										или перейдите по этой ссылке
-											<a class="form__link form__link--bold"
-												href="https://smartprice/su/hMG38w">https://smartprice/su/hMG38w</a>
+									<p className="form__paragraph">
+										или перейдите по этой ссылке<br/>
+											<a className="form__link form__link--bold"
+												href={link}>{link}</a>		
 									</p>
-								</div>
-								<div class="
-									form__container
-									form__container--light-gray
-									form__container--padding
-									">
-									<p class="form__paragraph">
-							    		или введите этот код заявки на этой странице
-											<a class="form__link form__link--bold"
-												href="https://smartprice.ru/tradein/upload">https://smartprice.ru/tradein/upload</a>
-									</p>
-									<p class="
-										form__paragraph
-										form__paragraph--bold
-										form__paragraph--xl
-										form__paragraph--center
-										">
-										2705153
-									</p>
+								
 								</div>
 						</div>
 					</div>
 				</div>
-			</div>
-            <div>
-                <Link to='/verification'>Следующий шаг</Link>  
-            </div>
-            <div>
-                <Link to='/prelimdiscount'>Предыдущий шаг</Link>
-            </div>			
+			</div>			
         </div>
     );
 };

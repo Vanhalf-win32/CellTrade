@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import img1 from '../img/content/samsung_cracked_screen2.jpg';
+import img2 from '../img/content/samsung_small_scratches1.jpg';
+import img3 from '../img/content/burnout_samsung.jpg';
+import img4 from '../img/content/samsung_big_scratches1.jpg';
 
-const CheckDefect = () => {
-	const [condition, setCondition] = useState('');
-
+const CheckDefect = ({props, onNextStep}) => {
+	const [condition, setCondition] = useState('B');
 	
-
-
     return(
         <div>
 			<div className="" id="check-defect-device">
@@ -26,14 +27,20 @@ const CheckDefect = () => {
 							<div className="defects-list">
 								<div className="defects-list__item">
 									<label className="form__label form__label--bold form__label--checkbox">
-										<input className="visually-hidden form__input form__input--checkbox" type="checkbox" name="SCREEN_IS_BROKEN" />
+										<input className="
+											visually-hidden 
+											form__input 
+											form__input--checkbox" 
+											type="checkbox" 
+											name="SCREEN_IS_BROKEN"
+											onClick={() => {setCondition('D')}} />
 											<span className="form__checkbox-custom"></span>
 											Экран разбит или есть отслоения
 									</label>
 									<a className="defects-list__link defects-list__link--no-indent-top-mobile smart-photo"
                                         href="img/content/samsung_cracked_screen2.jpg" data-caption="Экран разбит или есть отслоения"
 										data-group="examples-1" aria-hidden="true">
-										<img className="visually-hidden" src="img/content/samsung_cracked_screen2.jpg" alt="" />
+										<img className="visually-hidden" src={img1} alt="" />
 										Примеры
 									</a>
 									<div className="visually-hidden">
@@ -47,8 +54,11 @@ const CheckDefect = () => {
 									<label className="form__label form__label--bold form__label--checkbox">
 										<input className="
 											visually-hidden
-											form__input form__input--checkbox
-											" type="checkbox" name="SCREEN_WITH_IMAGE" />
+											form__input 
+											form__input--checkbox
+											" type="checkbox" 
+											name="SCREEN_WITH_IMAGE"
+											onClick={() => {setCondition('C')}} />
 											<span className="form__checkbox-custom"></span>
 												Экран с различными повреждениями (потёртости,
 												царапины)
@@ -60,27 +70,34 @@ const CheckDefect = () => {
 											" href="img/content/samsung_small_scratches1.jpg"
 											data-caption="Экран с различными повреждениями (потертости, царапины)" data-group="examples-2"
 											aria-hidden="true">
-											<img className="visually-hidden" src="img/content/samsung_small_scratches1.jpg" alt="" />
+											<img className="visually-hidden" src={img2} alt="" />
 											Примеры
 										</a>
 									    <div className="visually-hidden">
 											<a className="smart-photo" href="img/content/samsung_big_scratches1.jpg"
 												data-caption="Экран с различными повреждениями (потертости, царапины)" data-group="examples-2"
 												aria-hidden="true">
-												<img src="img/content/samsung_big_scratches1.jpg" alt="" />
+												<img src={img4} alt="" />
 											</a>
 										</div>
 								</div>
 								<div className="defects-list__item">
 									<label className="form__label form__label--bold form__label--checkbox">
-										<input className="visually-hidden form__input form__input--checkbox" type="checkbox" name="DETECTIVE_PIXELS" />
+										<input 
+										className="
+										visually-hidden 
+										form__input 
+										form__input--checkbox" 
+										type="checkbox" 
+										name="DETECTIVE_PIXELS"
+										onClick={() => {setCondition('D')}} />
 											<span className="form__checkbox-custom"></span>
 											Есть выгорания, битые пиксели, полосы, пятна
 									</label>
 										<a className="defects-list__link defects-list__link--no-indent-top-mobile smart-photo" 
                                             href="img/content/burnout_samsung.jpg" data-caption="Есть выгорания, битые пиксели, полосы, пятна"
 											data-group="examples-3" aria-hidden="true">
-											<img class="visually-hidden" src="img/content/burnout_samsung.jpg" alt="" />
+											<img className="visually-hidden" src={img3} alt="" />
 											Примеры
 										</a>
 										<div className="visually-hidden">
@@ -126,8 +143,10 @@ const CheckDefect = () => {
 											<input className="
 												visually-hidden
 												form__input form__input--checkbox
-												" type="checkbox" name="CASE_IS_DAMAGED" />
-												<span class="form__checkbox-custom"></span>
+												" type="checkbox" 
+												name="CASE_IS_DAMAGED"
+												onClick={() => {setCondition('C')}} />
+												<span className="form__checkbox-custom"></span>
 												Корпус имеет видемые повреждения
 										</label>
 										<a className="
@@ -136,7 +155,7 @@ const CheckDefect = () => {
 											smart-photo
 											" href="img/content/body_cracks_big_samsung.jpg" data-caption="Корпус имеет видимые повреждения"
 											data-group="examples-4" aria-hidden="true">
-											<img class="visually-hidden" src="img/content/body_cracks_big_samsung.jpg" alt="" />
+											<img className="visually-hidden" src="img/content/body_cracks_big_samsung.jpg" alt="" />
 											Примеры
 										</a>
 											<div className="visually-hidden">
@@ -171,7 +190,22 @@ const CheckDefect = () => {
 													form__btn--indent-top
 													form__btn--indent-bottom
 													form__btn--resolve
-												" type="button">
+												" type="button"
+												onClick={() => {onNextStep(
+															{
+																current: { 
+																		number: 5,
+																		name: 'checkPhotos',
+																}
+																
+															}, 
+															{																
+																CustomerCondition: props.grade.CustomerCondition,
+																FinalCondition: '',
+																LimitCondition: condition,
+															},
+														)}}
+										>
 											Далее
 										</button>
 										<button className="
