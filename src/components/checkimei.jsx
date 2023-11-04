@@ -23,9 +23,9 @@ const CheckImei = ({onNextStep}) => {
 			ProdCapacity:'',
 		},
 		grade: {
-			Customer: '',
-			Final: '',
-			Limit: '',
+			CustomerCondition: '',
+			FinalCondition: '',
+			LimitCondition: '',
 		},
 		namesNeedPhotos: [],
 		steps: {
@@ -99,7 +99,7 @@ const CheckImei = ({onNextStep}) => {
 						productData,
 						);
 							data.then((value) => { 
-								console.log(value.data);
+								console.log('RESPONS FOR BACK',value.data);
 								onNextStep({...productDataDefault,
 									elemente_id : value.data.data.ELEMENT_ID,
 									product_sessid: value.data.data.PRODUCT_SESSID,
@@ -111,11 +111,6 @@ const CheckImei = ({onNextStep}) => {
 		},[productData]);
 
 
-
-
-		// console.log(productDataDefault);
-		// console.log(productData);
-		<CheckPhone productDataDefault={productDataDefault}/>
 
 
     return(
@@ -173,7 +168,6 @@ const CheckImei = ({onNextStep}) => {
 						</div>
 					</div>
 				</form>
-				<button onClick={onNextStep}>NEXT</button>
         </div>
     );
 };

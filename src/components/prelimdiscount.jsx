@@ -1,50 +1,54 @@
 import React from "react";
-import '../style/style.min.css';
-import { Link } from "react-router-dom";
 
-const PrelimDiscount = () => {
+
+const PrelimDiscount = ({props, onNextStep}) => {
+
+
     return(
         <div>
-            <div class="" id="preliminary-discount">
-				<div class="form__container form__container--center">
-					<h1 class="form__title form__title--center">
+            <div className="" id="preliminary-discount">
+				<div className="form__container form__container--center">
+					<h1 className="form__title form__title--center">
 						Предварительная сумма скидки
 					</h1>
-					<div class="form__content">
-						<div class="form__column">
-							<div class="form__description form__description--center">
-								<p class="form__paragraph form__paragraph--xl form__name"></p>
-									<p class="form__paragraph form__paragraph--red">
-										<b class="form__bold">Состояние устройства:<span class="form__device-state"></span></b>
+					<h2 className="form__title form__title--center">
+						{props.data.Description}
+					</h2>
+					<div className="form__content">
+						<div className="form__column">
+							<div className="form__description form__description--center">
+								<p className="form__paragraph form__paragraph--xl form__name"></p>
+									<p className="form__paragraph form__paragraph--red">
+										<b className="form__bold">Состояние устройства:<span className="form__device-state"></span></b>
 									</p>
 							</div>
-								<table class="table">
-									<caption class="table__caption">
+								<table className="table">
+									<caption className="table__caption">
 										Сумма без дополнительной скидки
 									</caption>
-									<thead class="table__head">
-										<tr class="table__row">
-											<th class="table__header"></th>
-											<th class="table__header">Отличное</th>
-											<th class="table__header">Рабочее</th>
+									<thead className="table__head">
+										<tr className="table__row">
+											<th className="table__header"></th>
+											<th className="table__header">Отличное</th>
+											<th className="table__header">Рабочее</th>
 										</tr>
 									</thead>
-									<tbody class="table__body">
-										<tr class="table__row">
-											<td class="table__data" data-cell="">
+									<tbody className="table__body">
+										<tr className="table__row">
+											<td className="table__data" data-cell="">
 												Цена SmartPrice
 											</td>
-											<td class="table__data" data-cell="Отличное">
+											<td className="table__data" data-cell="Отличное">
 												50 815 &#8381;
 											</td>
-											<td class="table__data" data-cell="Рабочее">
+											<td className="table__data" data-cell="Рабочее">
 												41 547 &#8381;
 											</td>
 										</tr>
 									</tbody>
 								</table>
-								<div class="form__container	form__container--sm	form__container--center">
-									<button class="
+								<div className="form__container	form__container--sm	form__container--center">
+									<button className="
 										form__btn
 										form__btn--fill-color-main
 										form__btn--center
@@ -54,7 +58,7 @@ const PrelimDiscount = () => {
 										" type="button">
 										Клиент согласен
 									</button>
-									<button class="
+									<button className="
 										form__btn
 										form__btn--center
 										form__btn--fill-transparent
@@ -67,12 +71,6 @@ const PrelimDiscount = () => {
 					</div>
 				</div>
 			</div>
-            <div>
-                <Link to='/checkphoto'>Следующий шаг</Link>  
-            </div>
-            <div>
-                <Link to='/checkdisplay'>Предыдущий шаг</Link>
-            </div>
         </div>
     );
 };

@@ -4,6 +4,7 @@ import img1 from "../img/content/imei_hint_1.jpg";
 import img2 from "../img/content/imei_hint_2.jpg";
 import img3 from "../img/content/imei_hint_3.jpg";
 import img4 from "../img/content/imei_hint_4.jpg";
+import axios from "axios";
 
 
 
@@ -13,18 +14,41 @@ const CheckPhone = ({props, onNextStep}) => {
 	
 	const [checkSpec, setCheckSpec] = useState(0);
 	const [button, setButton] = useState('disabled');
-	const [getSpec, setGetSpec] = useState({}); 
+	const [getSpec, setGetSpec] = useState({});
+	const [productData, setProductData] = useState({
+		post: {
+			"PRODUCT_DATA": JSON.stringify(),			
+		}
+	});
 
 	const enable = () => {
 		setCheckSpec(checkSpec + 1);
 	}
 	useEffect(() => {
 		if(checkSpec === 3) {
-		setButton('');
-		console.log(checkSpec);
+		setButton('');		
+		setProductData({
+			post:{
+				PRODUCT_DATA: JSON.stringify(props),
+			}
+		});
 	}
 	},[checkSpec]);
 	
+	const checkProductData = () => {
+		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			productData,	
+		);
+		data.then((value) => {
+			console.log('RESPONS FOR BACK',value);
+			onNextStep({
+					current:{
+						number: 2,
+						name: 'checkDisplay',
+					}
+			})
+		});
+	}
 	
     return(
         <div>
@@ -120,7 +144,7 @@ const CheckPhone = ({props, onNextStep}) => {
 													form__btn--indent-bottom
 													form__btn--resolve
 												" type="button"
-												disabled={button}>
+												disabled={button} onClick={checkProductData}>
 											Принять
 										</button>
 										<button className="
