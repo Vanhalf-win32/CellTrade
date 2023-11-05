@@ -1,7 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Loader from "./utils/loader";
+import axios from "axios";
 
-const Verification = () => {
+
+const Verification = ({props, onNextStep, onBackStep}) => {
+	 const [bot, setBot] = useState ({ 
+		"bot_status":"",
+		"bot_message":"",
+		"bot_grade":""
+	})
+	
+	useEffect(() => {
+		const interval = setInterval(() => {
+			console.log('INTERVAL');
+			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',{});
+			data.then((value) => {
+				console.log('RESPONSE FOR BACK', value.data);
+				if(value.data.data.BOT_DATA !== '') { 
+					clearInterval(interval);
+					setBot(JSON.parse(value.data.data.BOT_DATA));
+				}
+			})
+		}, 5000);
+	},[]);
+
+	useEffect(() => {				
+		if(bot.bot_status === "accepted_tradein") {
+			onNextStep({
+					CustomerCondition: props.grade.CustomerCondition,
+					FinalCondition: bot.bot_grade,
+					LimitCondition: props.grade.LimitCondition,
+			}, {
+				current: {
+					name: 'totalDiscount',
+					number: 7,
+				}
+			});
+			alert(bot.bot_message);
+		} else if (bot.bot_status === "reshoot_photos") {
+					onBackStep();
+					alert(bot.bot_message);
+			}	
+	},[bot]);
+
+
     return(
         <div>
             <div className="form__step" id="verification">

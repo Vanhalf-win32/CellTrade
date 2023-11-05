@@ -1,10 +1,10 @@
 :root {
 	/* Colors  */
-	--colorMain: #227e58;
+	--colorMain: rgb(78, 14, 228);
 	--colorSecondary: #404040;
 	--colorGray: #b8b8b8;
 	--colorLightGray: #eeeeee;
-	--colorGreen: #2a8400;
+	--colorGreen: #6004f5;
 	--colorRed: #b61702;
 	/* Border */
 	--borderRadius: 5px;

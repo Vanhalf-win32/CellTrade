@@ -16,6 +16,7 @@ import CheckPhoto from './components/checkphoto';
 import { BrowserRouter } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Verification from './components/verification';
+import TotalDiscount from './components/totaldiscount';
 
 
 export default function App() {
@@ -83,8 +84,14 @@ export default function App() {
     setProductDataDefault(steps);
   }
 
+  const onVerifacation = (grade, steps) => {
+    setStep(step + 1);
+    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, grade, steps}));
+  }
+  const onBackStep = () => {
+    setStep(step - 1);
+  } 
 
-  
   return( 
     <div>
       <Header/>
@@ -96,7 +103,8 @@ export default function App() {
         {step === 4 ? <PrelimDiscount props={productDataDefault} onNextStep={onPrelimDiscount}/> : null}
         {step === 5 ? <CheckDefect props={productDataDefault} onNextStep={onCheckDefect}/> : null}
         {step === 6 ? <CheckPhoto props={productDataDefault} onNextStep={onCheckPhoto}/> : null}
-        {step === 7 ? <Verification props={productDataDefault} onNextStep={onCheckPhoto}/> : null}
+        {step === 7 ? <Verification props={productDataDefault} onNextStep={onVerifacation} onBackStep={onBackStep}/> : null}
+        {step === 8 ? <TotalDiscount props={productDataDefault} onNextStep={onVerifacation} /> : null}
         
       <br/>
       <Footer/>

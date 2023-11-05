@@ -5,14 +5,16 @@ import axios from "axios";
 
 const CheckPhoto = ({props, onNextStep}) => {
 	const [qrCode, setQrCode] = useState('');
+	const [statusBot, setStatusBot] = useState('');
 	const [link, setLink] = useState('https://smartprice/su/hMG38w'); //TODO::
 	const [productDataDefault, setProductDataDefault] = useState({});
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(null),			
+			"PRODUCT_DATA": JSON.stringify(null),	
+			"LIMIT_CONDITION" : '',		
 		}
 	});
-	console.log(props)
+
 	useEffect(() => {
 		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateQRCode',{});
 		data.then((value) => {
@@ -31,31 +33,40 @@ const CheckPhoto = ({props, onNextStep}) => {
 					}
 			}
 		});
-		setProductData({
-			post: {
-				"PRODUCT_DATA" : JSON.stringify(productDataDefault),
-			}
-		});
+		
 		}
 	},[qrCode]);
+	
+	useEffect(() => {
+		if(qrCode !== '') {
+			setProductData({
+				post: {
+					"PRODUCT_DATA" : JSON.stringify(productDataDefault),
+					"LIMIT_CONDITION" : props.grade.LimitCondition,
+				}
+			});
+		}
+	},[qrCode])
 
 	useEffect(() => {
+		if(productData.LIMIT_CONDITION !== '') {
+			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			productData);
+		}
 		const interval = setInterval(() => {
 			console.log('INTERVAL');
 			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',{});
 			data.then((value) => {
-				console.log('RESPONSE FOR BACK', value);
+				console.log('RESPONSE FOR BACK', value.data);
 				if(value.data.data.PHOTOS_UPLOADED_FLAG === 'Y') {
+					clearInterval(interval);
 					onNextStep(productDataDefault);
 				}
 			})
-		}, 10000);
-		return () => clearInterval(interval);
-	},[productData])
+		}, 5000);
 
-
-
-
+	},[productData]);
+	
 
 
     return (
@@ -65,6 +76,9 @@ const CheckPhoto = ({props, onNextStep}) => {
 					<h1 className="form__title form__title--center">
 						Проверка фотографий устройства
 					</h1>
+					<h2 className="form__title form__title--center" >
+						{statusBot}
+					</h2>
 					<div className="form__content">
 						<div className="form__column">
 							<div className="form__description">

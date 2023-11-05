@@ -1,54 +1,54 @@
 import React from "react";
-import { Link } from "react-router-dom";
+
 
 const TotalDiscount = () => {
     return(
         <div>
-			<div class="form__step" id="total-discount">
-				<div class="form__container">
-					<h1 class="form__title form__title--center">
+			<div className="form__step" id="total-discount">
+				<div className="form__container">
+					<h1 className="form__title form__title--center">
 						Итоговая сумма скидки
 					</h1>
-					<div class="form__content">
-						<div class="form__column">
-							<div class="form__description form__description--center">
-								<p class="form__paragraph form__paragraph--xl form__name"></p>
-									<p class="form__paragraph form__paragraph--bold">
-										Состояние устройства:
-										<span class="form__device-state">Отличное</span>
+					<div className="form__content">
+						<div className="form__column">
+							<div className="form__description form__description--center">
+								<p className="form__paragraph form__paragraph--xl form__name"></p>
+									<p className="form__paragraph form__paragraph--bold">
+										Состояние устройства:Name
+										<span className="form__device-state">Отличное</span>
 									</p>
-									<p class="form__paragraph form__paragraph--bold">
+									<p className="form__paragraph form__paragraph--bold">
 										Дефект:
-										<span class="form__state-defects">дефектов нет</span>
+										<span className="form__state-defects">дефектов нет</span>
 									</p>
 							</div>
-							<table class="table">
-								<caption class="table__caption">
+							<table className="table">
+								<caption className="table__caption">
 									Сумма без учёта скидки
 								</caption>
-								<thead class="table__head">
-									<tr class="table__row">
-										<th class="table__header"></th>
-										<th class="table__header">Отличное</th>
+								<thead className="table__head">
+									<tr className="table__row">
+										<th className="table__header"></th>
+										<th className="table__header">Отличное</th>
 										</tr>
 								</thead>
-								<tbody class="table__body">
-									<tr class="table__row">
-										<td class="table__data" data-cell="">
+								<tbody className="table__body">
+									<tr className="table__row">
+										<td className="table__data" data-cell="">
 											Цена CellTrade
 										</td>
-	    									<td class="table__data" data-cell="Отличное">
+	    									<td className="table__data" data-cell="Отличное">
 												50 814 &#8381;
 											</td>
 									</tr>
 								</tbody>
 							</table>
-							<div class="
+							<div className="
 								form__container
 								form__container--sm
 								form__container--center
 								">
-								<button class="
+								<button className="
 									form__btn
 									form__btn--center
 									form__btn--fill-color-main
@@ -58,7 +58,7 @@ const TotalDiscount = () => {
 									" type="button">
 									Клиент согласен
 								</button>
-								<button class="
+								<button className="
 									form__btn
 									form__btn--center
 									form__btn--fill-transparent
@@ -71,12 +71,6 @@ const TotalDiscount = () => {
 					</div>
 				</div>
 			</div>
-            <div>
-                <Link to='/pickupdevice'>Следующий шаг(prelimdiscount)</Link><br/> 
-            </div>
-            <div>
-                <Link to='/verification'>Предыдущий шаг</Link>
-            </div>
         </div>            
     );
 };

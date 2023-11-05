@@ -5,7 +5,13 @@ import img3 from '../img/content/burnout_samsung.jpg';
 import img4 from '../img/content/samsung_big_scratches1.jpg';
 
 const CheckDefect = ({props, onNextStep}) => {
+	console.log('PROPS', props);
 	const [condition, setCondition] = useState('B');
+	const [productData, setProductData] = useState({
+		post: {
+			"LIMIT_CONDITION" : '',		
+		}
+	});
 	
     return(
         <div>

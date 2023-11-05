@@ -30,8 +30,8 @@ const CheckImei = ({onNextStep}) => {
 		namesNeedPhotos: [],
 		steps: {
 			current: {
-				number: 0,
-				name: ""
+				number: 1,
+				name: "checkPhone"
 			},
 		}
 	});

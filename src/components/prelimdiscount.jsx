@@ -7,6 +7,11 @@ const PrelimDiscount = ({props, onNextStep}) => {
 	const [gradePriceC, setGradePriceC] = useState(0);
 	const [gradePriceD, setGradePriceD] = useState(0);
 	const [condition, setCondition] = useState('');
+	const [productData, setProductData] = useState({
+		post: {
+			"PRODUCT_DATA": JSON.stringify(),			
+		}
+	});
 	const [getPrice, setGetPrice] = useState({
 		post: {
 			Manufacturer: "",
@@ -50,8 +55,16 @@ const PrelimDiscount = ({props, onNextStep}) => {
 				setGradePriceB(value.data.data.GRADE_PRICE_B);
 				setGradePriceC(value.data.data.GRADE_PRICE_C);
 				setGradePriceD(value.data.data.GRADE_PRICE_D);
-			})
+				
+			});
 		}
+	},[getPrice]);
+	
+	
+	useEffect(() => {
+		setProductData({
+			"PRODUCT_DATA": JSON.stringify(props),
+		})
 	},[getPrice])
 
 
