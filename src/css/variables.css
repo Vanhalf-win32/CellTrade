@@ -1,11 +1,11 @@
 :root {
 	/* Colors  */
-	--colorMain: rgb(78, 14, 228);
-	--colorSecondary: #404040;
+	--colorMain: rgb(169, 77, 218);
+	--colorSecondary: #7f47aa;
 	--colorGray: #b8b8b8;
 	--colorLightGray: #eeeeee;
-	--colorGreen: #6004f5;
-	--colorRed: #b61702;
+	--colorGreen: rgb(138, 58, 236);
+	--colorRed: #7d0f00;
 	/* Border */
 	--borderRadius: 5px;
 	/* Animation */

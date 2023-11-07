@@ -17,6 +17,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Verification from './components/verification';
 import TotalDiscount from './components/totaldiscount';
+import PickUpDevice from './components/pickupdevice';
+import ConsigAgree from './components/consigagree';
 
 
 export default function App() {
@@ -30,7 +32,11 @@ export default function App() {
   //     }
   //     console.log(JSON.parse(JSON.parse(value.data.data.PRODUCT_DATA))); //TODO::
   //   })
-
+  const [productData, setProductData] = useState({
+		post: {
+			"PRODUCT_DATA": JSON.stringify(),	
+		}
+	});
   const [step, setStep] = useState(1);
   const [productDataDefault, setProductDataDefault] = useState({
 		data: {
@@ -54,7 +60,7 @@ export default function App() {
 		}
 	});
 
-  console.log('Default', productDataDefault);
+  console.log('DEFAULT', productDataDefault);
 
   const onCheckIMEI = (checkIMEI) => {
     setStep(step + 1);
@@ -84,19 +90,26 @@ export default function App() {
     setProductDataDefault(steps);
   }
 
-  const onVerifacation = (grade, steps) => {
+  const onVerifacation = (grade, steps, bot) => {
     setStep(step + 1);
-    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, grade, steps}));
+    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, grade, steps, bot}));
   }
   const onBackStep = () => {
     setStep(step - 1);
   } 
+  const onTotalDiscount = (steps) => {
+    setStep(step + 1);
+    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps}))
+  }
+
+  const onPickUpDevice = (steps) => {
+    setStep(step + 1);
+    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps}))
+  }
 
   return( 
     <div>
       <Header/>
-      <br/>
-      <br/>
         {step === 1 ? <CheckImei onNextStep={onCheckIMEI}/> : null}
         {step === 2 ? <CheckPhone props={productDataDefault} onNextStep={onCheckPhone}/> : null}
         {step === 3 ? <CheckDisplay props={productDataDefault} onNextStep={onCheckDisplay}/> : null}
@@ -104,9 +117,9 @@ export default function App() {
         {step === 5 ? <CheckDefect props={productDataDefault} onNextStep={onCheckDefect}/> : null}
         {step === 6 ? <CheckPhoto props={productDataDefault} onNextStep={onCheckPhoto}/> : null}
         {step === 7 ? <Verification props={productDataDefault} onNextStep={onVerifacation} onBackStep={onBackStep}/> : null}
-        {step === 8 ? <TotalDiscount props={productDataDefault} onNextStep={onVerifacation} /> : null}
-        
-      <br/>
+        {step === 8 ? <TotalDiscount props={productDataDefault} onNextStep={onTotalDiscount} /> : null} 
+        {step === 9 ? <PickUpDevice props={productDataDefault} onNextStep={onPickUpDevice} /> : null}
+        {step === 10 ? <ConsigAgree props={productDataDefault} onNextStep={onPickUpDevice} /> : null}  
       <Footer/>
     </div>
 	)  

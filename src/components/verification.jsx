@@ -35,7 +35,8 @@ const Verification = ({props, onNextStep, onBackStep}) => {
 					name: 'totalDiscount',
 					number: 7,
 				}
-			});
+			},
+			bot);
 			alert(bot.bot_message);
 		} else if (bot.bot_status === "reshoot_photos") {
 					onBackStep();

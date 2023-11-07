@@ -11,7 +11,6 @@ import axios from "axios";
 
 const CheckPhone = ({props, onNextStep}) => {
 
-	
 	const [checkSpec, setCheckSpec] = useState(0);
 	const [button, setButton] = useState('disabled');
 	const [getSpec, setGetSpec] = useState({});
@@ -27,27 +26,16 @@ const CheckPhone = ({props, onNextStep}) => {
 	useEffect(() => {
 		if(checkSpec === 3) {
 		setButton('');		
-		setProductData({
-			post:{
-				PRODUCT_DATA: JSON.stringify(props),
-			}
-		});
 	}
 	},[checkSpec]);
 	
 	const checkProductData = () => {
-		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
-			productData,	
-		);
-		data.then((value) => {
-			console.log('RESPONS FOR BACK',value);
 			onNextStep({
-					current:{
-						number: 2,
-						name: 'checkDisplay',
+				current:{
+					number: 2,
+					name: 'checkDisplay',
 					}
-			})
-		});
+			});
 	}
 	
     return(

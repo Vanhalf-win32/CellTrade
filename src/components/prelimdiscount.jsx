@@ -51,7 +51,7 @@ const PrelimDiscount = ({props, onNextStep}) => {
 				getPrice
 			);
 			data.then((value) => {
-				console.log(value);
+				console.log('GET PRICE', value.data);
 				setGradePriceB(value.data.data.GRADE_PRICE_B);
 				setGradePriceC(value.data.data.GRADE_PRICE_C);
 				setGradePriceD(value.data.data.GRADE_PRICE_D);

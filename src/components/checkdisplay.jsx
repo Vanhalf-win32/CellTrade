@@ -5,11 +5,12 @@ import img1 from "../img/content/no-smashed.jpg";
 import axios from "axios";
 
 const CheckDisplay = ({props, onNextStep}) => {
+	
 	const [display, setDisplay] = useState('');
 	const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(),
-			"CUSTOMER_CONDITION" : '',			
+			"CUSTOMER_CONDITION": '',		
 		}
 	});
 	const [productDataDefault, setProductDataDefault] = useState({
@@ -28,11 +29,11 @@ const CheckDisplay = ({props, onNextStep}) => {
 		namesNeedPhotos: [],
 		steps: {
 			current: {
-				number: 0,
-				name: ""
+				number: 2,
+				name: "checkDisplay"
 			},
 		}
-	});
+	});	
 
 	useEffect(()=> {				
 		if(display === 'damage') {
@@ -67,7 +68,13 @@ const CheckDisplay = ({props, onNextStep}) => {
 		}
 	},[display]);
 
-	useEffect(() => {	
+	useEffect(() => {
+		setProductData({
+			post: {
+				"PRODUCT_DATA": JSON.stringify(props),
+				"CUSTOMER_CONDITION": '',		
+			}
+		})
 		if (productDataDefault.steps.current.number === 3) {
 			setProductData({
 				post: {
@@ -79,6 +86,9 @@ const CheckDisplay = ({props, onNextStep}) => {
 	},[productDataDefault])
 	
 	useEffect(() => {
+		if(productData.post.PRODUCT_DATA) {
+			axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',productData)
+		}
 		if(productData.post.CUSTOMER_CONDITION !== '') {
 			checkProductData();
 		}
@@ -89,7 +99,7 @@ const CheckDisplay = ({props, onNextStep}) => {
 		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
 		productData);
 		data.then((value) => {
-			console.log('RESPONSE FOR BACK', value);
+			console.log('RESPONSE CHEK DISPLAY', value);
 			onNextStep({...productDataDefault})
 		})
 

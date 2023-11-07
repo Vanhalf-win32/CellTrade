@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const ConsigAgree = () => {
     return(
@@ -124,13 +123,7 @@ const ConsigAgree = () => {
 				        </div>
 			        </div>
 		        </div>
-	        </div>
-            <div>
-                <Link to='/contract'>Следующий шаг</Link>  
-            </div>
-            <div>
-                <Link to='/pickupdevice'>Предыдущий шаг</Link>
-            </div>          
+	        </div>        
         </div>
     )
 }

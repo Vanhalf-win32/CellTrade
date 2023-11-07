@@ -1,7 +1,69 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 
-const TotalDiscount = () => {
+const TotalDiscount = ({props, onNextStep}) => {
+	const [productData, setProductData] = useState({
+		post: {
+			"PRODUCT_DATA": JSON.stringify(),			
+		}
+	});
+	const [defect, setDefect] = useState('');
+	const [finalPrice, setFinalPrice] = useState(0);
+	const [condition, setCondition] = useState('Отличное')
+	const [getPrice, setGetPrice] = useState({
+		post: {
+			"Manufacturer": "",
+			"Model": "",
+			"Memory": "",
+			"Condition": ""
+		}
+	});
+	
+
+		useEffect(() => {
+			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',productData)
+			
+			if(getPrice.post.Condition === 'C') {
+				setCondition('Хорошее');
+				const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getFinalPrice',
+				 getPrice);
+				 data.then((value) => {
+					setFinalPrice(value.data.data.FINAL_PRICE);
+					setDefect(props.bot.bot_message);
+				 })
+			} else if (getPrice.post.Condition === 'D') {
+				setCondition('Плохое');
+				const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getFinalPrice',
+				getPrice);
+				data.then((value) => {
+					setFinalPrice(value.data.data.FINAL_PRICE);
+					setDefect(props.bot.bot_message);
+				})
+			}
+		},[getPrice]);		
+		
+		useEffect(() => {
+				setGetPrice({
+					post: {
+						"Manufacturer": props.data.Manufacturer,
+						"Model": props.data.Model,
+						"Memory": props.data.ProdCapacity,
+						"Condition": props.grade.FinalCondition,
+					}
+				});
+				setProductData({
+					post: {
+						"PRODUCT_DATA": JSON.stringify(props),
+					}
+				})
+		},[]);
+
+
+
+
+
+
     return(
         <div>
 			<div className="form__step" id="total-discount">
@@ -14,12 +76,12 @@ const TotalDiscount = () => {
 							<div className="form__description form__description--center">
 								<p className="form__paragraph form__paragraph--xl form__name"></p>
 									<p className="form__paragraph form__paragraph--bold">
-										Состояние устройства:Name
-										<span className="form__device-state">Отличное</span>
+										Состояние устройства:
+										<span className="form__device-state"> {condition}</span>
 									</p>
 									<p className="form__paragraph form__paragraph--bold">
-										Дефект:
-										<span className="form__state-defects">дефектов нет</span>
+										Дефект: {defect}
+										<span className="form__state-defects"></span>
 									</p>
 							</div>
 							<table className="table">
@@ -29,7 +91,7 @@ const TotalDiscount = () => {
 								<thead className="table__head">
 									<tr className="table__row">
 										<th className="table__header"></th>
-										<th className="table__header">Отличное</th>
+										<th className="table__header">{condition}</th>
 										</tr>
 								</thead>
 								<tbody className="table__body">
@@ -38,7 +100,7 @@ const TotalDiscount = () => {
 											Цена CellTrade
 										</td>
 	    									<td className="table__data" data-cell="Отличное">
-												50 814 &#8381;
+												{finalPrice}
 											</td>
 									</tr>
 								</tbody>
@@ -55,7 +117,16 @@ const TotalDiscount = () => {
 									form__btn--indent-top
 									form__btn--indent-bottom
 									form__btn--resolve
-									" type="button">
+									" type="button"
+									onClick={() => {
+											onNextStep({
+												current: {
+													number: 8,
+													name: 'pickUpDevice'
+												}
+											})
+									}
+									}>
 									Клиент согласен
 								</button>
 								<button className="
