@@ -5,9 +5,14 @@ import React, { useEffect, useState } from "react";
 const TotalDiscount = ({props, onNextStep}) => {
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(),			
+			"PRODUCT_DATA": JSON.stringify(props),			
 		}
 	});
+	axios.post(
+		'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+		productData
+	);
+
 	const [defect, setDefect] = useState('');
 	const [finalPrice, setFinalPrice] = useState(0);
 	const [condition, setCondition] = useState('Отличное')
@@ -22,8 +27,6 @@ const TotalDiscount = ({props, onNextStep}) => {
 	
 
 		useEffect(() => {
-			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',productData)
-			
 			if(getPrice.post.Condition === 'C') {
 				setCondition('Хорошее');
 				const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getFinalPrice',
@@ -124,7 +127,7 @@ const TotalDiscount = ({props, onNextStep}) => {
 													number: 8,
 													name: 'pickUpDevice'
 												}
-											})
+											},finalPrice)
 									}
 									}>
 									Клиент согласен

@@ -88,8 +88,9 @@ const CheckImei = ({onNextStep}) => {
 				setProductData({
 						post: {
 							PRODUCT_DATA: JSON.stringify(productDataDefault),
-							FULL_SPEC: productDataDefault.data.Model,
-							CHECKING_DEVICE : productDataDefault.data.IMEI, 			
+							FULL_SPECS: productDataDefault.data.Model, //TODO::
+							CHECKING_DEVICE : productDataDefault.data.IMEI,
+							DEVICE_INFO: JSON.stringify(productDataDefault.data) 			
 						}
 					});		
 		};

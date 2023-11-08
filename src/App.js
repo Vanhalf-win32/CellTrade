@@ -19,6 +19,7 @@ import Verification from './components/verification';
 import TotalDiscount from './components/totaldiscount';
 import PickUpDevice from './components/pickupdevice';
 import ConsigAgree from './components/consigagree';
+import Contract from './components/contract';
 
 
 export default function App() {
@@ -31,7 +32,8 @@ export default function App() {
   //       Cookies.remove('PRODUCT_SESSID');
   //     }
   //     console.log(JSON.parse(JSON.parse(value.data.data.PRODUCT_DATA))); //TODO::
-  //   })
+  //   }) 
+  // add FINAL_CONDITION
   const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(),	
@@ -97,14 +99,19 @@ export default function App() {
   const onBackStep = () => {
     setStep(step - 1);
   } 
-  const onTotalDiscount = (steps) => {
+  const onTotalDiscount = (steps, price) => {
     setStep(step + 1);
-    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps}))
+    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps, price}))
   }
 
   const onPickUpDevice = (steps) => {
     setStep(step + 1);
     setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps}))
+  }
+
+  const onConsigAgree= (steps, fio) => {
+    setStep(step + 1);
+    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps, fio}))
   }
 
   return( 
@@ -119,7 +126,8 @@ export default function App() {
         {step === 7 ? <Verification props={productDataDefault} onNextStep={onVerifacation} onBackStep={onBackStep}/> : null}
         {step === 8 ? <TotalDiscount props={productDataDefault} onNextStep={onTotalDiscount} /> : null} 
         {step === 9 ? <PickUpDevice props={productDataDefault} onNextStep={onPickUpDevice} /> : null}
-        {step === 10 ? <ConsigAgree props={productDataDefault} onNextStep={onPickUpDevice} /> : null}  
+        {step === 10 ? <ConsigAgree props={productDataDefault} onNextStep={onConsigAgree} /> : null}  
+        {step === 11 ? <Contract props={productDataDefault} onNextStep={onConsigAgree} /> : null} 
       <Footer/>
     </div>
 	)  

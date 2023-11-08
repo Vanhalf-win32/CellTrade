@@ -1,121 +1,119 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-const ConsigAgree = () => {
+const ConsigAgree = ({props, onNextStep}) => {
+	const [fio, setFio] = useState({
+		name: '',
+		family: '',
+		otche: '',
+		date: 0,
+		phone: 0,
+		place: '',
+		email: '',
+	});
+	const [productData, setProductData] = useState({
+		post: {
+			"PRODUCT_DATA": JSON.stringify(props),			
+		}
+	});
+
+	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+	 productData);
+
+
+	 const getFIO = () => {
+		setProductData({
+			post: {
+				PRODUCT_DATA: JSON.stringify(props),
+				CLIENT_FIO: JSON.stringify(fio),
+			}	
+			})
+		const data = axios.post(
+				'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			 	productData
+			 );
+			 data.then((value) => {
+				console.log('CONS', value);
+				console.log('FIO', fio)
+				onNextStep({
+					current: {
+						number: 10,
+						name: 'contract'
+					}
+				}, fio)
+			 })
+	}
+
     return(
         <div>
-			<div class="form__step" id="consignment-agreements">
-				<div class="form__container">
-					<h1 class="form__title">
+			<div className="form__step container" id="consignment-agreements">
+				<div className="form__container">
+					<h1 className="form__title">
 						Заполните инфомрацию для Договора Консигнации
 					</h1>
-					<div class="form__content">
-						<div class="form__column">
-							<div class="form__container">
-								<div class="form__description">
-									<p class="form__paragraph">Укажите данные клиента</p>
-									<p class="form__paragraph">
+					<div className="form__content">
+						<div className="form__column">
+							<div className="form__container">
+								<div className="form__description">
+									<p className="form__paragraph">Укажите данные клиента</p>
+									<p className="form__paragraph">
 										Усдостоверение личности: Паспорт
 									</p>
 								</div>
-								<fieldset class="form__fieldset">
-									<label class="form__label">
-										<input class="form__input form__input--text" type="text" name="PASSPORT_SERIES"
-											placeholder="Серия" required />
-											<span class="error"></span>
-									</label>
-									<label class="form__label">
-										<input class="form__input form__input--text" type="text" name="PASSPORT_NUMBER"
-											placeholder="Номер" required />
-											<span class="error"></span>
-									</label>
-								</fieldset>
-								<label class="form__label">
-									<input class="form__input form__input--text" type="text" name="NAME" placeholder="Имя" required />
-										<span class="error"></span>
+								<label className="form__label">
+									<input className="form__input form__input--text" type="text" name="NAME" placeholder="Имя" 
+									required onChange={event => setFio({...fio, name: event.target.value})}/>
+										<span className="error"></span>
 								</label>
-									<label class="form__label">
-										<input class="form__input form__input--text" type="text" name="SURNAME" placeholder="Фамилия"
-											required />
-										<span class="error"></span>
+									<label className="form__label">
+										<input className="form__input form__input--text" type="text" name="SURNAME" placeholder="Фамилия"
+											required onChange={event => setFio({...fio, family: event.target.value})}/>
+										<span className="error"></span>
 								</label>
-									<label class="form__label">
-										<input class="form__input form__input--text" type="text" name="PATRONYMIC" placeholder="Отчество"
-											required />
-				    							<span class="error"></span>
+									<label className="form__label">
+										<input className="form__input form__input--text" type="text" name="PATRONYMIC" placeholder="Отчество"
+											required onChange={event => setFio({...fio, otche: event.target.value})}/>
+				    							<span className="error"></span>
 									</label>
-									<fieldset class="form__fieldset">
-										<label class="form__label">
-											<input class="form__input form__input--text" type="text" name="PLACE_OF_BIRTH"
-												placeholder="Место рождения" required />
-												<span class="error"></span>
+									<fieldset className="form__fieldset">
+										<label className="form__label">
+											<input className="form__input form__input--text" type="text" name="DATE_OF_BIRTH"
+												placeholder="Дата рождения" required onChange={event => setFio({...fio, date: event.target.value})}/>
+											<span className="error"></span>
 										</label>
-										<label class="form__label">
-											<input class="form__input form__input--text" type="text" name="DATE_OF_BIRTH"
-												placeholder="Дата рождения" required />
-											<span class="error"></span>
+										<label className="form__label">
+											<input className="form__input form__input--text" type="text" name="PHONE"
+												placeholder="Контактный телефон" onChange={event => setFio({...fio, phone: event.target.value})}/>
+												<span className="error"></span>
+										</label>
+										<label className="form__label">
+											<input className="form__input form__input--text" type="text" name="PHONE"
+												placeholder="Место рождения" onChange={event => setFio({...fio, place: event.target.value})}/>
+												<span className="error"></span>
+										</label>
+										<label className="form__label">
+											<input className="form__input form__input--text" type="text" name="PHONE"
+												placeholder="Email" onChange={event => setFio({...fio, email: event.target.value})}/>
+												<span className="error"></span>
 										</label>
 									</fieldset>
-							</div>
-						</div>
-						<div class="form__column form__column--no-indent-top-mobile">
-							<div class="form__container">
-								<fieldset class="form__fieldset">
-									<label class="form__label">
-										<input class="form__input form__input--text" type="text" name="DEPARTAMENT_CODE"
-												placeholder="Код подразделения" />
-												<span class="error"></span>
-									</label>
-									<label class="form__label">
-										<input class="form__input form__input--text" type="text" name="WHEN_ISSUED"
-											placeholder="Когда выдан" />
-											<span class="error"></span>
-									</label>
-								</fieldset>
-								<label class="form__label">
-									<input class="form__input form__input--text" type="text" name="ISSIED_BY"
-										placeholder="Кем выдан" />
-										<span class="error"></span>
-								</label>
-									<label class="form__label">
-										<textarea class="form__textarea" name="PLACE_OF_RESIDENCE"
-											placeholder="Адрес прописки"></textarea>
-											<span class="error"></span>
-					    			</label>
-									<fieldset class="form__fieldset">
-										<label class="form__label">
-											<input class="form__input form__input--text" type="email" name="EMAIL" placeholder="E-mail" />
-											<span class="error"></span>
-										</label>
-										<label class="form__label">
-											<input class="form__input form__input--text" type="text" name="PHONE"
-												placeholder="Контактный телефон" />
-												<span class="error"></span>
-										</label>
-									</fieldset>
-										<label class="form__label form__label--checkbox">
-											<input class="
-												visually-hidden
-												form__input form__input--checkbox
-											" type="checkbox" name="DESCRIPTION_MATCHES" />
-											<span class="form__checkbox-custom"></span>
-											Отказаться от рассылки
-										</label>
 							</div>
 						</div>
 					</div>
-					<div class="form__content">
-						<div class="form__column">
-							<button class="
+					<div className="form__content">
+						<div className="form__column">
+							<button className="
 									form__btn
 									form__btn--fill-color-main
 									form__btn--indent-bottom
 									form__btn--resolve
-					    			" type="submit">
+					    			" type="submit"
+									onClick={getFIO}>
 									Подписать договор
 							</button>
 						</div>
-						<div class="form__column form__column--no-indent-top-mobile">
-							<button class="
+						<div className="form__column form__column--no-indent-top-mobile">
+							<button className="
 								form__btn form__btn--fill-transparent form__btn--reject
 								" type="button">
 										Отменить проверку

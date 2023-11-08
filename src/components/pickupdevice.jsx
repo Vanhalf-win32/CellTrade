@@ -11,34 +11,49 @@ const PickUpDevice = ({props, onNextStep}) => {
 		}
 	});
     
+    axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData', 
+        productData);
+
      useEffect(() => {
-        // setProductData({
-        //     "PRODUCT_DATA": JSON.stringify(props),
-        // })
         if (spec === 4) {
             setButton('')
         }
      },[spec])
 
-    useEffect(() => { 
-        if (productData.post.PRODUCT_DATA) {
-            axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',productData);
-            console.log('PDD', productData)
-        }
-    },[])
+     const checkIcloud = () => {
+        const data = axios.post(
+            'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=checkIcloud', 
+            {"post": {"device": props.data.IMEI}}
+        );
+        data.then((value) => {
+            console.log('ICLOUD', value);
+            if (value.data.data.STATUS === false) {
+                onNextStep({
+                    current: {
+                        number: 9,
+                        name: 'consigAgree'
+                    }
+                })
+            } else {
+                alert(value.data.data.MESSAGE)
+            }
+        })
+     }
+
+
 
     return(
         <div>
             <div className="form__step" id="pick-up-device">
                <div className="form__container form__container--sm form__container--center">
-                  <h2 className="form__subtitle form__subtitle--center">Заберите устройство</h2>
+                  <h1 className="form__subtitle form__subtitle--center">Заберите устройство</h1>
                     <div className="form__content">
                         <div className="form__item">
                             <div className="form__description">
-                                <p className="form__paragraph">Подтвердите продукты</p>
+                                <h3 className="form__paragraph">Подтвердите продукты</h3>
                             </div>
                             <div className="custom-field">
-                                <label className="form__label form__label--checkbox form__label--bold">
+                                <label className="form__input form__input--checkbox">
                                     <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
                                         name="CHECK_THE_QUALITY" onClick={() => {setSpec(spec + 1)}}/>
                                             <span className="custom-field__checkbox-custom"></span>
@@ -46,7 +61,7 @@ const PickUpDevice = ({props, onNextStep}) => {
                                 </label>
                             </div>
                             <div className="custom-field">
-                                <label className="form__label form__label--checkbox form__label--bold">
+                                <label className="form__input form__input--checkbox">
                                     <input className="custom-field__input custom-field__input--checkbox" type="checkbox" name="SIMCARD_IS_MISSING" 
                                     onClick={() => {setSpec(spec + 1)}}/>
                                         <span className="custom-field__checkbox-custom"></span>
@@ -54,16 +69,22 @@ const PickUpDevice = ({props, onNextStep}) => {
                                 </label>
                             </div>
                             <div className="custom-field">
-                                <label className="form__label form__label--checkbox form__label--bold">
+                                <label className="form__input form__input--checkbox">
                                     <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
                                         name="UNLINKED_FROM_THE_DEVICE" onClick={() => {setSpec(spec + 1)}}/>
                                             <span className="custom-field__checkbox-custom"></span>
                                                 Все учетные записи Клиента отвязаны от устройства
                                 </label>
                             </div>
+                            <label className="form__input form__input--checkbox">
+                                    <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
+                                        name="RESET_TO_FACTORY" onClick={() => {setSpec(spec + 1)}}/>
+                                            <span className="custom-field__checkbox-custom"></span>
+                                                Устройство сброшено к заводским установкам
+                                </label>
                             <div className="custom-field">
                                 <div>
-                                    <div className="form__label form__label--checkbox form__label--bold" 
+                                    <div className="check-it__item" 
                                     data-type-with-system="mobile-phone-android">
                                         <a href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_1_samsung.jpg"
                                                 data-caption="Перейдите в меню [Настройки]" data-group="mobile-phone-android">
@@ -94,7 +115,7 @@ const PickUpDevice = ({props, onNextStep}) => {
                                             </a>
                                         </div>
                                     </div>
-                                    <div className="check-it__item check-it__item--no-indent-top" data-type-with-system="mobile-phone-ios">
+                                    <div className="check-it__item" data-type-with-system="mobile-phone-ios">
                                         <a href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_1.jpg"
                                             data-caption="Перейдите в приложение [Настройки]" data-group="mobile-phone-ios">
                                                 <img className="visually-hidden" src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_1.jpg" alt="" />
@@ -157,12 +178,6 @@ const PickUpDevice = ({props, onNextStep}) => {
                                         </div>
                                     </div>
                                 </div><br/>
-                                <label className="form__label form__label--checkbox form__label--bold">
-                                    <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
-                                        name="RESET_TO_FACTORY" onClick={() => {setSpec(spec + 1)}}/>
-                                            <span className="custom-field__checkbox-custom"></span>
-                                                Устройство сброшено к заводским установкам
-                                </label>
                             </div>
                             <button className="
 										form__btn
@@ -170,13 +185,8 @@ const PickUpDevice = ({props, onNextStep}) => {
 										form__btn--indent-top
 										form__btn--resolve" type="button" tabIndex="-1"
                                         disabled={button}
-                                        onClick={() => {
-                                            onNextStep({
-                                            current: {
-                                                number: 9,
-                                                name: 'consigAgree',
-                                            }})
-                                        }}>
+                                        onClick={() => {checkIcloud()}}
+                                        >
                                     Принять устройство
                             </button>
                             <button className="
