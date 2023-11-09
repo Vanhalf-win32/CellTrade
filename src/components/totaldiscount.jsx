@@ -55,16 +55,7 @@ const TotalDiscount = ({props, onNextStep}) => {
 						"Condition": props.grade.FinalCondition,
 					}
 				});
-				setProductData({
-					post: {
-						"PRODUCT_DATA": JSON.stringify(props),
-					}
-				})
 		},[]);
-
-
-
-
 
 
     return(
@@ -124,7 +115,7 @@ const TotalDiscount = ({props, onNextStep}) => {
 									onClick={() => {
 											onNextStep({
 												current: {
-													number: 8,
+													number: 9,
 													name: 'pickUpDevice'
 												}
 											},finalPrice)

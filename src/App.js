@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import Header from './components/header';
 import Footer from './components/footer';
@@ -13,27 +13,16 @@ import axios from 'axios';
 import PrelimDiscount from './components/prelimdiscount';
 import CheckDefect from './components/checkdefect';
 import CheckPhoto from './components/checkphoto';
-import { BrowserRouter } from 'react-router-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import Verification from './components/verification';
 import TotalDiscount from './components/totaldiscount';
 import PickUpDevice from './components/pickupdevice';
 import ConsigAgree from './components/consigagree';
 import Contract from './components/contract';
+import Signed from './components/signed';
 
 
 export default function App() {
-  // console.log(Cookies.get('PRODUCT_SESSID'));
-  // const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',
-  //   {});
-  //   data.then((value) => {
-  //     console.log(value);
-  //     if(value.data.data.STATUS === false) {
-  //       Cookies.remove('PRODUCT_SESSID');
-  //     }
-  //     console.log(JSON.parse(JSON.parse(value.data.data.PRODUCT_DATA))); //TODO::
-  //   }) 
-  // add FINAL_CONDITION
+
   const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(),	
@@ -62,11 +51,38 @@ export default function App() {
 		}
 	});
 
+  console.log(Cookies.get('PRODUCT_SESSID'));
+
+  useEffect(() => {
+     const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',
+      {});
+      data.then((value) => {
+        console.log('RESPONSE_PDD',value);
+          if(value.data.data.STATUS === false) {
+            Cookies.remove('PRODUCT_SESSID');
+          } else {
+            setProductDataDefault(JSON.parse(value.data.data.PRODUCT_DATA));
+            console.log("COOKIES", JSON.parse(value.data.data.PRODUCT_DATA)); 
+          }
+          
+      });
+
+  },[])
+ 
+  // add FINAL_CONDITION//TODO::
+
+  useEffect(() => {
+      if (productDataDefault.steps.current.number !== 0) {
+        setStep(productDataDefault.steps.current.number)
+      } 
+  },[productDataDefault])
+
+
   console.log('DEFAULT', productDataDefault);
 
-  const onCheckIMEI = (checkIMEI) => {
+  const onCheckIMEI = (checkImei) => {
     setStep(step + 1);
-    setProductDataDefault(checkIMEI);
+    setProductDataDefault(checkImei);
   };
   
 
@@ -111,8 +127,14 @@ export default function App() {
 
   const onConsigAgree= (steps, fio) => {
     setStep(step + 1);
-    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps, fio}))
+    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps, fio}));
   }
+  const onContract = (steps) => {
+    setStep(step + 1);
+    setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps}));
+  }
+
+
 
   return( 
     <div>
@@ -127,7 +149,8 @@ export default function App() {
         {step === 8 ? <TotalDiscount props={productDataDefault} onNextStep={onTotalDiscount} /> : null} 
         {step === 9 ? <PickUpDevice props={productDataDefault} onNextStep={onPickUpDevice} /> : null}
         {step === 10 ? <ConsigAgree props={productDataDefault} onNextStep={onConsigAgree} /> : null}  
-        {step === 11 ? <Contract props={productDataDefault} onNextStep={onConsigAgree} /> : null} 
+        {step === 11 ? <Contract props={productDataDefault} onNextStep={onContract} /> : null}
+        {step === 12 ? <Signed props={productDataDefault} onNextStep={onContract} /> : null}
       <Footer/>
     </div>
 	)  

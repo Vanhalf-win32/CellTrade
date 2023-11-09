@@ -37,7 +37,7 @@ const ConsigAgree = ({props, onNextStep}) => {
 				console.log('FIO', fio)
 				onNextStep({
 					current: {
-						number: 10,
+						number: 11,
 						name: 'contract'
 					}
 				}, fio)

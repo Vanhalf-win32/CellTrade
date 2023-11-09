@@ -7,7 +7,9 @@ const PickUpDevice = ({props, onNextStep}) => {
      const [spec, setSpec] = useState(0);
      const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(props),			
+			"PRODUCT_DATA": JSON.stringify(props),
+            "FINAL_PRICE": 	props.price,
+            "FINAL_CONDITION:" : props.grade.FinalCondition,		
 		}
 	});
     
@@ -30,7 +32,7 @@ const PickUpDevice = ({props, onNextStep}) => {
             if (value.data.data.STATUS === false) {
                 onNextStep({
                     current: {
-                        number: 9,
+                        number: 10,
                         name: 'consigAgree'
                     }
                 })

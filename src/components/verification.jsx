@@ -8,7 +8,13 @@ const Verification = ({props, onNextStep, onBackStep}) => {
 		"bot_status":"",
 		"bot_message":"",
 		"bot_grade":""
-	})
+	});
+	const [productData, setProductData] = useState({
+		post: {
+			"PRODUCT_DATA": JSON.stringify(props),		
+		}
+	});
+	
 	
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -33,7 +39,7 @@ const Verification = ({props, onNextStep, onBackStep}) => {
 			}, {
 				current: {
 					name: 'totalDiscount',
-					number: 7,
+					number: 8,
 				}
 			},
 			bot);

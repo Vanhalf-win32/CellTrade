@@ -30,8 +30,8 @@ const CheckImei = ({onNextStep}) => {
 		namesNeedPhotos: [],
 		steps: {
 			current: {
-				number: 1,
-				name: "checkPhone"
+				number: 2,
+				name: "checkPhone",
 			},
 		}
 	});
@@ -44,7 +44,7 @@ const CheckImei = ({onNextStep}) => {
 		});
 		
 	
- 	const getBaseImeiInfo= () => {
+ 	const getBaseImeiInfo = () => {
 		const responseImei = axios.post(	
 			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo',
 				getImei,
@@ -78,13 +78,13 @@ const CheckImei = ({onNextStep}) => {
 
 		const checkProductData = () => {
 
-			setProductDataDefault({...productDataDefault, 
-				steps:{
-					current: {
-						name: "checkPhone",
-						number: 1,
-					}
-				}});	
+			// setProductDataDefault({...productDataDefault, 
+			// 	steps:{
+			// 		current: {
+			// 			name: "checkPhone",
+			// 			number: 2,
+			// 		}
+			// 	}});	
 				setProductData({
 						post: {
 							PRODUCT_DATA: JSON.stringify(productDataDefault),
@@ -104,7 +104,7 @@ const CheckImei = ({onNextStep}) => {
 								onNextStep({...productDataDefault,
 									elemente_id : value.data.data.ELEMENT_ID,
 									product_sessid: value.data.data.PRODUCT_SESSID,
-									message: value.data.data.MESSAGE
+									message: value.data.data.MESSAGE,
 								});
 							});
 				}	

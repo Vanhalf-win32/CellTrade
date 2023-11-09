@@ -131,7 +131,7 @@ const PrelimDiscount = ({props, onNextStep}) => {
 										" type="button"
 										onClick={() => {onNextStep({
 											current: {
-												number: 4,
+												number: 5,
 												name: 'checkDefect',
 											}
 										})}}>

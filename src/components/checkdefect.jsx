@@ -3,16 +3,28 @@ import img1 from '../img/content/samsung_cracked_screen2.jpg';
 import img2 from '../img/content/samsung_small_scratches1.jpg';
 import img3 from '../img/content/burnout_samsung.jpg';
 import img4 from '../img/content/samsung_big_scratches1.jpg';
+import axios from "axios";
 
 const CheckDefect = ({props, onNextStep}) => {
-	console.log('PROPS', props);
 	const [condition, setCondition] = useState('B');
 	const [productData, setProductData] = useState({
 		post: {
+			"PRODUCT_DATA": JSON.stringify(props),
 			"LIMIT_CONDITION" : '',		
 		}
 	});
-	
+
+	useEffect(() => {
+		setProductData({
+			post: {
+				"PRODUCT_DATA": JSON.stringify(props),
+				"LIMIT_CONDITION" : condition,		
+			}
+		});
+	},[condition]);
+
+	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData', productData);
+
     return(
         <div>
 			<div className="" id="check-defect-device">
@@ -200,7 +212,7 @@ const CheckDefect = ({props, onNextStep}) => {
 												onClick={() => {onNextStep(
 															{
 																current: { 
-																		number: 5,
+																		number: 6,
 																		name: 'checkPhotos',
 																}
 																

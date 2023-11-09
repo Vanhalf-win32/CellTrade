@@ -4,68 +4,54 @@ import axios from "axios";
 
 
 const CheckPhoto = ({props, onNextStep}) => {
+	
 	const [qrCode, setQrCode] = useState('');
 	const [statusBot, setStatusBot] = useState('');
 	const [link, setLink] = useState('https://smartprice/su/hMG38w'); //TODO::
-	const [productDataDefault, setProductDataDefault] = useState({});
+	const [productDataDefault, setProductDataDefault] = useState({props});
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(null),	
-			"LIMIT_CONDITION" : '',		
+			"PRODUCT_DATA": JSON.stringify(props),		
 		}
 	});
+	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+	productData);
 
 	useEffect(() => {
 		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateQRCode',{});
 		data.then((value) => {
+			console.log('QRCODE',value);
 			setQrCode(value.data.data.QRCode);
 			setLink(value.data.data.link);
 		})
 	},[]);
 
 	useEffect(() => {
-		if (qrCode !== '') {
-			setProductDataDefault({...props, 
-				steps: {
-					current : {
-						number: 6,
-						name: 'checkBOT',
-					}
+		setProductDataDefault({...props, 
+			steps: {
+				current : {
+					number: 7,
+					name: 'checkBOT',
+				}
 			}
-		});
-		
-		}
+		});	
 	},[qrCode]);
 	
+console.log('PDD', productDataDefault)
 	useEffect(() => {
-		if(qrCode !== '') {
-			setProductData({
-				post: {
-					"PRODUCT_DATA" : JSON.stringify(productDataDefault),
-					"LIMIT_CONDITION" : props.grade.LimitCondition,
-				}
-			});
-		}
-	},[qrCode])
-
-	useEffect(() => {
-		if(productData.LIMIT_CONDITION !== '') {
-			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
-			productData);
-		}
 		const interval = setInterval(() => {
 			console.log('INTERVAL');
 			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',{});
 			data.then((value) => {
-				console.log('RESPONSE FOR BACK', value.data);
+				console.log('RESPONSE_CHECK_PHOTOS', value);
 				if(value.data.data.PHOTOS_UPLOADED_FLAG === 'Y') {
+					onNextStep(props);
 					clearInterval(interval);
-					onNextStep(productDataDefault);
 				}
 			})
 		}, 5000);
 
-	},[productData]);
+	},[productDataDefault]);
 	
 
 

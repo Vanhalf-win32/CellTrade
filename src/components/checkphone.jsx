@@ -32,7 +32,7 @@ const CheckPhone = ({props, onNextStep}) => {
 	const checkProductData = () => {
 			onNextStep({
 				current:{
-					number: 2,
+					number: 3,
 					name: 'checkDisplay',
 					}
 			});

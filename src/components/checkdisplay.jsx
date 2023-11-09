@@ -9,10 +9,13 @@ const CheckDisplay = ({props, onNextStep}) => {
 	const [display, setDisplay] = useState('');
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(),
+			"PRODUCT_DATA": JSON.stringify(props),
 			"CUSTOMER_CONDITION": '',		
 		}
 	});
+	
+	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData', productData);
+
 	const [productDataDefault, setProductDataDefault] = useState({
 		data: {
 			Color: '',
@@ -45,7 +48,7 @@ const CheckDisplay = ({props, onNextStep}) => {
 				},
 				steps: {
 					current: {
-						number: 3,
+						number: 4,
 						name: 'prelimDiscount',
 					}
 				}
@@ -60,7 +63,7 @@ const CheckDisplay = ({props, onNextStep}) => {
 				},
 				steps: {
 					current: {
-						number: 3,
+						number: 4,
 						name: 'prelimDiscount',
 					}
 				}
@@ -69,13 +72,7 @@ const CheckDisplay = ({props, onNextStep}) => {
 	},[display]);
 
 	useEffect(() => {
-		setProductData({
-			post: {
-				"PRODUCT_DATA": JSON.stringify(props),
-				"CUSTOMER_CONDITION": '',		
-			}
-		})
-		if (productDataDefault.steps.current.number === 3) {
+		if (productDataDefault.steps.current.number === 4) {
 			setProductData({
 				post: {
 					"PRODUCT_DATA": JSON.stringify(productDataDefault),
@@ -86,9 +83,6 @@ const CheckDisplay = ({props, onNextStep}) => {
 	},[productDataDefault])
 	
 	useEffect(() => {
-		if(productData.post.PRODUCT_DATA) {
-			axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',productData)
-		}
 		if(productData.post.CUSTOMER_CONDITION !== '') {
 			checkProductData();
 		}
