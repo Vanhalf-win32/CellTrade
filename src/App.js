@@ -83,7 +83,6 @@ export default function App() {
     setProductDataDefault(checkImei);
   };
   
-
   const onCheckPhone = (steps) => {
     setStep(step + 1);
     setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps}));
@@ -131,8 +130,8 @@ export default function App() {
     setStep(step + 1);
     setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps}));
   }
-  const onSigned = () => {
-    setStep(1);
+  const onExit = () => {
+    setStep(1); 
   }
 
 
@@ -141,17 +140,17 @@ export default function App() {
     <div>
       <Header/>
         {step === 1 ? <CheckImei onNextStep={onCheckIMEI}/> : null}
-        {step === 2 ? <CheckPhone props={productDataDefault} onNextStep={onCheckPhone}/> : null}
+        {step === 2 ? <CheckPhone props={productDataDefault} onExit={onExit} onNextStep={onCheckPhone}/> : null}
         {step === 3 ? <CheckDisplay props={productDataDefault} onNextStep={onCheckDisplay}/> : null}
-        {step === 4 ? <PrelimDiscount props={productDataDefault} onNextStep={onPrelimDiscount}/> : null}
-        {step === 5 ? <CheckDefect props={productDataDefault} onNextStep={onCheckDefect}/> : null}
+        {step === 4 ? <PrelimDiscount props={productDataDefault} onExit={onExit} onNextStep={onPrelimDiscount}/> : null}
+        {step === 5 ? <CheckDefect props={productDataDefault} onExit={onExit} onNextStep={onCheckDefect}/> : null}
         {step === 6 ? <CheckPhoto props={productDataDefault} onNextStep={onCheckPhoto}/> : null}
         {step === 7 ? <Verification props={productDataDefault} onNextStep={onVerifacation} onBackStep={onBackStep}/> : null}
-        {step === 8 ? <TotalDiscount props={productDataDefault} onNextStep={onTotalDiscount} /> : null} 
-        {step === 9 ? <PickUpDevice props={productDataDefault} onNextStep={onPickUpDevice} /> : null}
-        {step === 10 ? <ConsigAgree props={productDataDefault} onNextStep={onConsigAgree} /> : null}  
+        {step === 8 ? <TotalDiscount props={productDataDefault} onExit={onExit} onNextStep={onTotalDiscount} /> : null} 
+        {step === 9 ? <PickUpDevice props={productDataDefault} onExit={onExit} onNextStep={onPickUpDevice} /> : null}
+        {step === 10 ? <ConsigAgree props={productDataDefault} onExit={onExit} onNextStep={onConsigAgree} /> : null}  
         {step === 11 ? <Contract props={productDataDefault} onNextStep={onContract} /> : null}
-        {step === 12 ? <Signed props={productDataDefault} onNextStep={onSigned} /> : null}
+        {step === 12 ? <Signed props={productDataDefault} onNextStep={onExit} /> : null}
       <Footer/>
     </div>
 	)  

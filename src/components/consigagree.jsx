@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 
-const ConsigAgree = ({props, onNextStep}) => {
+const ConsigAgree = ({props, onExit, onNextStep}) => {
 	const [fio, setFio] = useState({
 		name: '',
 		family: '',
@@ -42,7 +43,27 @@ const ConsigAgree = ({props, onNextStep}) => {
 					}
 				}, fio)
 			 })
-	}
+	};
+
+	const aborted = () => {
+		const data = axios.post(
+		   'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			{
+				post: {
+					PRODUCT_DATA: JSON.stringify(props),
+					TRADEIN_STATUS:	'Отказ при подписании договора',			
+				}
+			}
+	   );
+	   data.then((value) => {
+		if(value.data.status === "success") {
+			Cookies.remove('PRODUCT_SESSID');
+			onExit();
+		}
+	});	
+	   onExit();
+   };	
+
 
     return(
         <div>
@@ -115,7 +136,8 @@ const ConsigAgree = ({props, onNextStep}) => {
 						<div className="form__column form__column--no-indent-top-mobile">
 							<button className="
 								form__btn form__btn--fill-transparent form__btn--reject
-								" type="button">
+								" type="button"
+								onClick={aborted}>
 										Отменить проверку
 							</button>
 				        </div>

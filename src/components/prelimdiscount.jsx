@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 
 
-const PrelimDiscount = ({props, onNextStep}) => {
+const PrelimDiscount = ({props, onExit, onNextStep}) => {
 	const [gradePriceB, setGradePriceB] = useState(0);
 	const [gradePriceC, setGradePriceC] = useState(0);
 	const [gradePriceD, setGradePriceD] = useState(0);
@@ -12,6 +13,7 @@ const PrelimDiscount = ({props, onNextStep}) => {
 			"PRODUCT_DATA": JSON.stringify(),			
 		}
 	});
+
 	const [getPrice, setGetPrice] = useState({
 		post: {
 			Manufacturer: "",
@@ -65,16 +67,46 @@ const PrelimDiscount = ({props, onNextStep}) => {
 		setProductData({
 			"PRODUCT_DATA": JSON.stringify(props),
 		})
-	},[getPrice])
+	},[getPrice]);
 
+	const clientAgree = () => {
+		axios.post(
+			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			{
+				post: {
+					PRODUCT_DATA: JSON.stringify(props),
+					TRADEIN_STATUS:	'согласие с предварительной ценой',			
+				}
+			}
+		);
+		onNextStep(
+			{
+				current: {
+					number: 5,
+					name: 'checkDefect',
+				}
+			}
+		)
+	};
 
-		
-	
-
-
-
-
-
+	const aborted = () => {
+		const data = axios.post(
+		   'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			{
+				post: {
+					PRODUCT_DATA: JSON.stringify(props),
+					TRADEIN_STATUS:	'Отказ на предварительной цене',			
+				}
+			}
+	   );
+	   data.then((value) => {
+		if(value.data.status === "success") {
+			Cookies.remove('PRODUCT_SESSID');
+			onExit();
+		}
+	})
+	   onExit();
+   };
 
     return(
         <div>
@@ -129,12 +161,7 @@ const PrelimDiscount = ({props, onNextStep}) => {
 										form__btn--indent-bottom
 										form__btn--resolve
 										" type="button"
-										onClick={() => {onNextStep({
-											current: {
-												number: 5,
-												name: 'checkDefect',
-											}
-										})}}>
+										onClick={clientAgree}>
 										Клиент согласен
 									</button>
 									<button className="
@@ -142,7 +169,8 @@ const PrelimDiscount = ({props, onNextStep}) => {
 										form__btn--center
 										form__btn--fill-transparent
 										form__btn--reject
-										" type="button">
+										" type="button"
+										onClick={aborted}>
 										Клиент отказался
 									</button>
 								</div>

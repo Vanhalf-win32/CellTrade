@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 
 
-const TotalDiscount = ({props, onNextStep}) => {
+const TotalDiscount = ({props, onExit, onNextStep}) => {
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(props),
-            "FINAL_PRICE": 	props.price, //TODO::
-            "FINAL_CONDITION" : props.grade.FinalCondition,			
+			PRODUCT_DATA: JSON.stringify(props),
+            FINAL_PRICE: props.price, //TODO::
+            FINAL_CONDITION : props.grade.FinalCondition,
+			TRADEIN_STATUS: 'Фотографии проверены',			
 		}
 	});
 	axios.post(
@@ -61,6 +63,45 @@ const TotalDiscount = ({props, onNextStep}) => {
 				});
 		},[]);
 
+		const clientAgree = () => {
+			axios.post(
+				'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+				{
+					post: {
+						PRODUCT_DATA: JSON.stringify(props),
+						TRADEIN_STATUS:	'Согласие с итоговой ценой',			
+					}
+				}
+			);
+			onNextStep(
+				{
+					current: {
+						number: 9,
+						name: 'pickUpDevice'
+					}
+				},
+					finalPrice
+			)
+		};
+
+		const aborted = () => {
+			const data = axios.post(
+			   'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+				{
+					post: {
+						PRODUCT_DATA: JSON.stringify(props),
+						TRADEIN_STATUS:	'Отказ от итоговой цены',			
+					}
+				}
+		   );
+		   data.then((value) => {
+			if(value.data.status === "success") {
+				Cookies.remove('PRODUCT_SESSID');
+				onExit();
+			}
+		})
+		   onExit();
+	   };
 
     return(
         <div>
@@ -116,15 +157,7 @@ const TotalDiscount = ({props, onNextStep}) => {
 									form__btn--indent-bottom
 									form__btn--resolve
 									" type="button"
-									onClick={() => {
-											onNextStep({
-												current: {
-													number: 9,
-													name: 'pickUpDevice'
-												}
-											},finalPrice)
-									}
-									}>
+									onClick={clientAgree}>
 									Клиент согласен
 								</button>
 								<button className="
@@ -132,7 +165,8 @@ const TotalDiscount = ({props, onNextStep}) => {
 									form__btn--center
 									form__btn--fill-transparent
 									form__btn--reject
-									" type="button">
+									" type="button"
+									onClick={aborted}>
 									Клиент отказался
 								</button>
 							</div>

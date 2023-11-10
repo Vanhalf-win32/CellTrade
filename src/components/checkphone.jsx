@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 import img from "../img/content/mobile.jpg";
 import img1 from "../img/content/imei_hint_1.jpg";
 import img2 from "../img/content/imei_hint_2.jpg";
 import img3 from "../img/content/imei_hint_3.jpg";
 import img4 from "../img/content/imei_hint_4.jpg";
 import axios from "axios";
+import Selects from "./utils/selects";
 
 
 
 
-const CheckPhone = ({props, onNextStep}) => {
-
+const CheckPhone = ({props, onExit, onNextStep}) => {
+	const [selects, setSelects] = useState(0);
 	const [checkSpec, setCheckSpec] = useState(0);
 	const [button, setButton] = useState('disabled');
 	const [getSpec, setGetSpec] = useState({});
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(),			
+			PRODUCT_DATA: JSON.stringify(),			
 		}
 	});
 
@@ -29,7 +31,17 @@ const CheckPhone = ({props, onNextStep}) => {
 	}
 	},[checkSpec]);
 	
-	const checkProductData = () => {
+	 function checkProductData() {
+
+		 axios.post(
+			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			{
+				post: {
+					PRODUCT_DATA: JSON.stringify(props),
+					TRADEIN_STATUS:	'Предварительная проверка',			
+				}
+			},
+		);
 			onNextStep({
 				current:{
 					number: 3,
@@ -37,6 +49,27 @@ const CheckPhone = ({props, onNextStep}) => {
 					}
 			});
 	}
+
+	const aborted = () => {
+		 const data = axios.post(
+			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			{
+				post: {
+					PRODUCT_DATA: JSON.stringify(props),
+					TRADEIN_STATUS:	'Отклонено на первом шаге',			
+				}
+			}
+		,
+		);
+		data.then((value) => {
+			if(value.data.status === "success") {
+				Cookies.remove('PRODUCT_SESSID');
+				onExit();
+			}
+		});	
+	};
+
+
 	
     return(
         <div>
@@ -58,15 +91,8 @@ const CheckPhone = ({props, onNextStep}) => {
 										<div className="form__description">
 											<p className="form__paragraph form__name"></p>
 										</div>
-										<label className="form__label form__label--select">
-											<select className="form__select form__select--colors"></select>
-										</label>
-										<label className="form__label form__label--select">
-											<select className="form__select form__select--memory"></select>
-										</label>
-										<label className="
-													form__label form__label--checkbox form__label--bold
-												">
+										{selects === 0 ? <Selects props={props}/> : null}
+										<label className="form__label form__label--checkbox form__label--bold">
 											<input className="
 														visually-hidden
 														form__input form__input--checkbox
@@ -139,7 +165,8 @@ const CheckPhone = ({props, onNextStep}) => {
 													form__btn
 													form__btn--fill-transparent
 													form__btn--reject
-												" type="button">
+												" type="button"
+												onClick={aborted}>
 											Отклонить
 										</button>
 									</div>

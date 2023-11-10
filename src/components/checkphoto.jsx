@@ -11,7 +11,7 @@ const CheckPhoto = ({props, onNextStep}) => {
 	const [productDataDefault, setProductDataDefault] = useState({props});
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(props),		
+			PRODUCT_DATA: JSON.stringify(props),		
 		}
 	});
 	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
@@ -37,7 +37,6 @@ const CheckPhoto = ({props, onNextStep}) => {
 		});	
 	},[qrCode]);
 	
-console.log('PDD', productDataDefault)
 	useEffect(() => {
 		const interval = setInterval(() => {
 			console.log('INTERVAL');

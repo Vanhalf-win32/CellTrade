@@ -278,7 +278,7 @@
 }
 
 .form__label {
-	display: block;
+	display: flex;
 	width: 100%;
 	margin-bottom: 12px;
 }
@@ -294,7 +294,7 @@
 }
 
 .form__label--select {
-	display: none;
+	display: flex;
 }
 
 @media (--vw-md) {

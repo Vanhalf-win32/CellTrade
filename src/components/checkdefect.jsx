@@ -5,7 +5,7 @@ import img3 from '../img/content/burnout_samsung.jpg';
 import img4 from '../img/content/samsung_big_scratches1.jpg';
 import axios from "axios";
 
-const CheckDefect = ({props, onNextStep}) => {
+const CheckDefect = ({props, onExit, onNextStep}) => {
 	const [condition, setCondition] = useState('B');
 	const [productData, setProductData] = useState({
 		post: {
@@ -24,6 +24,45 @@ const CheckDefect = ({props, onNextStep}) => {
 	},[condition]);
 
 	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData', productData);
+
+	const clientAgree = () => {
+		axios.post(
+			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			{
+				post: {
+					PRODUCT_DATA: JSON.stringify(props),
+					TRADEIN_STATUS:	'Согласие с проверкой дефектов',			
+				}
+			}
+		);
+		onNextStep(
+			{
+				current: { 
+						number: 6,
+						name: 'checkPhotos',
+				}
+				
+			}, 
+			{																
+				CustomerCondition: props.grade.CustomerCondition,
+				FinalCondition: '',
+				LimitCondition: condition,
+			},
+		)
+	};
+	
+	const aborted = () => {
+		axios.post(
+		   'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			{
+				post: {
+					PRODUCT_DATA: JSON.stringify(props),
+					TRADEIN_STATUS:	'Отказ при проверке дефектов',			
+				}
+			}
+	   );
+	   onExit();
+   };
 
     return(
         <div>
@@ -209,20 +248,7 @@ const CheckDefect = ({props, onNextStep}) => {
 													form__btn--indent-bottom
 													form__btn--resolve
 												" type="button"
-												onClick={() => {onNextStep(
-															{
-																current: { 
-																		number: 6,
-																		name: 'checkPhotos',
-																}
-																
-															}, 
-															{																
-																CustomerCondition: props.grade.CustomerCondition,
-																FinalCondition: '',
-																LimitCondition: condition,
-															},
-														)}}
+												onClick={clientAgree}
 										>
 											Далее
 										</button>
@@ -231,7 +257,8 @@ const CheckDefect = ({props, onNextStep}) => {
 													form__btn--center
 													form__btn--fill-transparent
 													form__btn--reject
-												" type="button">
+												" type="button"
+												onClick={aborted}>
 											Отклонить
 										</button>
 									</div>

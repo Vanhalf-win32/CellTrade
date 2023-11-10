@@ -12,7 +12,8 @@ const Signed = ({props, onNextStep}) => {
 	const [barCode, setBarCode] = useState('');
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(props),
+			PRODUCT_DATA: JSON.stringify(props),
+			TRADEIN_STATUS:	'Договор подписан',
 		}
 	});
 	const [getBarCode, setGetBarCode ] = useState(
@@ -45,7 +46,6 @@ const Signed = ({props, onNextStep}) => {
 		data.then((value) => {
 			console.log('CONFIRM_CONTRACT', value);
 			if(value.data.data) {
-				Cookies.remove('PRODUCT_SESSID');
 				onNextStep()
 			}
 		});

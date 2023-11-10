@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Contract = ({ props, onNextStep }) => {
+	const [reContract, setReContract] = useState('');
 	const [contract, setContract] = useState({
 		"post" : {
 			client: JSON.stringify({
@@ -71,7 +72,7 @@ const Contract = ({ props, onNextStep }) => {
 				setButton('');
 			}
 		})
-	}, [productData]);
+	}, [reContract]);
 
 	const getCheckSms = () => {
 		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=checkSmsCode',
@@ -155,7 +156,8 @@ const Contract = ({ props, onNextStep }) => {
 														form__btn--fill-color-main
 														form__btn--sm
 														form__btn--resolve
-												" type="button">
+												" type="button"
+												onClick={() => {setReContract(Date.now())}}>
 										Отправить СМС повторно
 									</button>
 								</div>

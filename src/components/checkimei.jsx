@@ -37,9 +37,11 @@ const CheckImei = ({onNextStep}) => {
 	});
 	const [productData, setProductData] = useState({
 			post: {
-				"PRODUCT_DATA": JSON.stringify(),
-				"FULL_SPEC": '' ,
-				"CHECKING_DEVICE" : 0,			
+				PRODUCT_DATA: JSON.stringify(),
+				FULL_SPEC: '' ,
+				CHECKING_DEVICE: 0,
+				CRM_STATUS: '',	
+				TRADEIN_STATUS: '',		
 			}
 		});
 		
@@ -61,7 +63,8 @@ const CheckImei = ({onNextStep}) => {
 							IMEI: value.data.data.IMEI,
 							Model: value.data.data.Model,
 							ProdCapacity: value.data.data.ProdCapacity,
-							Manufacturer:'Apple', // TODO:
+							Manufacturer:value.data.data.Brand, 
+							LoSToleNStatus: value.data.data.LoSToleNStatus,// TODO:
 						}
 					})
 				}
@@ -77,22 +80,36 @@ const CheckImei = ({onNextStep}) => {
 		},[productDataDefault.data.IMEI]);		
 
 		const checkProductData = () => {
-
-			// setProductDataDefault({...productDataDefault, 
-			// 	steps:{
-			// 		current: {
-			// 			name: "checkPhone",
-			// 			number: 2,
-			// 		}
-			// 	}});	
+			if( productDataDefault.data.Manufacturer = "Apple") {
 				setProductData({
 						post: {
 							PRODUCT_DATA: JSON.stringify(productDataDefault),
-							FULL_SPECS: productDataDefault.data.Model, //TODO::
+							FULL_SPECS: productDataDefault.data.Manufacturer
+							+' '+
+							productDataDefault.data.Model
+							+' '+
+							productDataDefault.data.ProdCapacity
+							+' '+
+							productDataDefault.data.Color
+							,
 							CHECKING_DEVICE : productDataDefault.data.IMEI,
-							DEVICE_INFO: JSON.stringify(productDataDefault.data) 			
+							DEVICE_INFO: JSON.stringify(productDataDefault.data),
+							CRM_STATUS: 'Оценка у партнера',
+							TRADEIN_STATUS:	'Новая оценка',		
 						}
-					});		
+					});	
+			} else {
+					setProductData({
+						post: {
+							PRODUCT_DATA: JSON.stringify(productDataDefault),
+							FULL_SPECS: productDataDefault.data.Manufacturer +' '+ productDataDefault.data.Model,
+							CHECKING_DEVICE : productDataDefault.data.IMEI,
+							DEVICE_INFO: JSON.stringify(productDataDefault.data),
+							CRM_STATUS: 'Оценка у партнера',
+							TRADEIN_STATUS:	'Новая оценка',		
+						}
+					});	
+				}	
 		};
 		useEffect(() => {
 			if (productData.post.CHECKING_DEVICE) {

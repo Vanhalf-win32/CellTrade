@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 
 
-const PickUpDevice = ({props, onNextStep}) => {
+const PickUpDevice = ({props, onExit, onNextStep}) => {
      const [button, setButton] = useState('disabled');
      const [spec, setSpec] = useState(0);
      const [productData, setProductData] = useState({
@@ -22,6 +23,15 @@ const PickUpDevice = ({props, onNextStep}) => {
      },[spec])
 
      const checkIcloud = () => {
+        axios.post(
+            'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+            {
+                post: {
+                    PRODUCT_DATA: JSON.stringify(props),
+                    TRADEIN_STATUS:	'Принятие устройства',			
+                }
+            }
+        );
         const data = axios.post(
             'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=checkIcloud', 
             {"post": {"device": props.data.IMEI}}
@@ -38,10 +48,28 @@ const PickUpDevice = ({props, onNextStep}) => {
             } else {
                 alert(value.data.data.MESSAGE)
             }
-        })
-     }
+        });
+     };
 
 
+     const aborted = () => {
+        const data = axios.post(
+           'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+            {
+                post: {
+                    PRODUCT_DATA: JSON.stringify(props),
+                    TRADEIN_STATUS:	'Отказ при итоговой проверке',			
+                }
+            }
+       );
+       data.then((value) => {
+        if(value.data.status === "success") {
+            Cookies.remove('PRODUCT_SESSID');
+            onExit();
+        }
+    })
+       onExit();
+   };
 
     return(
         <div>
@@ -194,7 +222,8 @@ const PickUpDevice = ({props, onNextStep}) => {
 										form__btn
 										form__btn--fill-color-main
 										form__btn--indent-top
-										form__btn--resolve" type="button">
+										form__btn--resolve" type="button"
+                                        onClick={aborted}>
                                 Отменить операцию
                             </button>
                         </div>
