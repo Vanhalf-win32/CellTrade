@@ -61,12 +61,10 @@ export default function App() {
           if(value.data.data.STATUS === false) {
             Cookies.remove('PRODUCT_SESSID');
           } else {
-            setProductDataDefault(JSON.parse(value.data.data.PRODUCT_DATA));
+            setProductDataDefault(JSON.parse(JSON.parse(value.data.data.PRODUCT_DATA)));
             console.log("COOKIES", JSON.parse(value.data.data.PRODUCT_DATA)); 
           }
-          
       });
-
   },[])
  
   // add FINAL_CONDITION//TODO::
@@ -133,6 +131,9 @@ export default function App() {
     setStep(step + 1);
     setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, steps}));
   }
+  const onSigned = () => {
+    setStep(1);
+  }
 
 
 
@@ -150,7 +151,7 @@ export default function App() {
         {step === 9 ? <PickUpDevice props={productDataDefault} onNextStep={onPickUpDevice} /> : null}
         {step === 10 ? <ConsigAgree props={productDataDefault} onNextStep={onConsigAgree} /> : null}  
         {step === 11 ? <Contract props={productDataDefault} onNextStep={onContract} /> : null}
-        {step === 12 ? <Signed props={productDataDefault} onNextStep={onContract} /> : null}
+        {step === 12 ? <Signed props={productDataDefault} onNextStep={onSigned} /> : null}
       <Footer/>
     </div>
 	)  

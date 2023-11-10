@@ -8,8 +8,7 @@ const PickUpDevice = ({props, onNextStep}) => {
      const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(props),
-            "FINAL_PRICE": 	props.price,
-            "FINAL_CONDITION:" : props.grade.FinalCondition,		
+            "FINAL_PRICE": 	props.price,	
 		}
 	});
     

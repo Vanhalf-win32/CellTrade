@@ -18,7 +18,7 @@ const ConsigAgree = ({props, onNextStep}) => {
 	});
 
 	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
-	 productData);
+		productData);
 
 
 	 const getFIO = () => {
@@ -57,7 +57,7 @@ const ConsigAgree = ({props, onNextStep}) => {
 								<div className="form__description">
 									<p className="form__paragraph">Укажите данные клиента</p>
 									<p className="form__paragraph">
-										Усдостоверение личности: Паспорт
+										Удостоверение личности: Паспорт
 									</p>
 								</div>
 								<label className="form__label">

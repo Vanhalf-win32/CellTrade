@@ -5,13 +5,16 @@ import React, { useEffect, useState } from "react";
 const TotalDiscount = ({props, onNextStep}) => {
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(props),			
+			"PRODUCT_DATA": JSON.stringify(props),
+            "FINAL_PRICE": 	props.price, //TODO::
+            "FINAL_CONDITION" : props.grade.FinalCondition,			
 		}
 	});
 	axios.post(
 		'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
 		productData
 	);
+	console.log("props", props);
 
 	const [defect, setDefect] = useState('');
 	const [finalPrice, setFinalPrice] = useState(0);
@@ -42,6 +45,7 @@ const TotalDiscount = ({props, onNextStep}) => {
 				data.then((value) => {
 					setFinalPrice(value.data.data.FINAL_PRICE);
 					setDefect(props.bot.bot_message);
+					
 				})
 			}
 		},[getPrice]);		

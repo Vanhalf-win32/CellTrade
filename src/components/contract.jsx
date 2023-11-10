@@ -2,13 +2,34 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 const Contract = ({ props, onNextStep }) => {
-
+	const [contract, setContract] = useState({
+		"post" : {
+			client: JSON.stringify({
+				"SURNAME": props.fio.family,
+				"NAME": props.fio.name,
+				"PATRONYMIC": props.fio.otche,
+				"DATE_OF_BIRTH": props.fio.date,
+				"PLACE_OF_BIRTH": props.fio.place,
+				"PHONE": props.fio.phone,
+				"EMAIL": props.fio.email,
+			}),
+			device: JSON.stringify({
+				"vendor": props.data.Manufacturer,
+				"model": props.data.Model,
+				"color": props.data.Color,
+				"memory": props.data.ProdCapacity,
+				"price": props.price,
+			}),
+			"product_sessid": props.product_sessid,
+			"product_id": props.elemente_id,
+		}
+	})
 	const [button, setButton] = useState('disabled');
 	const [getSms, setGetSms] = useState('');
 	const [min, setMin] = useState(60);
 	const [checkSms, setCheckSms] = useState({
 		"post": {
-			"product_id": 26957,
+			"product_id": props.elemente_id,
 			"code": "",
 		}
 	});
@@ -21,7 +42,7 @@ const Contract = ({ props, onNextStep }) => {
 		{
 			"post": {
 				phone: props.fio.phone,
-				product_id: "26967", //TODO::
+				product_id: props.elemente_id,
 			}
 		}
 	)
@@ -41,12 +62,12 @@ const Contract = ({ props, onNextStep }) => {
 
 
 	useEffect(() => {
-		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=sendSmsCode',
-			productID);
+		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateContract',
+			contract);
 		data.then((value) => {
 			console.log('RESPOPNSE_SMS', value);
 			setGetSms(value.data.data.MESSAGE);
-			if (value.data.data.STATUS) {
+			 if (value.data.data.STATUS) {
 				setButton('');
 			}
 		})
@@ -65,12 +86,7 @@ const Contract = ({ props, onNextStep }) => {
 				})
 			} else {
 				alert("Invalid code SMS");
-				onNextStep({
-					current: {   //TODO::
-						number: 12,
-						name: 'signed'
-					}
-				})
+
 			}
 		})
 	}
@@ -113,7 +129,7 @@ const Contract = ({ props, onNextStep }) => {
 												<input className="
 															form__input form__input form__input--number
 															" type="number" name="CODE" placeholder="Код из СМС"
-													onChange={(event) => { setCheckSms({ post: { product_id: 26957, code: event.target.value, } }) }} />
+													onChange={(event) => { setCheckSms({ post: { product_id: props.elemente_id, code: event.target.value, } }) }} />
 											</label>
 										</div>
 										<div className="

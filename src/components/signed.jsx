@@ -1,8 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 import img from "../img/content/barcode.png";
+import axios from "axios";
 
 const Signed = ({props, onNextStep}) => {
-    return(
+	const [contract, setContract] = useState({
+		"post": {
+			"product_id": props.elemente_id,
+		}
+	})
+	const [barCode, setBarCode] = useState('');
+	const [productData, setProductData] = useState({
+		post: {
+			"PRODUCT_DATA": JSON.stringify(props),
+		}
+	});
+	const [getBarCode, setGetBarCode ] = useState(
+		{
+			"post": {
+				"device": props.data.IMEI,
+				"product_id": props.elemente_id,
+			}
+		  }
+	)
+
+	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+	productData);
+    
+	useEffect(() => {
+		const data = axios.post(
+			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateBarcode',
+		 	getBarCode
+		);
+		data.then((value) => {
+			console.log("BARCODE", value);
+			setBarCode(value.data.data.Barcode)
+		});
+	},[])
+
+	const confirmContract = () => {
+		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=confirmContract',
+			contract
+		);
+		data.then((value) => {
+			console.log('CONFIRM_CONTRACT', value);
+			if(value.data.data) {
+				Cookies.remove('PRODUCT_SESSID');
+				onNextStep()
+			}
+		});
+	}
+	return (
         <div>
             <div className="form__step" id="contract-is-signed">
 				<div className="form__container form__container--md form__container--center">
@@ -28,7 +76,8 @@ const Signed = ({props, onNextStep}) => {
 													form__btn--fill-color-main
 													form__btn--indent-top-mobile
 													form__btn--resolve
-													" type="submit">
+													" type="button"
+													onClick={confirmContract}>
 													Завершить операцию
 												</button>
 											</div>
@@ -55,7 +104,7 @@ const Signed = ({props, onNextStep}) => {
 												</li>
 											</ul>
 									</div>
-										<img className="form__img" src={img} alt="" aria-hidden="true" />
+									<img className="form__img" src={barCode} alt="" aria-hidden="true" />
 								</div>
 							</div>
 						</div>
