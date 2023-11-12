@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
+import CheckPickUpDevice from "./utils/checkPickUpDevice";
 
 
 const PickUpDevice = ({props, onExit, onNextStep}) => {
+     const [howCheck, setHowCheck] = useState(0);
      const [button, setButton] = useState('disabled');
      const [spec, setSpec] = useState(0);
      const [productData, setProductData] = useState({
@@ -82,7 +84,7 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
                                 <h3 className="form__paragraph">Подтвердите продукты</h3>
                             </div>
                             <div className="custom-field">
-                                <label className="form__input form__input--checkbox">
+                                <label className="form__label form__label--bold form__label--checkbox">
                                     <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
                                         name="CHECK_THE_QUALITY" onClick={() => {setSpec(spec + 1)}}/>
                                             <span className="custom-field__checkbox-custom"></span>
@@ -90,7 +92,7 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
                                 </label>
                             </div>
                             <div className="custom-field">
-                                <label className="form__input form__input--checkbox">
+                                <label className="form__label form__label--bold form__label--checkbox">
                                     <input className="custom-field__input custom-field__input--checkbox" type="checkbox" name="SIMCARD_IS_MISSING" 
                                     onClick={() => {setSpec(spec + 1)}}/>
                                         <span className="custom-field__checkbox-custom"></span>
@@ -98,115 +100,27 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
                                 </label>
                             </div>
                             <div className="custom-field">
-                                <label className="form__input form__input--checkbox">
+                                <label className="form__label form__label--bold form__label--checkbox">
                                     <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
                                         name="UNLINKED_FROM_THE_DEVICE" onClick={() => {setSpec(spec + 1)}}/>
                                             <span className="custom-field__checkbox-custom"></span>
                                                 Все учетные записи Клиента отвязаны от устройства
                                 </label>
                             </div>
-                            <label className="form__input form__input--checkbox">
-                                    <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
-                                        name="RESET_TO_FACTORY" onClick={() => {setSpec(spec + 1)}}/>
-                                            <span className="custom-field__checkbox-custom"></span>
-                                                Устройство сброшено к заводским установкам
-                                </label>
-                            <div className="custom-field">
-                                <div>
-                                    <div className="check-it__item" 
-                                    data-type-with-system="mobile-phone-android">
-                                        <a href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_1_samsung.jpg"
-                                                data-caption="Перейдите в меню [Настройки]" data-group="mobile-phone-android">
-                                                    <img className="visually-hidden" src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_1_samsung.jpg"alt=""/>
-                                                        Как это проверить?
-                                        </a>
-                                        <div className="visually-hidden">
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_2_samsung.jpg"
-                                                data-caption="Выберите раздел [Учётные записи]" data-group="mobile-phone-android" aria-hidden="true" tabIndex="-1">
-                                                    <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_2_samsung.jpg" alt="" />
-                                            </a>
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_3_samsung.jpg"
-                                                data-caption="Выберите аккаунт, который хотите удалить" data-group="mobile-phone-android" aria-hidden="true" tabIndex="-1">
-                                                    <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_3_samsung.jpg" alt="" />
-                                            </a>
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_4_samsung.jpg"
-                                                data-caption="Нажмите кнопку [Меню] (внизу слева) или [Опции] (может выглядеть как [︙] вверху справа)"
-                                                    data-group="mobile-phone-android" aria-hidden="true" tabIndex="-1">
-                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_4_samsung.jpg" alt="" />
-                                            </a>
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_5_samsung.jpg"
-                                                data-caption="Выберите пункт [Удалить учётную запись]" data-group="mobile-phone-android" aria-hidden="true" tabIndex="-1">
-                                                    <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_5_samsung.jpg" alt="" />
-                                            </a>
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_6_samsung.jpg"
-                                                data-caption="Убедитесь в том, что все учётные записи на устройстве отвязаны" data-group="mobile-phone-android" aria-hidden="true" tabIndex="-1">
-                                                    <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_6_samsung.jpg" alt=""/>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="check-it__item" data-type-with-system="mobile-phone-ios">
-                                        <a href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_1.jpg"
-                                            data-caption="Перейдите в приложение [Настройки]" data-group="mobile-phone-ios">
-                                                <img className="visually-hidden" src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_1.jpg" alt="" />
-                                                    Как это проверить?
-                                        </a>
-                                        <div className="visually-hidden">
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_2.jpg"
-                                                data-caption="Выберите раздел учётной записи" data-group="mobile-phone-ios" aria-hidden="true" tabIndex="-1">
-                                                    <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_2.jpg" alt=""/>
-                                            </a>
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_3.jpg"
-                                                data-caption="Прокрутите вниз и нажмите кнопку [Выйти]" data-group="mobile-phone-ios"
-                                                    aria-hidden="true" tabIndex="-1">
-                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_3.jpg" alt="" />
-                                            </a>
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_4.jpg"
-                                                data-caption="Введите пароль от учётной записи iCloud и нажмите [Выкл.]"
-                                                    data-group="mobile-phone-ios" aria-hidden="true" tabIndex="-1">
-                                                     <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_4.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="check-it__item check-it__item--no-indent-top" data-type-with-system="watch-android">
-                                        <a
-                                            href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_s_1.jpg"
-                                                data-caption="Откройте приложение 'Galaxy Wearable' на смартфоне Samsung" data-group="watch-android">
-                                                    <img className="visually-hidden" src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_s_1.jpg" alt=""/>
-                                                        Как это проверить?
-                                        </a>
-                                        <div className="visually-hidden">
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_s_2.jpg"
-                                                data-caption="Выберите раздел 'Учётная запись и рез. копир.'" data-group="watch-android"
-                                                     tabIndex="-1">
-                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_s_2.jpg" alt="" />
-                                            </a>
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_s_3.jpg"
-                                                data-caption="Нажмите кнопку 'Сбросить'" data-group="watch-android" aria-hidden="true" tabIndex="-1">
-                                                    <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_s_3.jpg" alt=""/>
-                                            </a>
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_s_4.jpg"
-                                                data-caption="Подтвердите сброс" data-group="watch-android" aria-hidden="true" tabIndex="-1">
-                                                    <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_s_4.jpg" alt="" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div className="check-it__item check-it__item--no-indent-top" data-type-with-system="watch-ios">
-                                        <a
-                                            href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_a_1.png"
-                                                data-caption="Откройте приложение 'Apple Watch' на iPhone, перейдите на вкладку 'Мои часы' и нажмите кнопку информации рядом с часами"
-                                                    data-group="watch-ios">
-                                                        <img className="visually-hidden" src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_a_1.png" alt="" />
-                                                            Как это проверить?
-                                        </a>
-                                        <div className="visually-hidden">
-                                            <a className="smart-photo" href="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_a_2.png"
-                                                data-caption="Выберите 'Разорвать пару с Apple Watch'. По завершении разрыва пары с Apple Watch выводится сообщение «Создать пару»"
-                                                    data-group="watch-ios" aria-hidden="true" tabIndex="-1">
-                                                        <img src="<?=SITE_TEMPLATE_PATH?>/img/content/unlock_hint_w_a_2.png" alt="" />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div><br/>
+                            <label className="form__label form__label--bold form__label--checkbox">
+                                 <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
+                                    name="RESET_TO_FACTORY" onClick={() => {setSpec(spec + 1)}}/>
+                                     <span className="custom-field__checkbox-custom"></span>
+                                   Устройство сброшено к заводским установкам 
+                            </label>
+                            <div>
+                               {howCheck === 1 ? <CheckPickUpDevice/> : null}
+                            </div>
+                            <div className="defects-list__item">
+                                <button className="form__link check-it__link smart-photo"
+                                onClick={() => {setHowCheck(1)}}>
+                                    Как это проверить?
+                                </button>
                             </div>
                             <button className="
 										form__btn

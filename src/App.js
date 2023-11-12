@@ -22,7 +22,7 @@ import Signed from './components/signed';
 
 
 export default function App() {
-
+  const [reshoots, setReshoots] = useState('');
   const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(),	
@@ -67,8 +67,6 @@ export default function App() {
       });
   },[])
  
-  // add FINAL_CONDITION//TODO::
-
   useEffect(() => {
       if (productDataDefault.steps.current.number !== 0) {
         setStep(productDataDefault.steps.current.number)
@@ -110,6 +108,7 @@ export default function App() {
     setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, grade, steps, bot}));
   }
   const onBackStep = () => {
+    setReshoots("Переснимите фото");
     setStep(step - 1);
   } 
   const onTotalDiscount = (steps, price) => {
@@ -144,8 +143,8 @@ export default function App() {
         {step === 3 ? <CheckDisplay props={productDataDefault} onNextStep={onCheckDisplay}/> : null}
         {step === 4 ? <PrelimDiscount props={productDataDefault} onExit={onExit} onNextStep={onPrelimDiscount}/> : null}
         {step === 5 ? <CheckDefect props={productDataDefault} onExit={onExit} onNextStep={onCheckDefect}/> : null}
-        {step === 6 ? <CheckPhoto props={productDataDefault} onNextStep={onCheckPhoto}/> : null}
-        {step === 7 ? <Verification props={productDataDefault} onNextStep={onVerifacation} onBackStep={onBackStep}/> : null}
+        {step === 6 ? <CheckPhoto reshoots={reshoots} props={productDataDefault} onNextStep={onCheckPhoto}/> : null}
+        {step === 7 ? <Verification props={productDataDefault} onExit={onExit} onNextStep={onVerifacation} onBackStep={onBackStep}/> : null}
         {step === 8 ? <TotalDiscount props={productDataDefault} onExit={onExit} onNextStep={onTotalDiscount} /> : null} 
         {step === 9 ? <PickUpDevice props={productDataDefault} onExit={onExit} onNextStep={onPickUpDevice} /> : null}
         {step === 10 ? <ConsigAgree props={productDataDefault} onExit={onExit} onNextStep={onConsigAgree} /> : null}  

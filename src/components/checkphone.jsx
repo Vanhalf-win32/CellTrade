@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import img from "../img/content/mobile.jpg";
-import img1 from "../img/content/imei_hint_1.jpg";
-import img2 from "../img/content/imei_hint_2.jpg";
-import img3 from "../img/content/imei_hint_3.jpg";
-import img4 from "../img/content/imei_hint_4.jpg";
 import axios from "axios";
 import Selects from "./utils/selects";
+import CheckPhoneImages from "./utils/checkPhoneImgs";
 
 
 
 
 const CheckPhone = ({props, onExit, onNextStep}) => {
+	const [getImages, setGetImages] = useState(0);
 	const [selects, setSelects] = useState(0);
 	const [checkSpec, setCheckSpec] = useState(0);
 	const [button, setButton] = useState('disabled');
@@ -116,33 +114,12 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 												<span className="form__checkbox-custom"></span>
 													Внешний IMEI есть и совпадает с внутренним
 										</label>
+										{getImages === 1 ? <CheckPhoneImages/> : null}
 										<div className="tooltip">
-											<div className="check-it check-it--right">
-												<div className="check-it__item" id="phone-android">
-													<a className="form__link check-it__link smart-photo" href="img/content/imei_hint_1.jpg"
-														data-caption="Разблокируйте устройство и откройте приложение <Телефон>"
-														data-group="how-check">
-															<img className="visually-hidden" src={img1} alt="" />
-														Как это проверить?
-													</a>
-													<div className="visually-hidden">
-														<a className="smart-photo" href="../img/content/imei_hint_2.jpg"
-															data-caption="Введите USSD-команду *#06#" data-group="how-check" aria-hidden="true">
-															<img src={img2} alt="nuul" />
-														</a>
-														<a className="smart-photo" href="../img/content/imei_hint_3.jpg"
-															data-caption="На дисплее отобразится внутренний IMEI устройства" data-group="how-check"
-															aria-hidden="true">
-															<img src={img3} alt="" />
-														</a>
-														<a className="smart-photo" href="../img/content/imei_hint_4.jpg"
-															data-caption="Внешний IMEI указывается на устройстве где-то внешне: либо на задней крышке корпуса, либо на лотке для SIM, либо на наклейке под батареей"
-															data-group="how-check" aria-hidden="true">
-															<img src={img4} alt="" />
-														</a>
-													</div>
-												</div>
-											</div>
+											<button className="form__link check-it__link smart-photo"
+												onClick={() => setGetImages(1)}>
+												Как это проверить?
+											</button>
 											<div className="tooltip__content">
 												<p className="form__paragraph">
 													Внутренний IMEI проверяется по запросу

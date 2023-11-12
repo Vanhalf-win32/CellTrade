@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Loader from "./utils/loader";
 import axios from "axios";
+import Cookies from 'js-cookie';
 
 
-const Verification = ({props, onNextStep, onBackStep}) => {
+const Verification = ({props, onExit, onNextStep, onBackStep}) => {
 	 const [bot, setBot] = useState ({ 
 		"bot_status":"",
 		"bot_message":"",
@@ -44,9 +45,27 @@ const Verification = ({props, onNextStep, onBackStep}) => {
 			bot);
 			alert(bot.bot_message);
 		} else if (bot.bot_status === "reshoot_photos") {
-					onBackStep();
-					alert(bot.bot_message);
-			}	
+			onBackStep();
+			alert(bot.bot_message);
+		} else if(bot.bot_status === "rejected_tradein") {
+			alert(bot.bot_message);
+			const data = axios.post(
+				'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+				 {
+					 post: {
+						 PRODUCT_DATA: JSON.stringify(props),
+						 TRADEIN_STATUS: 'Отказ от бота',			
+					 }
+				 }
+			);
+			data.then((value) => {
+			 if(value.data.status === "success") {
+				 Cookies.remove('PRODUCT_SESSID');
+				 onExit();
+			 }
+		 })
+			onExit();
+		}
 	},[bot]);
 
 
@@ -57,8 +76,10 @@ const Verification = ({props, onNextStep, onBackStep}) => {
 					<h1 className="form__title">Ожидается проверка в Celltrade</h1>
 						<div className="form__content">
 							<div className="form__column">
-								<div className="counter">  
-                                <div><Loader/></div>
+								<div className="counter"><br/>
+                                <div className="form__title">
+									<Loader/>
+								</div><br/>
 									{/* <svg class="counter__svg" width="150" height="150" viewBox="0 0 150 150">
 										<circle class="counter__circle counter__circle--bg" cx="75" cy="75" r="65" />
 										<circle class="counter__circle counter__circle--fill" cx="75" cy="75" r="65" />

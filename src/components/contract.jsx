@@ -1,7 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import Interval from "./utils/interval";
 
-const Contract = ({ props, onNextStep }) => {
+const Contract = ({ props, onNextStep }) => {	
+	
+	const [seconds, setSeconds] = useState(60);
 	const [reContract, setReContract] = useState('');
 	const [contract, setContract] = useState({
 		"post" : {
@@ -27,7 +30,7 @@ const Contract = ({ props, onNextStep }) => {
 	})
 	const [button, setButton] = useState('disabled');
 	const [getSms, setGetSms] = useState('');
-	const [min, setMin] = useState(60);
+
 	const [checkSms, setCheckSms] = useState({
 		"post": {
 			"product_id": props.elemente_id,
@@ -48,19 +51,17 @@ const Contract = ({ props, onNextStep }) => {
 		}
 	)
 
+
+  
+    useEffect(() => {
+      if (seconds > 0) {
+        setTimeout(setSeconds, 1000, seconds - 1);
+      } 
+    }, [seconds]);
+
+	
 	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
 		productData);
-
-	// let min = 60;
-	// const interval = setInterval(() => {
-	// 		min--;
-	// 		console.log("MIN",min);
-
-	// 		if(min === 0) {
-	// 			clearInterval(interval);
-	// 		} return min;
-	// 	},1000);
-
 
 	useEffect(() => {
 		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateContract',
@@ -148,9 +149,7 @@ const Contract = ({ props, onNextStep }) => {
 										</div>
 									</div>
 									{getSms}
-									<p className="form__paragraph form__paragraph--indent-top-desktop">
-										Повторная отправка СМС возможна через {min}...
-									</p>
+									<Interval/>
 									<button className="
 														form__btn
 														form__btn--fill-color-main

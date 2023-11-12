@@ -3,7 +3,7 @@ import img from "../img/content/qr-code.jpg";
 import axios from "axios";
 
 
-const CheckPhoto = ({props, onNextStep}) => {
+const CheckPhoto = ({props, reshoots, onNextStep}) => {
 	
 	const [qrCode, setQrCode] = useState('');
 	const [statusBot, setStatusBot] = useState('');
@@ -70,6 +70,10 @@ const CheckPhoto = ({props, onNextStep}) => {
 									<b className="form__bold">Перейдите по ссылке с помощью QR-кода, ссылки или
 										номера заявки</b>
 								</p>
+								<h2 className="form__title form__title--center" style={{color: "red"}}>
+									{reshoots}
+								</h2>
+								
 							</div>
 							<div className="
 								form__container
