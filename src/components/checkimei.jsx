@@ -160,7 +160,7 @@ const CheckImei = ({onNextStep}) => {
 									</label>
 									<label disabled='disable' className="form__label">
 										<input className="form__input form__input--number form__input--numbers" 
-											type="number" name="IMEI" placeholder="IMEI" 
+											type="text" maxLength={15} name="IMEI" placeholder="IMEI" 
 											disabled={butEnable} 
 											onChange={event => setGetImei({...getImei, post:{ imei: + event.target.value}})}
 										/>

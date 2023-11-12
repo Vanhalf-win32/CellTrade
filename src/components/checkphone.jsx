@@ -89,7 +89,7 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 										<div className="form__description">
 											<p className="form__paragraph form__name"></p>
 										</div>
-										{selects === 0 ? <Selects props={props}/> : null}
+										{selects === 0 ? <Selects props={props.data}/> : null}
 										<label className="form__label form__label--checkbox form__label--bold">
 											<input className="
 														visually-hidden
