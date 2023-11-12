@@ -119,7 +119,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 										<span className="form__device-state"> {condition}</span>
 									</p>
 									<p className="form__paragraph form__paragraph--bold">
-										Дефект: {defect}
+										{defect}
 										<span className="form__state-defects"></span>
 									</p>
 							</div>

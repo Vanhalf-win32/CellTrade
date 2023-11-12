@@ -15,7 +15,6 @@ const Verification = ({props, onNextStep, onBackStep}) => {
 		}
 	});
 	
-	
 	useEffect(() => {
 		const interval = setInterval(() => {
 			console.log('INTERVAL');

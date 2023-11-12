@@ -53,7 +53,6 @@ const CheckPhoto = ({props, onNextStep}) => {
 	},[productDataDefault]);
 	
 
-
     return (
         <div>
             <div className="" id="check-photos">
