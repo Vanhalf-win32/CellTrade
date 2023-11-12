@@ -48,7 +48,7 @@ const CheckPhoto = ({props, reshoots, onNextStep}) => {
 					clearInterval(interval);
 				}
 			})
-		}, 5000);
+		}, 15000);
 
 	},[productDataDefault]);
 	

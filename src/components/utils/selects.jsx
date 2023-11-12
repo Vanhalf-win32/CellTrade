@@ -2,36 +2,19 @@ import React, { useState } from "react";
 
 
 const Selects = ({props}) => {
-	const [test, setTest] = useState({
-		
-			"status": "success",
-			"data": {
-				"COLORS": [
-					"carbon_black",
-					"glacier_blue"
-				],
-				"MEMORY": [
-					"64"
-				],
-				"DEVICE_TYPE": "mobile_phone",
-				"DEVICE_OS": "Android",
-				"STATUS": true
-			},
-			"errors": []
-		
-	})
-
+	const [test, setTest] = useState(props)
+	console.log(test)
 
 
     return (
         <div>
      		<label className="form__label form__label--checkbox form__label--bold">
 				Select colors 
-				<br/><select>
-					{typeof test.data.COLORS.map ? test.data.COLORS.map((color) => (
+				{/* <br/><select>
+					{typeof test.Color.map ? test.Color.map((color) => (
 						<option key={color} value={color}>{color}</option>
-					)) : <option value={test.data.COLORS}>{test.data.COLORS}</option>}
-					</select>
+					)) : <option value={test.Color}>{test.Color}</option>}
+					</select> */}
 			</label><br/>
 			<label className="form__label form__label--checkbox form__label--bold">
 				Select memory

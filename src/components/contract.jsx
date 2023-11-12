@@ -57,7 +57,7 @@ const Contract = ({ props, onNextStep }) => {
       if (seconds > 0) {
         setTimeout(setSeconds, 1000, seconds - 1);
       } 
-    }, [seconds]);
+    }, [reContract]);
 
 	
 	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',

@@ -27,7 +27,7 @@ const Verification = ({props, onExit, onNextStep, onBackStep}) => {
 					setBot(JSON.parse(value.data.data.BOT_DATA));
 				}
 			})
-		}, 5000);
+		}, 15000);
 	},[]);
 
 	useEffect(() => {				
