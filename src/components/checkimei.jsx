@@ -3,13 +3,12 @@ import { useEffect, useState } from "react";
 import img from "../img/content/scanner.jpg";
 import axios from "axios";
 import CheckPhone from "./checkphone";
+import imei from "node-imei";
 
 
 
 
 const CheckImei = ({onNextStep}) => {
-
-	// const imei = require('node-imei');
 
 	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
 	const [getSpec, setGetSpec] = useState({});
@@ -44,6 +43,13 @@ const CheckImei = ({onNextStep}) => {
 				TRADEIN_STATUS: '',		
 			}
 		});
+
+	const validateImei = (event) => {
+		const IMEI = new imei();
+		if (event) {
+			console.log(IMEI.isValid(event))
+		}
+	};
 		
 	
  	const getBaseImeiInfo = () => {
