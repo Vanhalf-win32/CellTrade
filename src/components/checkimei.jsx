@@ -150,13 +150,13 @@ const CheckImei = ({onNextStep}) => {
 					const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 						productData,
 						);
-							data.then((value) => { 
-								onNextStep({...productDataDefault,
-									elemente_id : value.data.data.ELEMENT_ID,
-									product_sessid: value.data.data.PRODUCT_SESSID,
-									message: value.data.data.MESSAGE,
-								});
+						data.then((value) => { 
+							onNextStep({...productDataDefault,
+								element_id : value.data.data.ELEMENT_ID,
+								product_sessid: value.data.data.PRODUCT_SESSID,
+								message: value.data.data.MESSAGE,
 							});
+						});
 				}	
 				
 		},[productData]);

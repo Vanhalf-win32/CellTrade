@@ -7,7 +7,7 @@ import Config from "./variables";
 const Signed = ({props, onNextStep}) => {
 	const [contract, setContract] = useState({
 		"post": {
-			"product_id": props.elemente_id,
+			"product_id": props.element_id,
 		}
 	})
 	const [barCode, setBarCode] = useState('');
@@ -21,7 +21,7 @@ const Signed = ({props, onNextStep}) => {
 		{
 			"post": {
 				"device": props.data.IMEI,
-				"product_id": props.elemente_id,
+				"product_id": props.element_id,
 			}
 		  }
 	)

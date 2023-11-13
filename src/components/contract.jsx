@@ -27,15 +27,16 @@ const Contract = ({ props, onNextStep }) => {
 				"price": props.price,
 			}),
 			"product_sessid": props.product_sessid,
-			"product_id": props.elemente_id,
+			"product_id": props.element_id,
 		}
 	})
+	
 	const [button, setButton] = useState('disabled');
 	const [getSms, setGetSms] = useState('');
 
 	const [checkSms, setCheckSms] = useState({
 		"post": {
-			"product_id": props.elemente_id,
+			"product_id": props.element_id,
 			"code": "",
 		}
 	});
@@ -48,7 +49,7 @@ const Contract = ({ props, onNextStep }) => {
 		{
 			"post": {
 				phone: props.fio.phone,
-				product_id: props.elemente_id,
+				product_id: props.element_id,
 			}
 		}
 	)
@@ -124,7 +125,7 @@ const Contract = ({ props, onNextStep }) => {
 												<input className="
 															form__input form__input form__input--number
 															" type="number" name="CODE" placeholder="Код из СМС"
-													onChange={(event) => { setCheckSms({ post: { product_id: props.elemente_id, code: event.target.value, } }) }} />
+													onChange={(event) => { setCheckSms({ post: { product_id: props.element_id, code: event.target.value, } }) }} />
 											</label>
 										</div>
 										<div className="

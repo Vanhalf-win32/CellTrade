@@ -52,8 +52,6 @@ export default function App() {
 		}
 	});
 
- 
-
   useEffect(() => {
      const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',
       {});
@@ -61,7 +59,7 @@ export default function App() {
           if(value.data.data.STATUS === false) {
             Cookies.remove('PRODUCT_SESSID');
           } else {
-            setProductDataDefault(JSON.parse(JSON.parse(value.data.data.PRODUCT_DATA)));
+            setProductDataDefault(JSON.parse(value.data.data.PRODUCT_DATA));
           }
       });
   },[])
