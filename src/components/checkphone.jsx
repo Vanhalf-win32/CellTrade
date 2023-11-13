@@ -77,7 +77,6 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 			}
 		});	
 	};
-	console.log("PROPS", productDataDefault);
 
     return(
         <div>

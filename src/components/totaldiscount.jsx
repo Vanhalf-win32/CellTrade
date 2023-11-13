@@ -16,8 +16,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 		`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 		productData
 	);
-	console.log("props", props);
-
+	
 	const [defect, setDefect] = useState('');
 	const [finalPrice, setFinalPrice] = useState(0);
 	const [condition, setCondition] = useState('Отличное')

@@ -52,18 +52,16 @@ export default function App() {
 		}
 	});
 
-  console.log(Cookies.get('PRODUCT_SESSID'));
+ 
 
   useEffect(() => {
      const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',
       {});
       data.then((value) => {
-        console.log('RESPONSE_PDD',value);
           if(value.data.data.STATUS === false) {
             Cookies.remove('PRODUCT_SESSID');
           } else {
             setProductDataDefault(JSON.parse(JSON.parse(value.data.data.PRODUCT_DATA)));
-            console.log("COOKIES", JSON.parse(value.data.data.PRODUCT_DATA)); 
           }
       });
   },[])
@@ -75,8 +73,6 @@ export default function App() {
       } 
   },[productDataDefault])
 
-
-  console.log('DEFAULT', productDataDefault);
 
   const onCheckIMEI = (checkImei) => {
     setStep(step + 1);

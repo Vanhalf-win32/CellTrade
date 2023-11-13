@@ -35,8 +35,6 @@ const ConsigAgree = ({props, onExit, onNextStep}) => {
 			 	productData
 			 );
 			 data.then((value) => {
-				console.log('CONS', value);
-				console.log('FIO', fio)
 				onNextStep({
 					current: {
 						number: 11,

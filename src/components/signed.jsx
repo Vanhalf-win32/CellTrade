@@ -35,7 +35,6 @@ const Signed = ({props, onNextStep}) => {
 		 	getBarCode
 		);
 		data.then((value) => {
-			console.log("BARCODE", value);
 			setBarCode(value.data.data.Barcode)
 		});
 	},[])
@@ -45,7 +44,6 @@ const Signed = ({props, onNextStep}) => {
 			contract
 		);
 		data.then((value) => {
-			console.log('CONFIRM_CONTRACT', value);
 			if(value.data.data) {
 				Cookies.remove('PRODUCT_SESSID');
 				onNextStep()

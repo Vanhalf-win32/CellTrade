@@ -61,7 +61,6 @@ const Contract = ({ props, onNextStep }) => {
 		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateContract`,
 			contract);
 		data.then((value) => {
-			console.log('RESPOPNSE_SMS', value);
 			setGetSms(value.data.data.MESSAGE);
 			 if (value.data.data.STATUS) {
 				setButton('');

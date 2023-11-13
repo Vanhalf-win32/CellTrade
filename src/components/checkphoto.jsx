@@ -21,7 +21,6 @@ const CheckPhoto = ({props, reshoots, onNextStep}) => {
 	useEffect(() => {
 		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateQRCode`,{});
 		data.then((value) => {
-			console.log('QRCODE',value);
 			setQrCode(value.data.data.QRCode);
 			setLink(value.data.data.link);
 		})
@@ -40,20 +39,16 @@ const CheckPhoto = ({props, reshoots, onNextStep}) => {
 	
 	useEffect(() => {
 		const interval = setInterval(() => {
-			console.log('INTERVAL');
 			const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData`,{});
 			data.then((value) => {
-				console.log('RESPONSE_CHECK_PHOTOS', value);
 				if(value.data.data.PHOTOS_UPLOADED_FLAG === 'Y') {
 					onNextStep(props);
 					clearInterval(interval);
 				}
 			})
 		}, 15000);
-
 	},[productDataDefault]);
 	
-
     return (
         <div>
             <div className="" id="check-photos">

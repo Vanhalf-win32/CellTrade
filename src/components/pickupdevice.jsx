@@ -40,7 +40,6 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
             {"post": {"device": props.data.IMEI}}
         );
         data.then((value) => {
-            console.log('ICLOUD', value);
             if (value.data.data.STATUS === false) {
                 onNextStep({
                     current: {

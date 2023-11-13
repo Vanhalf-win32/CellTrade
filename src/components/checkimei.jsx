@@ -151,7 +151,6 @@ const CheckImei = ({onNextStep}) => {
 						productData,
 						);
 							data.then((value) => { 
-								console.log('RESPONS CHECK IMEI',value.data);
 								onNextStep({...productDataDefault,
 									elemente_id : value.data.data.ELEMENT_ID,
 									product_sessid: value.data.data.PRODUCT_SESSID,

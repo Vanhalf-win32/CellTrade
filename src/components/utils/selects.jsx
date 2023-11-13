@@ -2,8 +2,7 @@ import React, { useState } from "react";
 
 
 const Selects = ({props, onCheckPhone}) => {
-	console.log('PDD', props);
-
+	
     return (
         <div>
      		<label className="form__label form__label--checkbox form__label--bold">

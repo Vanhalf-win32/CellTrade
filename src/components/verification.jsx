@@ -19,10 +19,8 @@ const Verification = ({props, setReshoots, onExit, onNextStep, onBackStep}) => {
 	
 	useEffect(() => {
 		const interval = setInterval(() => {
-			console.log('INTERVAL');
 			const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData`,{});
 			data.then((value) => {
-				console.log('RESPONSE FOR BACK', value.data);
 				if(value.data.data.BOT_DATA !== '') { 
 					clearInterval(interval);
 					setBot(JSON.parse(value.data.data.BOT_DATA));
