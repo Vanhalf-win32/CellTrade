@@ -4,12 +4,29 @@ import img from "../img/content/mobile.jpg";
 import axios from "axios";
 import Selects from "./utils/selects";
 import CheckPhoneImages from "./utils/checkPhoneImgs";
+import CheckBoxImei from "./utils/checkboxImei";
 
 
 
 
 const CheckPhone = ({props, onExit, onNextStep}) => {
-	const [productDataDefault, setProductDataDefault] = useState(props);
+	const [stateBox, setStateBox] = useState(1);
+	const [productDataDefault, setProductDataDefault] = useState({
+		"status": "success",
+		"data": {
+			"COLORS": [
+				"carbon_black",
+				"glacier_blue"
+			],
+			"MEMORY": [
+				"64"
+			],
+			"DEVICE_TYPE": "mobile_phone",
+			"DEVICE_OS": "Android",
+			"STATUS": true
+		},
+		"errors": []
+	});
 	const [getImages, setGetImages] = useState(0);
 	const [selects, setSelects] = useState(0);
 	const [checkSpec, setCheckSpec] = useState(0);
@@ -21,20 +38,21 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 		}
 	});
 
-	const onCheckPhone = (data) => {
-		setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, data}));
-	  };
-
+	const onCheckPhone = () => {
+		setProductDataDefault();
+	}
 	const enable = () => {
 		setCheckSpec(checkSpec + 1);
 	}
 	useEffect(() => {
 		if(productDataDefault.data.Manufacturer !== 'Apple') {
 			setSelects(1);
+		} else if(checkSpec === 3) {
+		setButton('');
+		} else if(productDataDefault.data.Manufacturer === 'Xiaomi') {
+			setStateBox(0);
+			enable();
 		}
-		if(checkSpec === 3) {
-		setButton('');		
-	}
 	},[checkSpec]);
 	
 	 function checkProductData() {
@@ -74,9 +92,8 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 			}
 		});	
 	};
+	console.log("PROPS", productDataDefault);
 
-
-	
     return(
         <div>
 				<div className="form__step" id="check-device">
@@ -97,7 +114,7 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 										<div className="form__description">
 											<p className="form__paragraph form__name"></p>
 										</div>
-										{selects === 1 ? <Selects props={productDataDefault}/> : null}
+										{selects === 1 ? <Selects props={productDataDefault} onCheckPhone={onCheckPhone}/> : null}
 										<label className="form__label form__label--checkbox form__label--bold">
 											<input className="
 														visually-hidden
@@ -114,14 +131,7 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 											<span className="form__checkbox-custom"></span>
 												Телефон включается
 										</label>
-										<label className="form__label form__label--checkbox form__label--bold">
-											<input className="
-												visually-hidden 
-												form__input form__input--checkbox
-												" type="checkbox" name="IMEI_MATCHES" onClick={enable}/>
-												<span className="form__checkbox-custom"></span>
-													Внешний IMEI есть и совпадает с внутренним
-										</label>
+										{stateBox === 1 ? <CheckBoxImei enable={enable}/> : null}
 										{getImages === 1 ? <CheckPhoneImages/> : null}
 										<div className="tooltip">
 											<button className="form__link check-it__link smart-photo"

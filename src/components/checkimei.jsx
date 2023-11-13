@@ -4,6 +4,7 @@ import img from "../img/content/scanner.jpg";
 import axios from "axios";
 import CheckPhone from "./checkphone";
 import imei from "node-imei";
+import Config from "./variables";
 
 
 
@@ -54,7 +55,7 @@ const CheckImei = ({onNextStep}) => {
 	
  	const getBaseImeiInfo = () => {
 		const responseImei = axios.post(	
-			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo',
+			`http:///${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo`,
 				getImei,
 			)
 			responseImei.then((value) => {

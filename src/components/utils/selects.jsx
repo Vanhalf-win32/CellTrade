@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 
-const Selects = ({props}) => {
-	console.log("PDD", props);
+const Selects = ({props, onCheckPhone}) => {
+	console.log('PDD', props);
 
     return (
         <div>
@@ -10,18 +10,27 @@ const Selects = ({props}) => {
 				Select colors 
 				<br/>
 				<select>
-					{typeof props.data.Color === 'object' ? props.data.Color.map((color) => (
-						<option key={color} value={color}>{color}</option>
-					)) : <option value={props.data.Color}>{props.data.Color}</option>}
+					{typeof props.data.COLORS === 'object' ? props.data.COLORS.map((color) => (
+						<option key={color} value={color} 
+						onClick={ (event) => {onCheckPhone({
+							COLORS: event.target.value,
+						})}}> 
+							{color}
+						</option>
+					)) : <option value={props.data.COLORS}>{props.data.COLORS}</option>}
 				</select>
 			</label><br/>
 			<label className="form__label form__label--checkbox form__label--bold">
 				Select memory
 				<br/>
 				<select>
-						{typeof props.ProdCapacity === 'object' ? props.data.ProdCapacity.map((memory) => {
-							<option key={memory} value={memory}>{memory}</option>
-						}) : <option key={props.data.ProdCapacity} value={props.data.ProdCapacity}>{props.data.ProdCapacity}</option>} 
+						{typeof props.data.MEMORY === 'object' ? props.data.MEMORY.map((memory) => {
+							<option key={memory} value={memory}>{memory} 
+							onClick={ (event) => {onCheckPhone({
+								ProdCapacity: event.target.value,
+							})}}
+							</option>
+						}) : <option key={props.data.MEMORY} value={props.data.MEMORY}>{props.data.MEMORY}</option>} 
 				</select>
 			</label>
         </div>
