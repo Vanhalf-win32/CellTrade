@@ -135,8 +135,6 @@ const CheckImei = ({onNextStep}) => {
 		},[productData]);
 
 
-
-
     return(
         <div>
             <form className="form" action="" method="POST">

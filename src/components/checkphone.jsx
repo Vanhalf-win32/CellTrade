@@ -9,6 +9,7 @@ import CheckPhoneImages from "./utils/checkPhoneImgs";
 
 
 const CheckPhone = ({props, onExit, onNextStep}) => {
+	const [productDataDefault, setProductDataDefault] = useState(props);
 	const [getImages, setGetImages] = useState(0);
 	const [selects, setSelects] = useState(0);
 	const [checkSpec, setCheckSpec] = useState(0);
@@ -20,10 +21,17 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 		}
 	});
 
+	const onCheckPhone = (data) => {
+		setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, data}));
+	  };
+
 	const enable = () => {
 		setCheckSpec(checkSpec + 1);
 	}
 	useEffect(() => {
+		if(productDataDefault.data.Manufacturer !== 'Apple') {
+			setSelects(1);
+		}
 		if(checkSpec === 3) {
 		setButton('');		
 	}
@@ -89,7 +97,7 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 										<div className="form__description">
 											<p className="form__paragraph form__name"></p>
 										</div>
-										{selects === 0 ? <Selects props={props.data}/> : null}
+										{selects === 1 ? <Selects props={productDataDefault}/> : null}
 										<label className="form__label form__label--checkbox form__label--bold">
 											<input className="
 														visually-hidden
