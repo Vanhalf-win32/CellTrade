@@ -5,28 +5,13 @@ import axios from "axios";
 import Selects from "./utils/selects";
 import CheckPhoneImages from "./utils/checkPhoneImgs";
 import CheckBoxImei from "./utils/checkboxImei";
-
+import Config from "./variables";
 
 
 
 const CheckPhone = ({props, onExit, onNextStep}) => {
 	const [stateBox, setStateBox] = useState(1);
-	const [productDataDefault, setProductDataDefault] = useState({
-		"status": "success",
-		"data": {
-			"COLORS": [
-				"carbon_black",
-				"glacier_blue"
-			],
-			"MEMORY": [
-				"64"
-			],
-			"DEVICE_TYPE": "mobile_phone",
-			"DEVICE_OS": "Android",
-			"STATUS": true
-		},
-		"errors": []
-	});
+	const [productDataDefault, setProductDataDefault] = useState(props);
 	const [getImages, setGetImages] = useState(0);
 	const [selects, setSelects] = useState(0);
 	const [checkSpec, setCheckSpec] = useState(0);
@@ -58,7 +43,7 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 	 function checkProductData() {
 
 		 axios.post(
-			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
@@ -76,7 +61,7 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 
 	const aborted = () => {
 		 const data = axios.post(
-			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),

@@ -3,7 +3,7 @@ import React from "react";
 
 
  const Config =  {
-    development: "localhost"
+    development: "http://localhost"
 };
 
 

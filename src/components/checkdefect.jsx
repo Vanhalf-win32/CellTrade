@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Config from "./variables";
 import Examples1 from "./utils/examples1";
 import Examples2 from "./utils/examples2";
 import Examples3 from "./utils/examples3";
@@ -25,11 +26,11 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 		});
 	},[condition]);
 
-	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData', productData);
+	axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`, productData);
 
 	const clientAgree = () => {
 		axios.post(
-			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
@@ -55,7 +56,7 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 	
 	const aborted = () => {
 		axios.post(
-		   'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+		   `${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),

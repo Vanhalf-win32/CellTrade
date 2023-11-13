@@ -5,12 +5,13 @@ import axios from "axios";
 import CheckPhone from "./checkphone";
 import imei from "node-imei";
 import Config from "./variables";
+import InvalidImei from "./utils/invalidImei";
 
 
 
 
 const CheckImei = ({onNextStep}) => {
-
+	const [invalidImei, setInvalidImei] = useState(0);
 	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
 	const [getSpec, setGetSpec] = useState({});
 	const [butEnable, setButEnable] = useState('disable');
@@ -48,19 +49,47 @@ const CheckImei = ({onNextStep}) => {
 	const validateImei = (event) => {
 		const IMEI = new imei();
 		if (event) {
-			console.log(IMEI.isValid(event))
+			if(IMEI.isValid(event) && event.length === 15) {
+				setGetImei({...getImei, post:{ imei: + event}});
+				setInvalidImei(0);
+			}else {
+				setInvalidImei(1);
+			}
 		}
 	};
 		
 	
  	const getBaseImeiInfo = () => {
 		const responseImei = axios.post(	
-			`http:///${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo`,
+			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo`,
 				getImei,
 			)
 			responseImei.then((value) => {
 				if(value.data.data.MESSAGE === 'Это устройство в чёрном списке!') {
 					alert("Это устройство в чёрном списке!")
+				} else if(value.data.data.Brand !== "Apple") {
+					const data = axios.post(
+						`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getDeviceSpecs`,
+						{		
+							post: {
+								Manufacturer: value.data.data.Manufacturer,
+								Model: value.data.data.Model,
+							  }
+						});
+						data.then((value) => {
+							setGetSpec(value.data);
+							setProductDataDefault({...productDataDefault, 
+								data: {
+									Color: value.data.data.Color,
+									Description: value.data.data.Description,
+									IMEI: value.data.data.IMEI,
+									Model: value.data.data.Model,
+									ProdCapacity: value.data.data.ProdCapacity,
+									Manufacturer:value.data.data.Brand, 
+									LoSToleNStatus: value.data.data.LoSToleNStatus,// TODO:
+								}
+							})		
+						})
 				} else {
 					setGetSpec(value.data);
 					setProductDataDefault({...productDataDefault, 
@@ -76,14 +105,12 @@ const CheckImei = ({onNextStep}) => {
 					})
 				}
 			});
-		};
+	};
 
 		useEffect(() => {
 			if(productDataDefault.data.IMEI) {
 				checkProductData();
 			}
-
-
 		},[productDataDefault.data.IMEI]);		
 
 		const checkProductData = () => {
@@ -120,7 +147,7 @@ const CheckImei = ({onNextStep}) => {
 		};
 		useEffect(() => {
 			if (productData.post.CHECKING_DEVICE) {
-					const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+					const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 						productData,
 						);
 							data.then((value) => { 
@@ -161,10 +188,10 @@ const CheckImei = ({onNextStep}) => {
 										<input className="form__input form__input--number form__input--numbers" 
 											type="text" maxLength={15} name="IMEI" placeholder="IMEI" 
 											disabled={butEnable} 
-											onChange={event => setGetImei({...getImei, post:{ imei: + event.target.value}})}
+											onChange={event => validateImei(event.target.value)}
 										/>
-										<span className="error"></span>
 									</label>
+									{invalidImei === 1 ? <InvalidImei/> : null}
 									<button className="
 										form__btn
 										form__btn--fill-color-main

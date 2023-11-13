@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Interval from "./utils/interval";
+import Config from "./variables";
 
-const Contract = ({ props, onNextStep }) => {	
+const Contract = ({ props, onNextStep }) => {
+	const [enableButton, setEnableButton] = useState('disabled');	
 	
-	const [seconds, setSeconds] = useState(60);
+	const [seconds, setSeconds] = useState(6);
 	const [reContract, setReContract] = useState('');
 	const [contract, setContract] = useState({
 		"post" : {
@@ -51,20 +53,12 @@ const Contract = ({ props, onNextStep }) => {
 		}
 	)
 
-
-  
-    useEffect(() => {
-      if (seconds > 0) {
-        setTimeout(setSeconds, 1000, seconds - 1);
-      } 
-    }, [reContract]);
-
 	
-	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+	axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 		productData);
 
 	useEffect(() => {
-		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateContract',
+		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateContract`,
 			contract);
 		data.then((value) => {
 			console.log('RESPOPNSE_SMS', value);
@@ -76,7 +70,7 @@ const Contract = ({ props, onNextStep }) => {
 	}, [reContract]);
 
 	const getCheckSms = () => {
-		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=checkSmsCode',
+		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=checkSmsCode`,
 			checkSms);
 		data.then((value) => {
 			if(value.data.data) {
@@ -141,21 +135,23 @@ const Contract = ({ props, onNextStep }) => {
 														form__btn
 														form__btn--fill-color-main
 														form__btn--sm
-														form__btn--resolve
-												" type="button" disabled={button}
-												onClick={getCheckSms}>
+														form__btn--resolve" 
+													type="button" 
+													disabled={button}
+													onClick={getCheckSms}>
 												Подтвердить
 											</button>
 										</div>
 									</div>
 									{getSms}
-									<Interval/>
+									<Interval setEnableButton={setEnableButton}/>
 									<button className="
 														form__btn
 														form__btn--fill-color-main
 														form__btn--sm
 														form__btn--resolve
 												" type="button"
+												disabled={enableButton}
 												onClick={() => {setReContract(Date.now())}}>
 										Отправить СМС повторно
 									</button>

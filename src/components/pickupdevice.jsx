@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import CheckPickUpDevice from "./utils/checkPickUpDevice";
+import Config from "./variables";
 
 
 const PickUpDevice = ({props, onExit, onNextStep}) => {
@@ -15,7 +16,7 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
 		}
 	});
     
-    axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData', 
+    axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`, 
         productData);
 
      useEffect(() => {
@@ -26,7 +27,7 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
 
      const checkIcloud = () => {
         axios.post(
-            'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+            `${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
             {
                 post: {
                     PRODUCT_DATA: JSON.stringify(props),
@@ -35,7 +36,7 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
             }
         );
         const data = axios.post(
-            'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=checkIcloud', 
+            `${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=checkIcloud`, 
             {"post": {"device": props.data.IMEI}}
         );
         data.then((value) => {
@@ -56,7 +57,7 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
 
      const aborted = () => {
         const data = axios.post(
-           'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+           `${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
             {
                 post: {
                     PRODUCT_DATA: JSON.stringify(props),

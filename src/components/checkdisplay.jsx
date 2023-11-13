@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import img from "../img/content/smashed.jpg";
 import img1 from "../img/content/no-smashed.jpg";
 import axios from "axios";
+import Config from "./variables";
 
 const CheckDisplay = ({props, onNextStep}) => {
 	
@@ -14,7 +15,7 @@ const CheckDisplay = ({props, onNextStep}) => {
 		}
 	});
 	
-	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData', productData);
+	axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`, productData);
 
 	const [productDataDefault, setProductDataDefault] = useState({
 		data: {
@@ -90,7 +91,7 @@ const CheckDisplay = ({props, onNextStep}) => {
 	},[productData])
 
 	const checkProductData = () => {
-		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 		productData);
 		data.then((value) => {
 			console.log('RESPONSE CHEK DISPLAY', value);

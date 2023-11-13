@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import Loader from "./utils/loader";
 import axios from "axios";
 import Cookies from 'js-cookie';
+import Config from "./variables";
 
 
-const Verification = ({props, onExit, onNextStep, onBackStep}) => {
+const Verification = ({props, setReshoots, onExit, onNextStep, onBackStep}) => {
 	 const [bot, setBot] = useState ({ 
 		"bot_status":"",
 		"bot_message":"",
@@ -19,7 +20,7 @@ const Verification = ({props, onExit, onNextStep, onBackStep}) => {
 	useEffect(() => {
 		const interval = setInterval(() => {
 			console.log('INTERVAL');
-			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',{});
+			const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData`,{});
 			data.then((value) => {
 				console.log('RESPONSE FOR BACK', value.data);
 				if(value.data.data.BOT_DATA !== '') { 
@@ -46,11 +47,12 @@ const Verification = ({props, onExit, onNextStep, onBackStep}) => {
 			alert(bot.bot_message);
 		} else if (bot.bot_status === "reshoot_photos") {
 			onBackStep();
+			setReshoots(bot.bot_message);
 			alert(bot.bot_message);
 		} else if(bot.bot_status === "rejected_tradein") {
 			alert(bot.bot_message);
 			const data = axios.post(
-				'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+				`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 				 {
 					 post: {
 						 PRODUCT_DATA: JSON.stringify(props),

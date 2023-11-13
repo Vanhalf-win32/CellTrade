@@ -22,6 +22,7 @@ import Signed from './components/signed';
 
 
 export default function App() {
+  const [reshoots, setReshoots] = useState('')
 
   const [productData, setProductData] = useState({
 		post: {
@@ -61,13 +62,12 @@ export default function App() {
           if(value.data.data.STATUS === false) {
             Cookies.remove('PRODUCT_SESSID');
           } else {
-            setProductDataDefault(JSON.parse(value.data.data.PRODUCT_DATA));
+            setProductDataDefault(JSON.parse(JSON.parse(value.data.data.PRODUCT_DATA)));
             console.log("COOKIES", JSON.parse(value.data.data.PRODUCT_DATA)); 
           }
       });
   },[])
  
-  // add FINAL_CONDITION//TODO::
 
   useEffect(() => {
       if (productDataDefault.steps.current.number !== 0) {
@@ -111,6 +111,7 @@ export default function App() {
     setProductDataDefault((oldProductDataDefault) => ({...oldProductDataDefault, grade, steps, bot}));
   }
   const onBackStep = () => {
+    setReshoots('Переснимите фото')
     setStep(step - 1);
   } 
   const onTotalDiscount = (steps, price) => {
@@ -145,8 +146,8 @@ export default function App() {
         {step === 3 ? <CheckDisplay props={productDataDefault} onNextStep={onCheckDisplay}/> : null}
         {step === 4 ? <PrelimDiscount props={productDataDefault} onNextStep={onPrelimDiscount}/> : null}
         {step === 5 ? <CheckDefect props={productDataDefault} onNextStep={onCheckDefect}/> : null}
-        {step === 6 ? <CheckPhoto props={productDataDefault} onNextStep={onCheckPhoto}/> : null}
-        {step === 7 ? <Verification props={productDataDefault} onNextStep={onVerifacation} onBackStep={onBackStep}/> : null}
+        {step === 6 ? <CheckPhoto props={productDataDefault} reshoots={reshoots} onNextStep={onCheckPhoto}/> : null}
+        {step === 7 ? <Verification props={productDataDefault} setReshoots={setReshoots} onNextStep={onVerifacation} onBackStep={onBackStep}/> : null}
         {step === 8 ? <TotalDiscount props={productDataDefault} onNextStep={onTotalDiscount} /> : null} 
         {step === 9 ? <PickUpDevice props={productDataDefault} onNextStep={onPickUpDevice} /> : null}
         {step === 10 ? <ConsigAgree props={productDataDefault} onNextStep={onConsigAgree} /> : null}  

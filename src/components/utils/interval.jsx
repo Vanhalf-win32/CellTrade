@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-const Interval = () => {
+const Interval = ({setEnableButton}) => {
     const [seconds, setSeconds] = useState(60);
     const [timerActive, setTimerActive] = useState(true);
   
@@ -8,12 +8,12 @@ const Interval = () => {
       if (seconds > 0 && timerActive) {
         setTimeout(setSeconds, 1000, seconds - 1);
       } else {
+        setEnableButton();
         setTimerActive(false);
+        setTimerActive(true);
       }
-    }, [ seconds, timerActive ]);
+    }, [ seconds, timerActive]);
   
-		
-
     return(
         <div>
             <p className="form__paragraph form__paragraph--indent-top-desktop">
@@ -22,4 +22,5 @@ const Interval = () => {
         </div>
     )
 }
+
 export default Interval;

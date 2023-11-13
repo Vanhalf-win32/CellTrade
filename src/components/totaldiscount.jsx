@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
-
+import Config from "./variables";
 
 const TotalDiscount = ({props, onExit, onNextStep}) => {
 	const [productData, setProductData] = useState({
@@ -13,7 +13,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 		}
 	});
 	axios.post(
-		'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+		`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 		productData
 	);
 	console.log("props", props);
@@ -34,7 +34,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 		useEffect(() => {
 			if(getPrice.post.Condition === 'C') {
 				setCondition('Хорошее');
-				const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getFinalPrice',
+				const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getFinalPrice`,
 				 getPrice);
 				 data.then((value) => {
 					setFinalPrice(value.data.data.FINAL_PRICE);
@@ -42,7 +42,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 				 })
 			} else if (getPrice.post.Condition === 'D') {
 				setCondition('Плохое');
-				const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getFinalPrice',
+				const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getFinalPrice`,
 				getPrice);
 				data.then((value) => {
 					setFinalPrice(value.data.data.FINAL_PRICE);
@@ -65,7 +65,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 
 		const clientAgree = () => {
 			axios.post(
-				'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+				`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 				{
 					post: {
 						PRODUCT_DATA: JSON.stringify(props),
@@ -86,7 +86,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 
 		const aborted = () => {
 			const data = axios.post(
-			   'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			   `${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 				{
 					post: {
 						PRODUCT_DATA: JSON.stringify(props),

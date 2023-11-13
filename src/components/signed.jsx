@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import img from "../img/content/barcode.png";
 import axios from "axios";
+import Config from "./variables";
 
 const Signed = ({props, onNextStep}) => {
 	const [contract, setContract] = useState({
@@ -25,12 +26,12 @@ const Signed = ({props, onNextStep}) => {
 		  }
 	)
 
-	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+	axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 	productData);
     
 	useEffect(() => {
 		const data = axios.post(
-			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateBarcode',
+			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateBarcode`,
 		 	getBarCode
 		);
 		data.then((value) => {
@@ -40,12 +41,13 @@ const Signed = ({props, onNextStep}) => {
 	},[])
 
 	const confirmContract = () => {
-		const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=confirmContract',
+		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=confirmContract`,
 			contract
 		);
 		data.then((value) => {
 			console.log('CONFIRM_CONTRACT', value);
 			if(value.data.data) {
+				Cookies.remove('PRODUCT_SESSID');
 				onNextStep()
 			}
 		});

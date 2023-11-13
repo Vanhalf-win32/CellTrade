@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
+import Config from "./variables";
 
 
 const PrelimDiscount = ({props, onExit, onNextStep}) => {
@@ -49,7 +50,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 
 	useEffect(() => {
 		if (getPrice.post.Condition !== "") {
-			const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getPreliminaryPrice',
+			const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getPreliminaryPrice`,
 				getPrice
 			);
 			data.then((value) => {
@@ -71,7 +72,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 
 	const clientAgree = () => {
 		axios.post(
-			'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
@@ -91,7 +92,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 
 	const aborted = () => {
 		const data = axios.post(
-		   'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+		   `${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),

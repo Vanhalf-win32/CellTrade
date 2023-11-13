@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
+import Config from "./variables";
 
 const ConsigAgree = ({props, onExit, onNextStep}) => {
 	const [fio, setFio] = useState({
@@ -18,7 +19,7 @@ const ConsigAgree = ({props, onExit, onNextStep}) => {
 		}
 	});
 
-	axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+	axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 		productData);
 
 
@@ -30,7 +31,7 @@ const ConsigAgree = ({props, onExit, onNextStep}) => {
 			}	
 			})
 		const data = axios.post(
-				'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+				`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			 	productData
 			 );
 			 data.then((value) => {
@@ -47,7 +48,7 @@ const ConsigAgree = ({props, onExit, onNextStep}) => {
 
 	const aborted = () => {
 		const data = axios.post(
-		   'http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData',
+		   `${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
