@@ -10,8 +10,7 @@ const CheckDisplay = ({props, onNextStep}) => {
 	const [display, setDisplay] = useState('');
 	const [productData, setProductData] = useState({
 		post: {
-			"PRODUCT_DATA": JSON.stringify(props),
-			"CUSTOMER_CONDITION": '',		
+			"PRODUCT_DATA": JSON.stringify(props),		
 		}
 	});
 	
@@ -26,10 +25,11 @@ const CheckDisplay = ({props, onNextStep}) => {
 			ProdCapacity:'',
 		},
 		grade: {
-      Customer: '',
-      Final: '',
-      Limit: ''
-    },
+			CustomerCondition: '',
+			FinalCondition: '',
+			LimitCondition: '',
+			PreliminaryCondition: ''
+    	},
 		namesNeedPhotos: [],
 		steps: {
 			current: {
@@ -43,9 +43,10 @@ const CheckDisplay = ({props, onNextStep}) => {
 		if(display === 'damage') {
 			setProductDataDefault({...props,
 				grade: {
-					CustomerCondition: 'D',
+					CustomerCondition: '',
 					FinalCondition: '',
 					LimitCondition: '',
+					PreliminaryCondition: 'D'
 				},
 				steps: {
 					current: {
@@ -58,9 +59,10 @@ const CheckDisplay = ({props, onNextStep}) => {
 		if (display === 'good') {
 			setProductDataDefault({...props,
 				grade: {
-					CustomerCondition: 'C',
+					CustomerCondition: '',
 					FinalCondition: '',
 					LimitCondition: '',
+					PreliminaryCondition: 'C'
 				},
 				steps: {
 					current: {
@@ -76,27 +78,26 @@ const CheckDisplay = ({props, onNextStep}) => {
 		if (productDataDefault.steps.current.number === 4) {
 			setProductData({
 				post: {
-					"PRODUCT_DATA": JSON.stringify(productDataDefault),
-					"CUSTOMER_CONDITION" : productDataDefault.grade.CustomerCondition,			
+					"PRODUCT_DATA": JSON.stringify(productDataDefault),			
 				}
 			})
 		}
 	},[productDataDefault])
 	
 	useEffect(() => {
-		if(productData.post.CUSTOMER_CONDITION !== '') {
+		if(productDataDefault.grade.PreliminaryCondition !== '') {
 			checkProductData();
 		}
 		
-	},[productData])
+	},[productDataDefault])
 
 	const checkProductData = () => {
 		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 		productData);
+		console.log('TEST')
 		data.then((value) => {
 			onNextStep({...productDataDefault})
 		})
-
 	}
 
 	return(
@@ -137,13 +138,9 @@ const CheckDisplay = ({props, onNextStep}) => {
 						</div>
 						</div>
 				</div>
-				
             </div>
         </div>
     );
 };
-
-
-
 
 export default CheckDisplay;

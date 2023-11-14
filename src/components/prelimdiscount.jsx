@@ -25,24 +25,24 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 	})
 	
 	useEffect(()=> {
-		if(props.grade.CustomerCondition === 'D') {
+		if(props.grade.PreliminaryCondition === 'D') {
 			setCondition('Экран разбит и/или имеет выгорания');
 			setGetPrice({
 				post: {
 					Manufacturer: props.data.Manufacturer,
 					Model: props.data.Model,
 					Memory: props.data.ProdCapacity,
-					Condition: props.grade.CustomerCondition,
+					Condition: props.grade.PreliminaryCondition,
 				}
 			})
-		} else if (props.grade.CustomerCondition === 'C') {
+		} else if (props.grade.PreliminaryCondition === 'C') {
 			setCondition('Экран не разбит и не имеет выгораний');
 			setGetPrice({
 				post: {
 					Manufacturer: props.data.Manufacturer,
 					Model: props.data.Model,
 					Memory: props.data.ProdCapacity,
-					Condition: props.grade.CustomerCondition,
+					Condition: props.grade.PreliminaryCondition,
 				}
 			})
 		}

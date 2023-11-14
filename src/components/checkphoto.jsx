@@ -8,11 +8,11 @@ const CheckPhoto = ({props, reshoots, onNextStep}) => {
 	
 	const [qrCode, setQrCode] = useState('');
 	const [statusBot, setStatusBot] = useState('');
-	const [link, setLink] = useState('https://smartprice/su/hMG38w'); //TODO::
+	const [link, setLink] = useState('');
 	const [productDataDefault, setProductDataDefault] = useState({props});
 	const [productData, setProductData] = useState({
 		post: {
-			PRODUCT_DATA: JSON.stringify(props),		
+			PRODUCT_DATA: JSON.stringify(props),	
 		}
 	});
 	axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
@@ -92,7 +92,6 @@ const CheckPhoto = ({props, reshoots, onNextStep}) => {
 											<a className="form__link form__link--bold"
 												href={link}>{link}</a>		
 									</p>
-								
 								</div>
 						</div>
 					</div>

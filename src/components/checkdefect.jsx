@@ -8,11 +8,11 @@ import Examples4 from "./utils/examples4";
 
 const CheckDefect = ({props, onExit, onNextStep}) => {
 	const [examples ,setExamples] = useState('');
-	const [condition, setCondition] = useState('B');
+	const [condition, setCondition] = useState('');
 	const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(props),
-			"LIMIT_CONDITION" : '',		
+			"CUSTOMER_CONDITION" : '',		
 		}
 	});
 	
@@ -21,7 +21,7 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 		setProductData({
 			post: {
 				"PRODUCT_DATA": JSON.stringify(props),
-				"LIMIT_CONDITION" : condition,		
+				"CUSTOMER_CONDITION" : condition,		
 			}
 		});
 	},[condition]);
@@ -29,12 +29,13 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 	axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`, productData);
 
 	const clientAgree = () => {
+
 		axios.post(
 			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
-					TRADEIN_STATUS:	'Согласие с проверкой дефектов',			
+					TRADEIN_STATUS:	'Согласие с проверкой дефектов',	
 				}
 			}
 		);
@@ -93,7 +94,7 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 											form__input--checkbox" 
 											type="checkbox" 
 											name="SCREEN_IS_BROKEN"
-											onClick={() => {setCondition('D')}} />
+											onClick={() => {condition === '' ? setCondition('D') : setCondition('') }} />
 											<span className="form__checkbox-custom"></span>
 											Экран разбит или есть отслоения
 									</label>
@@ -110,7 +111,7 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 											form__input--checkbox
 											" type="checkbox" 
 											name="SCREEN_WITH_IMAGE"
-											onClick={() => {setCondition('C')}} />
+											onClick={() => {condition === '' ? setCondition('C') : setCondition('') }} />
 											<span className="form__checkbox-custom"></span>
 												Экран с различными повреждениями (потёртости,
 												царапины)
@@ -129,7 +130,7 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 										form__input--checkbox" 
 										type="checkbox" 
 										name="DETECTIVE_PIXELS"
-										onClick={() => {setCondition('D')}} />
+										onClick={() => {condition === '' ? setCondition('D') : setCondition('') }} />
 											<span className="form__checkbox-custom"></span>
 											Есть выгорания, битые пиксели, полосы, пятна
 									</label>
@@ -146,7 +147,7 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 												form__input form__input--checkbox
 												" type="checkbox" 
 												name="CASE_IS_DAMAGED"
-												onClick={() => {setCondition('C')}} />
+												onClick={() => {condition === '' ? setCondition('C') : setCondition('') }} />
 												<span className="form__checkbox-custom"></span>
 												Корпус имеет видемые повреждения
 										</label>

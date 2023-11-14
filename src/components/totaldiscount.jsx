@@ -46,7 +46,14 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 				data.then((value) => {
 					setFinalPrice(value.data.data.FINAL_PRICE);
 					setDefect(props.bot.bot_message);
-					
+				})
+			} else if (getPrice.post.Condition === 'B') {
+				setCondition('Отличное');
+				const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getFinalPrice`,
+				getPrice);
+				data.then((value) => {
+					setFinalPrice(value.data.data.FINAL_PRICE);
+					setDefect(props.bot.bot_message);
 				})
 			}
 		},[getPrice]);		
