@@ -7,7 +7,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 	const [productData, setProductData] = useState({
 		post: {
 			PRODUCT_DATA: JSON.stringify(props),
-            FINAL_PRICE: props.price, //TODO::
+            FINAL_PRICE: props.price,
             FINAL_CONDITION : props.grade.FinalCondition,
 			TRADEIN_STATUS: 'Фотографии проверены',			
 		}

@@ -1,46 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
 const Selects = ({props, onCheckPhone}) => {
-	const [test, setTest] = useState({
-		"status": "success",
-		"data": {
-			"COLORS": [
-				"carbon_black",
-				"glacier_blue"
-			],
-			"MEMORY": [
-				"64",
-				"128",
-			],
-			"DEVICE_TYPE": "mobile_phone",
-			"DEVICE_OS": "Android",
-			"STATUS": true
-		},
-		"errors": []
-	});
- 	const [productDataDefault, setProductDataDefault] = useState(test);
-	console.log('PDD',productDataDefault)
 
-	const setSpecColors = (set) => {
-		setProductDataDefault({...productDataDefault, data:{
-			COLORS: set,
-			DEVICE_OS: productDataDefault.data.DEVICE_OS,
-			DEVICE_TYPE: productDataDefault.data.DEVICE_TYPE,
-			STATUS: productDataDefault.data.STATUS,
-			MEMORY: productDataDefault.data.MEMORY,
+
+ 	const [productDataDefault, setProductDataDefault] = useState(props);
+
+	useEffect(() => {
+		onCheckPhone(productDataDefault);
+	},[productDataDefault]);
+
+	const setSpecColors = (setColor) => {
+		setProductDataDefault({...props, data:{
+			Color: setColor,
+			Description: props.data.Description,
+			IMEI: props.data.IMEI,
+			LoSToleNStatus: props.data.LoSToleNStatus,
+			Manufacturer: props.data.Manufacturer,
+			Model: props.data.Model,
+			ProdCapacity: props.data.ProdCapacity,
 		}})
 	}
 
-	const setSpecMemory = (set) => {
-		setProductDataDefault({...productDataDefault, data:{
-			COLORS: productDataDefault.data.COLORS,
-			DEVICE_OS: productDataDefault.data.DEVICE_OS,
-			DEVICE_TYPE: productDataDefault.data.DEVICE_TYPE,
-			STATUS: productDataDefault.data.STATUS,
-			MEMORY: set,
-		}})
+	const setSpecMemory = (setMemory) => {
+		setProductDataDefault({...props, data:{
+			Color: props.data.Color,
+			Description: props.data.Description,
+			IMEI: props.data.IMEI,
+			LoSToleNStatus: props.data.LoSToleNStatus,
+			Manufacturer: props.data.Manufacturer,
+			Model: props.data.Model,
+			ProdCapacity: setMemory,
+		}});
 	}
+
+	console.log('PDD', productDataDefault);
 
     return (
         <div>
@@ -48,28 +42,28 @@ const Selects = ({props, onCheckPhone}) => {
 				Select colors 
 				<br/>
 				<select onClick={(event) => {setSpecColors(event.target.value)}}>
-					{ typeof productDataDefault.data.COLORS === 'object' 
+					{ typeof props.data.Color === 'object' 
 						? 
-						productDataDefault.data.COLORS.map((color) => (
+						props.data.Color.map((color) => (
 							<option key={color} value={color}>
 								{color}
 							</option>
 						)) 
 						: 
-						<option value={productDataDefault.data.COLORS}>{productDataDefault.data.COLORS}</option>}
+						<option value={props.data.Color}>{props.data.Color}</option>}
 				</select>
 			</label><br/>
 			<label className="form__label form__label--checkbox form__label--bold">
 				Select memory
 				<br/>
 				<select onClick={(event) => {setSpecMemory(event.target.value)}}>
-					{typeof productDataDefault.data.MEMORY === 'object' 
+					{typeof props.data.ProdCapacity === 'object' 
 						? 
-						productDataDefault.data.MEMORY.map((memory) => (
-							<option key={memory} value={memory}>{memory}gb</option>
+						props.data.ProdCapacity.map((memory) => (
+							<option key={memory} value={memory}>{memory}</option>
 						)) 
 						: 
-						<option key={productDataDefault.data.MEMORY} value={productDataDefault.data.MEMORY}>{productDataDefault.data.MEMORY}gb</option>
+						<option key={props.data.ProdCapacity} value={props.data.ProdCapacity}>{props.data.ProdCapacity}</option>
 					} 
 				</select>
 			</label>

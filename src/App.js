@@ -130,7 +130,7 @@ export default function App() {
     setStep(1);
   }
 
-
+  console.log('DEFAULT', productDataDefault);
 
   return( 
     <div>

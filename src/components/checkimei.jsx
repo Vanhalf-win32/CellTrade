@@ -86,7 +86,7 @@ const CheckImei = ({onNextStep}) => {
 									Model: value.data.data.Model,
 									ProdCapacity: value.data.data.ProdCapacity,
 									Manufacturer:value.data.data.Brand, 
-									LoSToleNStatus: value.data.data.LoSToleNStatus,// TODO:
+									LoSToleNStatus: value.data.data.LoSToleNStatus,
 								}
 							})		
 						})
@@ -100,7 +100,7 @@ const CheckImei = ({onNextStep}) => {
 							Model: value.data.data.Model,
 							ProdCapacity: value.data.data.ProdCapacity,
 							Manufacturer:value.data.data.Brand, 
-							LoSToleNStatus: value.data.data.LoSToleNStatus,// TODO:
+							LoSToleNStatus: value.data.data.LoSToleNStatus,
 						}
 					})
 				}

@@ -29,7 +29,14 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 	axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`, productData);
 
 	const clientAgree = () => {
-
+		if(condition === '') {
+			axios.post(
+				`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,{
+				post: {
+					"CUSTOMER_CONDITION" : "B",		
+				}
+			});
+		}
 		axios.post(
 			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{

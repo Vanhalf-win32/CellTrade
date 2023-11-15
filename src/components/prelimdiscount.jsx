@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import Config from "./variables";
 
-
 const PrelimDiscount = ({props, onExit, onNextStep}) => {
+	const [gradeStatus, setGradeStatus] = useState('');
 	const [gradePriceB, setGradePriceB] = useState(0);
 	const [gradePriceC, setGradePriceC] = useState(0);
 	const [gradePriceD, setGradePriceD] = useState(0);
@@ -36,6 +36,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 				}
 			})
 		} else if (props.grade.PreliminaryCondition === 'C') {
+			setGradeStatus('Хорошее');
 			setCondition('Экран не разбит и не имеет выгораний');
 			setGetPrice({
 				post: {
@@ -134,7 +135,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 									<thead className="table__head">
 										<tr className="table__row">
 											<th className="table__header"></th>
-											<th className="table__header">Отличное</th>
+											<th className="table__header">{gradeStatus}</th>
 											<th className="table__header">Рабочее</th>
 										</tr>
 									</thead>
@@ -143,10 +144,10 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 											<td className="table__data" data-cell="">
 												Цена SmartPrice
 											</td>
-											<td className="table__data" data-cell="Отличное">
+											<td className="table__data">
 												{gradePriceB}
 											</td>
-											<td className="table__data" data-cell="Рабочее">
+											<td className="table__data">
 												{gradePriceC} {gradePriceD}
 											</td>
 										</tr>
