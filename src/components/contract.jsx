@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Interval from "./utils/interval";
 import Config from "./variables";
 
-const Contract = ({ props, onNextStep }) => {
+const Contract = ({ props, onNextStep, onBackStep}) => {
 	const [enableButton, setEnableButton] = useState('disabled');	
 	
 	const [seconds, setSeconds] = useState(6);
@@ -154,6 +154,15 @@ const Contract = ({ props, onNextStep }) => {
 												disabled={enableButton}
 												onClick={() => {setReContract(Date.now())}}>
 										Отправить СМС повторно
+									</button><br/>
+									<button 
+										className="form__btn
+										form__btn--fill-color-main
+										form__btn--sm
+										form__btn--resolve" 
+										type="button"
+										onClick={onBackStep}>
+										назад
 									</button>
 								</div>
 							</div>

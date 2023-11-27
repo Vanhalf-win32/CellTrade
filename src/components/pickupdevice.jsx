@@ -40,7 +40,7 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
             {"post": {"device": props.data.IMEI}}
         );
         data.then((value) => {
-            if (value.data.data.STATUS !== false) {
+            if (value.data.data.STATUS === false) {
                 onNextStep({
                     current: {
                         number: 10,

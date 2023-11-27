@@ -1,8 +1,15 @@
 import React from "react";
 import img from "../img/svg/logo.svg";
+import Cookies from 'js-cookie';
 
 
-const Header = () => {
+const Header = ({onExit}) => {
+
+	const aborted = () => {
+		Cookies.remove('PRODUCT_SESSID');
+		onExit();
+   };
+	
     return(
         <div className="header @@if (context.mod) { header--@@mod }">
 	            <div className="header__content">
@@ -13,47 +20,23 @@ const Header = () => {
 					            <nav className="nav">
 						            <ul className="nav__list">
 							            <li className="nav__list-item">
-								            <a className="nav__link" href="#0">Новая оценка</a>
+								            <button className="form__btn form__btn--fill-color-main"
+											onClick={aborted}>
+												Новая оценка
+											</button>
 							            </li>
 							            <li className="nav__list-item">
-								            <a className="nav__link" href="#0">Принятые устройства</a>
+								            <button className="form__btn form__btn--fill-color-main">Принятые устройства</button>
 							            </li>
 							            <li className="nav__list-item">
-								            <a className="nav__link" href="#0">Ждут курьера</a>
+								            <button className="form__btn form__btn--fill-color-main">Ждут курьера</button>
 							            </li>
 							            <li className="nav__list-item nav__list-item--border-left">
-								            <a className="nav__link" href="#0">Выйти</a>
+								            <button className="form__btn form__btn--fill-color-main">Выйти</button>
 							            </li>
 						            </ul>
 					            </nav>
-                            </div>Name
-					        <div className="toggle-menu-wrapper">
-						        <button
-                                    className="toggle-menu"
-                                    id="toggle-menu"
-                                    aria-label="Переключатель отображения меню"
-                                    aria-pressed="false"
-                                    aria-expanded="false"
-                                    tabIndex="0">
-							            <span className="toggle-menu__line"></span>
-						        </button>
-					        </div>
-					        <div className="dropdown-menu">
-						        <ul className="dropdown-menu__list">
-							        <li className="dropdown-menu__item">
-								        <a className="dropdown-menu__link" href="#0">Новая оценка</a>
-							        </li>
-							        <li className="dropdown-menu__item">
-								        <a className="dropdown-menu__link" href="#0">Принятые устройства</a>
-							        </li>
-							        <li className="dropdown-menu__item">
-								        <a className="dropdown-menu__link" href="#0">Ждут курьера</a>
-							        </li>
-							        <li className="dropdown-menu__item">
-								        <a className="dropdown-menu__link" href="#0">Выйти</a>
-							        </li>
-						        </ul>
-					        </div>
+                            </div>
 				        </div>
 			        </div>
 		        </div>

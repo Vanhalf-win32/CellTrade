@@ -94,7 +94,6 @@ const CheckDisplay = ({props, onNextStep}) => {
 	const checkProductData = () => {
 		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 		productData);
-		console.log('TEST')
 		data.then((value) => {
 			onNextStep({...productDataDefault})
 		})

@@ -60,8 +60,9 @@ const CheckImei = ({onNextStep}) => {
 		
 	
  	const getBaseImeiInfo = () => {
-		const responseImei = axios.post(	
-			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo`,
+		const responseImei = axios.post
+			(	
+				`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getBaseImeiInfo`,
 				getImei,
 			)
 			responseImei.then((value) => {

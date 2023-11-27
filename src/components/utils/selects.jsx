@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 
 const Selects = ({props, onCheckPhone}) => {
 
-
  	const [productDataDefault, setProductDataDefault] = useState(props);
 
 	useEffect(() => {
@@ -33,8 +32,6 @@ const Selects = ({props, onCheckPhone}) => {
 			ProdCapacity: setMemory,
 		}});
 	}
-
-	console.log('PDD', productDataDefault);
 
     return (
         <div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 import axios from "axios";
 import Config from "./variables";
 import Examples1 from "./utils/examples1";
@@ -63,7 +64,7 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 	};
 	
 	const aborted = () => {
-		axios.post(
+		const data = axios.post(
 		   `${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
@@ -72,7 +73,13 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 				}
 			}
 	   );
-	   onExit();
+	   data.then((value) => {
+			if(value.data.status === "success") {
+				Cookies.remove('PRODUCT_SESSID');
+				onExit();
+			}
+		})
+		onExit();
    };
 
     return(
