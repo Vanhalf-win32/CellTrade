@@ -6,7 +6,6 @@ import axios from "axios";
 import Config from "./variables";
 
 const CheckDisplay = ({props, onNextStep}) => {
-	
 	const [display, setDisplay] = useState('');
 	const [productData, setProductData] = useState({
 		post: {

@@ -1,15 +1,38 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
-import CheckPickUpDevice from "./utils/checkPickUpDevice";
 import Config from "./variables";
+import ReactImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import img1 from '../img/content/unlock_hint_1_samsung.jpg';
+import img2 from '../img/content/unlock_hint_2_samsung.jpg';
+import img3 from '../img/content/unlock_hint_3_samsung.jpg';
+import img4 from '../img/content/unlock_hint_4_samsung.jpg';
+import img5 from '../img/content/unlock_hint_5_samsung.jpg';
+import img6 from '../img/content/unlock_hint_6_samsung.jpg';
+import img7 from '../img/content/samsung_flaws3.jpg';
+import img8 from '../img/content/unlock_hint_1.jpg';
+import img9 from '../img/content/unlock_hint_2.jpg';
+import img10 from '../img/content/unlock_hint_3.jpg';
+import img11 from '../img/content/unlock_hint_4.jpg';
+import img12 from '../img/content/unlock_hint_w_s_1.jpg';
+import img13 from '../img/content/unlock_hint_w_s_2.jpg';
+import img14 from '../img/content/unlock_hint_w_s_3.jpg';
+import img15 from '../img/content/unlock_hint_w_s_4.jpg';
+import img16 from '../img/content/unlock_hint_w_a_1.png';
+import img17 from '../img/content/unlock_hint_w_a_2.png';
 
 
 const PickUpDevice = ({props, onExit, onNextStep}) => {
-     const [howCheck, setHowCheck] = useState(0);
-     const [button, setButton] = useState('disabled');
-     const [spec, setSpec] = useState(0);
-     const [productData, setProductData] = useState({
+    const images = [
+        {original: img1},{original: img2},{original: img3},{original: img4},{original: img5},{original: img6},
+        {original: img7},{original: img8},{original: img9},{original: img10},{original: img11},{original: img12},
+        {original: img13},{original: img14},{original: img15},{original: img16},{original: img17},
+    ];
+    const [howCheck, setHowCheck] = useState(0);
+    const [button, setButton] = useState('disabled');
+    const [spec, setSpec] = useState(0);
+    const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(props),
             "FINAL_PRICE": 	props.price,	
@@ -114,7 +137,7 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
                                    Устройство сброшено к заводским установкам 
                             </label>
                             <div>
-                               {howCheck === 1 ? <CheckPickUpDevice/> : null}
+                               {howCheck === 1 ? <ReactImageGallery items={images} showPlayButton={false}/> : null}
                             </div>
                             <div className="defects-list__item">
                                 <button className="form__link check-it__link smart-photo"

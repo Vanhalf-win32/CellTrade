@@ -15,8 +15,10 @@ const CheckPhoto = ({props, reshoots, onNextStep}) => {
 			PRODUCT_DATA: JSON.stringify(props),	
 		}
 	});
-	axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
-	productData);
+	axios.post(
+		`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+		productData
+	);
 
 	useEffect(() => {
 		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=generateQRCode`,{});

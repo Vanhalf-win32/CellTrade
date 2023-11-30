@@ -2,12 +2,30 @@ import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import axios from "axios";
 import Config from "./variables";
-import Examples1 from "./utils/examples1";
-import Examples2 from "./utils/examples2";
-import Examples3 from "./utils/examples3";
-import Examples4 from "./utils/examples4";
+import ReactImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import img1 from '../img/content/samsung_cracked_screen2.jpg';
+import img2 from '../img/content/samsung_otsloenie1.jpg';
+import img3 from '../img/content/samsung_small_scratches1.jpg';
+import img4 from '../img/content/samsung_big_scratches1.jpg';
+import img5 from '../img/content/remaining_picture.jpg';
+import img6 from '../img/content/bad_pixels_samsung.jpg';
+import img7 from '../img/content/samsung_lines2.jpg';
+import img8 from '../img/content/lines_samsung.jpg';
+import img9 from '../img/content/flaws_samsung.jpg';
+import img10 from '../img/content/samsung_flaws2.jpg';
+import img11 from '../img/content/samsung_flaws3.jpg';
+import img12 from '../img/content/body_cracks_big_samsung.jpg';
+import img13 from '../img/content/body_cracks_small_samsung.jpg';
+import img14 from '../img/content/body_small_scratches3.jpg';
+import img15 from '../img/content/samsung_glass1.jpg';
+
 
 const CheckDefect = ({props, onExit, onNextStep}) => {
+	const imagesDisplayDamages = [{original: img1,},{original: img2,}];
+	const imagesDisplaySmallScratches = [{original: img3,},{original: img4},];
+	const imagesBadPixels = [{original: img5,},{original: img6,},{original: img7,},{original: img8,},{original: img9,},{original: img10,},{original: img11,},];
+	const imagesBodyScrathes = [{original: img12,},{original: img13,},{original: img14,},{original: img15,},];
 	const [examples ,setExamples] = useState('');
 	const [condition, setCondition] = useState('');
 	const [productData, setProductData] = useState({
@@ -171,10 +189,10 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 										</button>
 										</div>
 									</div>
-									{examples === 'displayDamage' ? <Examples1/> : null}
-									{examples === 'displaySmallDefects' ? <Examples2/> : null}
-									{examples === 'displayBadPixels' ? <Examples3/> : null}
-									{examples === 'bodyVisibleDamage' ? <Examples4/> : null}
+									{examples === 'displayDamage' ? <ReactImageGallery items={imagesDisplayDamages} showPlayButton={false} /> : null}
+									{examples === 'displaySmallDefects' ? <ReactImageGallery items={imagesDisplaySmallScratches} showPlayButton={false}/> : null}
+									{examples === 'displayBadPixels' ? <ReactImageGallery items={imagesBadPixels} showPlayButton={false}/> : null}
+									{examples === 'bodyVisibleDamage' ? <ReactImageGallery items={imagesBodyScrathes} showPlayButton={false}/> : null}
 									<div className="
 												form__container
 												form__container--sm

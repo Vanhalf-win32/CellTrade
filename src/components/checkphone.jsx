@@ -3,25 +3,25 @@ import Cookies from 'js-cookie';
 import img from "../img/content/mobile.jpg";
 import axios from "axios";
 import Selects from "./utils/selects";
-import CheckPhoneImages from "./utils/checkPhoneImgs";
 import CheckBoxImei from "./utils/checkboxImei";
 import Config from "./variables";
+import ReactImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+import img1 from "../img/content/imei_hint_1.jpg";
+import img2 from "../img/content/imei_hint_2.jpg";
+import img3 from "../img/content/imei_hint_3.jpg";
+import img4 from "../img/content/imei_hint_4.jpg";
 
 
 
 const CheckPhone = ({props, onExit, onNextStep}) => {
+	const images = [{original: img1,},{original: img2,},{original: img3,},{original: img4,},];
 	const [stateBox, setStateBox] = useState(1);
 	const [productDataDefault, setProductDataDefault] = useState(props);
 	const [getImages, setGetImages] = useState(0);
 	const [selects, setSelects] = useState(0);
 	const [checkSpec, setCheckSpec] = useState(0);
 	const [button, setButton] = useState('disabled');
-	const [getSpec, setGetSpec] = useState({});
-	const [productData, setProductData] = useState({
-		post: {
-			PRODUCT_DATA: JSON.stringify(),			
-		}
-	});
 
 	const onCheckPhone = (getSpecs) => {
 		setProductDataDefault(getSpecs);
@@ -41,8 +41,7 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 	},[checkSpec]);
 	
 	 function checkProductData() {
-
-		 axios.post(
+		axios.post(
 			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			{
 				post: {
@@ -51,12 +50,12 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 				}
 			},
 		);
-			onNextStep({
-				current:{
-					number: 3,
-					name: 'checkDisplay',
-					}
-			});
+		onNextStep({
+			current:{
+				number: 3,
+				name: 'checkDisplay',
+			}
+		});
 	}
 
 	const aborted = () => {
@@ -116,9 +115,12 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 												Телефон включается
 										</label>
 										{stateBox === 1 ? <CheckBoxImei enable={enable}/> : null}
-										{getImages === 1 ? <CheckPhoneImages/> : null}
+										{getImages === 1 ? <ReactImageGallery 
+															items={images}
+															showPlayButton={false}
+															/> : null}
 										<div className="tooltip">
-											<button className="form__link check-it__link smart-photo"
+											<button className="form__btn form__btn--fill-color-main"
 												onClick={() => setGetImages(1)}>
 												Как это проверить?
 											</button>

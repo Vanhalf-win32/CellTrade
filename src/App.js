@@ -23,7 +23,6 @@ import Signed from './components/signed';
 
 export default function App() {
   const [reshoots, setReshoots] = useState('')
-
   const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(),	

@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import Config from "./variables";
+import InputMask from 'react-input-mask';
 
 const ConsigAgree = ({props, onExit, onNextStep}) => {
 	const [fio, setFio] = useState({
@@ -69,7 +70,7 @@ const ConsigAgree = ({props, onExit, onNextStep}) => {
 			<div className="form__step container" id="consignment-agreements">
 				<div className="form__container">
 					<h1 className="form__title">
-						Заполните инфомрацию для Договора Консигнации
+						Заполните информацию для договора Консигнации.
 					</h1>
 					<div className="form__content">
 						<div className="form__column">
@@ -97,23 +98,23 @@ const ConsigAgree = ({props, onExit, onNextStep}) => {
 									</label>
 									<fieldset className="form__fieldset">
 										<label className="form__label">
-											<input className="form__input form__input--text" type="text" name="DATE_OF_BIRTH"
+											<InputMask mask="99/99/9999" className="form__input form__input--text" type="text" name="DATE_OF_BIRTH"
 												placeholder="Дата рождения" required onChange={event => setFio({...fio, date: event.target.value})}/>
 											<span className="error"></span>
 										</label>
 										<label className="form__label">
-											<input className="form__input form__input--text" type="text" name="PHONE"
+											<InputMask mask="+7(999)-999-99-99" className="form__input form__input--text" type="text"
 												placeholder="Контактный телефон" onChange={event => setFio({...fio, phone: event.target.value})}/>
 												<span className="error"></span>
 										</label>
 										<label className="form__label">
-											<input className="form__input form__input--text" type="text" name="PHONE"
+											<InputMask className="form__input form__input--text" type="text"
 												placeholder="Место рождения" onChange={event => setFio({...fio, place: event.target.value})}/>
 												<span className="error"></span>
 										</label>
 										<label className="form__label">
-											<input className="form__input form__input--text" type="text" name="PHONE"
-												placeholder="Email" onChange={event => setFio({...fio, email: event.target.value})}/>
+											<InputMask  placeholder="email" className="form__input form__input--text"
+												 onChange={event => setFio({...fio, email: event.target.value})}/>
 												<span className="error"></span>
 										</label>
 									</fieldset>
@@ -142,7 +143,7 @@ const ConsigAgree = ({props, onExit, onNextStep}) => {
 				        </div>
 			        </div>
 		        </div>
-	        </div>        
+	        </div>
         </div>
     )
 }
