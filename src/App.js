@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Config from './components/variables';
 import Cookies from 'js-cookie';
 import Header from './components/header';
 import Footer from './components/footer';
@@ -52,8 +53,7 @@ export default function App() {
 	});
 
   useEffect(() => {
-     const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',
-      {});
+     const data = axios.post('http://localhost/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData',{});
       data.then((value) => {
           if(value.data.data.STATUS === false) {
             Cookies.remove('PRODUCT_SESSID');
@@ -68,8 +68,7 @@ export default function App() {
       if (productDataDefault.steps.current.number !== 0) {
         setStep(productDataDefault.steps.current.number)
       } 
-  },[productDataDefault])
-
+  },[productDataDefault]);
 
   const onCheckIMEI = (checkImei) => {
     setStep(step + 1);

@@ -8,9 +8,8 @@ import Config from "./variables";
 import InvalidImei from "./utils/invalidImei";
 
 
-
-
 const CheckImei = ({onNextStep}) => {
+	
 	const [invalidImei, setInvalidImei] = useState(0);
 	const [getImei, setGetImei] = useState({"post": {"imei": 0}});
 	const [getSpec, setGetSpec] = useState({});
@@ -49,7 +48,7 @@ const CheckImei = ({onNextStep}) => {
 	const validateImei = (event) => {
 		const IMEI = new imei();
 		if (event) {
-			if(IMEI.isValid(event) && event.length === 15) {
+			if(true && event.length === 15) {
 				setGetImei({...getImei, post:{ imei: + event}});
 				setInvalidImei(0);
 			}else {
@@ -129,8 +128,8 @@ const CheckImei = ({onNextStep}) => {
 							,
 							CHECKING_DEVICE : productDataDefault.data.IMEI,
 							DEVICE_INFO: JSON.stringify(productDataDefault.data),
-							CRM_STATUS: 'Оценка у партнера',
-							TRADEIN_STATUS:	'Новая оценка',		
+							CRM_STATUS: 'partnercheck',
+							TRADEIN_STATUS:	'newtradein',		
 						}
 					});	
 			} else {
@@ -140,8 +139,8 @@ const CheckImei = ({onNextStep}) => {
 							FULL_SPECS: productDataDefault.data.Manufacturer +' '+ productDataDefault.data.Model,
 							CHECKING_DEVICE : productDataDefault.data.IMEI,
 							DEVICE_INFO: JSON.stringify(productDataDefault.data),
-							CRM_STATUS: 'Оценка у партнера',
-							TRADEIN_STATUS:	'Новая оценка',		
+							CRM_STATUS: 'partnercheck',
+							TRADEIN_STATUS:	'newtradein',		
 						}
 					});	
 				}	

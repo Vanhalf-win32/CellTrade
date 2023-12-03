@@ -6,11 +6,7 @@ import Config from "./variables";
 
 
 const Verification = ({props, setReshoots, onExit, onNextStep, onBackStep}) => {
-	 const [bot, setBot] = useState ({ 
-		"bot_status":"",
-		"bot_message":"",
-		"bot_grade":""
-	});
+	 const [bot, setBot] = useState ({});
 	const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(props),		
@@ -33,8 +29,8 @@ const Verification = ({props, setReshoots, onExit, onNextStep, onBackStep}) => {
 		if(bot.bot_status === "accepted_tradein") {
 			onNextStep({
 					CustomerCondition: props.grade.CustomerCondition,
-					FinalCondition: bot.bot_grade,
-					LimitCondition: props.grade.LimitCondition,
+					FinalCondition: '',
+					LimitCondition: bot.bot_grade,
 			}, {
 				current: {
 					name: 'totalDiscount',
@@ -54,7 +50,7 @@ const Verification = ({props, setReshoots, onExit, onNextStep, onBackStep}) => {
 				 {
 					 post: {
 						 PRODUCT_DATA: JSON.stringify(props),
-						 TRADEIN_STATUS: 'Отказ от бота',			
+						//  TRADEIN_STATUS: 'Отказ от бота',			
 					 }
 				 }
 			);

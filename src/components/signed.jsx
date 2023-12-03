@@ -14,7 +14,7 @@ const Signed = ({props, onNextStep}) => {
 	const [productData, setProductData] = useState({
 		post: {
 			PRODUCT_DATA: JSON.stringify(props),
-			TRADEIN_STATUS:	'Договор подписан',
+			TRADEIN_STATUS:	'contractsigned',
 		}
 	});
 	const [getBarCode, setGetBarCode ] = useState(
@@ -42,6 +42,14 @@ const Signed = ({props, onNextStep}) => {
 	const confirmContract = () => {
 		const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=confirmContract`,
 			contract
+		);
+		axios.post(
+			`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+			 {
+				 post: {
+					 TRADEIN_STATUS: 'completedtradein',			
+				 }
+			 }
 		);
 		data.then((value) => {
 			if(value.data.data) {

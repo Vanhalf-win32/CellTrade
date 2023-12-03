@@ -61,24 +61,42 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
-					TRADEIN_STATUS:	'Согласие с проверкой дефектов',	
+					TRADEIN_STATUS:	'clientagree',	
 				}
 			}
 		);
-		onNextStep(
-			{
-				current: { 
-						number: 6,
-						name: 'checkPhotos',
-				}
+		if(condition === '') {
+			onNextStep(
+				{
+					current: { 
+							number: 6,
+							name: 'checkPhotos',
+					}
 				
-			}, 
-			{																
-				CustomerCondition: props.grade.CustomerCondition,
-				FinalCondition: '',
-				LimitCondition: condition,
-			},
-		)
+				}, 
+				{																
+					CustomerCondition: 'B',
+					FinalCondition: '',
+					LimitCondition: '',
+				},
+			)
+		} else {
+			onNextStep(
+				{
+					current: { 
+							number: 6,
+							name: 'checkPhotos',
+					}
+				
+				}, 
+				{																
+					CustomerCondition: condition,
+					FinalCondition: '',
+					LimitCondition: '',
+				},
+			)
+		}
+		
 	};
 	
 	const aborted = () => {
@@ -87,7 +105,7 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
-					TRADEIN_STATUS:	'Отказ при проверке дефектов',			
+					TRADEIN_STATUS:	'rejectedbeforephotos',			
 				}
 			}
 	   );

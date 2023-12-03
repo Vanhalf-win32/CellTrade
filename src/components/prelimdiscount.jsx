@@ -4,7 +4,9 @@ import Cookies from 'js-cookie';
 import Config from "./variables";
 
 const PrelimDiscount = ({props, onExit, onNextStep}) => {
-	const [gradeStatus, setGradeStatus] = useState('');
+	const [deviceConditionB, setDeviceConditionB] = useState('');
+	const [deviceConditionC, setDeviceConditionC] = useState('');
+	const [discount, setDiscount] = useState('');
 	const [gradePriceB, setGradePriceB] = useState(0);
 	const [gradePriceC, setGradePriceC] = useState(0);
 	const [gradePriceD, setGradePriceD] = useState(0);
@@ -26,6 +28,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 	
 	useEffect(()=> {
 		if(props.grade.PreliminaryCondition === 'D') {
+			setDeviceConditionB('Плохое');
 			setCondition('Экран разбит и/или имеет выгорания');
 			setGetPrice({
 				post: {
@@ -36,7 +39,8 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 				}
 			})
 		} else if (props.grade.PreliminaryCondition === 'C') {
-			setGradeStatus('Хорошее');
+			setDeviceConditionB('Отличное')
+			setDeviceConditionC('Хорошее');
 			setCondition('Экран не разбит и не имеет выгораний');
 			setGetPrice({
 				post: {
@@ -55,15 +59,13 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 				getPrice
 			);
 			data.then((value) => {
+				console.log(value);
 				setGradePriceB(value.data.data.GRADE_PRICE_B);
 				setGradePriceC(value.data.data.GRADE_PRICE_C);
 				setGradePriceD(value.data.data.GRADE_PRICE_D);
-				
 			});
 		}
 	},[getPrice]);
-	
-	
 	useEffect(() => {
 		setProductData({
 			"PRODUCT_DATA": JSON.stringify(props),
@@ -76,7 +78,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
-					TRADEIN_STATUS:	'согласие с предварительной ценой',			
+					TRADEIN_STATUS:	'acceptedpreprice',			
 				}
 			}
 		);
@@ -96,7 +98,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
-					TRADEIN_STATUS:	'Отказ на предварительной цене',			
+					TRADEIN_STATUS:	'rejectedpreprice',			
 				}
 			}
 	   );
@@ -135,8 +137,8 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 									<thead className="table__head">
 										<tr className="table__row">
 											<th className="table__header"></th>
-											<th className="table__header">{gradeStatus}</th>
-											<th className="table__header">Рабочее</th>
+											<th className="table__header">{deviceConditionB}</th>
+											<th className="table__header">{deviceConditionC}</th>
 										</tr>
 									</thead>
 									<tbody className="table__body">
@@ -148,7 +150,33 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 												{gradePriceB}
 											</td>
 											<td className="table__data">
-												{gradePriceC} {gradePriceD}
+												{gradePriceC}{gradePriceD}
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<table className="table">
+									<caption className="table__caption">
+									Дополнительные скидки на покупку следующих устройств:
+									</caption>
+									<thead className="table__head">
+										<tr className="table__row">
+											<th className="table__header">Устройство</th>
+											<th className="table__header">Дотация С</th>
+											<th className="table__header">Дотация В</th>
+											<th className="table__header">Дотация D</th>
+										</tr>
+									</thead>
+									<tbody className="table__body">
+										<tr className="table__row">
+											<td className="table__data" data-cell="">
+											
+											</td>
+											<td className="table__data">
+												
+											</td>
+											<td className="table__data">
+						
 											</td>
 										</tr>
 									</tbody>

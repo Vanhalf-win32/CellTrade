@@ -46,7 +46,7 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
-					TRADEIN_STATUS:	'Предварительная проверка',			
+					TRADEIN_STATUS:	'precheck',			
 				}
 			},
 		);
@@ -64,7 +64,7 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 			{
 				post: {
 					PRODUCT_DATA: JSON.stringify(props),
-					TRADEIN_STATUS:	'Отклонено на первом шаге',			
+					TRADEIN_STATUS:	'rejectedatfirststep',			
 				}
 			}
 		,

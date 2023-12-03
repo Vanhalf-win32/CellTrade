@@ -8,8 +8,8 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 		post: {
 			PRODUCT_DATA: JSON.stringify(props),
             FINAL_PRICE: props.price,
-            FINAL_CONDITION : props.grade.FinalCondition,
-			TRADEIN_STATUS: 'Фотографии проверены',			
+			TRADEIN_STATUS: 'photoschecked',
+			LIMIT_CONDITION: props.grade.LimitCondition,			
 		}
 	});
 	axios.post(
@@ -28,8 +28,32 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 			"Condition": ""
 		}
 	});
-	
 
+	if(props.grade.CustomerCondition && props.grade.LimitCondition) {
+	  if(props.grade.CustomerCondition === 'D') {			
+		axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+			  {post: {"FINAL_CONDITION" : "D",}});		 
+		} else if(props.grade.CustomerCondition === 'C' && props.grade.LimitCondition === 'D') {
+			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+			  {post: {"FINAL_CONDITION" : "D",}});
+		} else if(props.grade.CustomerCondition === 'C' && props.grade.LimitCondition === 'C') {
+			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+			  {post: {"FINAL_CONDITION" : "C",}});
+		} else if(props.grade.CustomerCondition === 'C' && props.grade.LimitCondition === 'B') {
+			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+			  {post: {"FINAL_CONDITION" : "C",}});
+		} else if(props.grade.CustomerCondition === 'B' && props.grade.LimitCondition === 'D') {
+			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+			  {post: {"FINAL_CONDITION" : "D",}});
+		} else if(props.grade.CustomerCondition === 'B' && props.grade.LimitCondition === 'C') {
+			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+			  {post: {"FINAL_CONDITION" : "C",}});
+		} else if(props.grade.CustomerCondition === 'B' && props.grade.LimitCondition === 'B') {
+			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+			  {post: {"FINAL_CONDITION" : "B",}});
+		}
+	}
+	  
 		useEffect(() => {
 			if(getPrice.post.Condition === 'C') {
 				setCondition('Хорошее');
@@ -75,7 +99,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 				{
 					post: {
 						PRODUCT_DATA: JSON.stringify(props),
-						TRADEIN_STATUS:	'Согласие с итоговой ценой',			
+						TRADEIN_STATUS:	'clientagree',			
 					}
 				}
 			);
@@ -96,7 +120,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 				{
 					post: {
 						PRODUCT_DATA: JSON.stringify(props),
-						TRADEIN_STATUS:	'Отказ от итоговой цены',			
+						TRADEIN_STATUS:	'clientdisagree',			
 					}
 				}
 		   );
