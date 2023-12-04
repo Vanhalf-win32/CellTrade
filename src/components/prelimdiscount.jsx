@@ -2,11 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import Config from "./variables";
+import DiscountsDevices from "./utils/discountsDevices";
 
 const PrelimDiscount = ({props, onExit, onNextStep}) => {
 	const [deviceConditionB, setDeviceConditionB] = useState('');
 	const [deviceConditionC, setDeviceConditionC] = useState('');
-	const [discount, setDiscount] = useState('');
+	const [onPrelimsDiscounts, setOnPrelimsDiscounts] = useState(0);
+	const [discountsDevices, setDiscountsDevices] = useState({});
 	const [gradePriceB, setGradePriceB] = useState(0);
 	const [gradePriceC, setGradePriceC] = useState(0);
 	const [gradePriceD, setGradePriceD] = useState(0);
@@ -25,7 +27,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 			Condition: ""
 		}
 	})
-	
+
 	useEffect(()=> {
 		if(props.grade.PreliminaryCondition === 'D') {
 			setDeviceConditionB('Плохое');
@@ -55,14 +57,16 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 
 	useEffect(() => {
 		if (getPrice.post.Condition !== "") {
-			const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getPreliminaryPrice`,
+			const data = axios.post(
+				`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getPreliminaryPrice`,
 				getPrice
 			);
 			data.then((value) => {
-				console.log(value);
 				setGradePriceB(value.data.data.GRADE_PRICE_B);
 				setGradePriceC(value.data.data.GRADE_PRICE_C);
 				setGradePriceD(value.data.data.GRADE_PRICE_D);
+				setDiscountsDevices(value);
+				setOnPrelimsDiscounts(1);
 			});
 		}
 	},[getPrice]);
@@ -137,8 +141,8 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 									<thead className="table__head">
 										<tr className="table__row">
 											<th className="table__header"></th>
-											<th className="table__header">{deviceConditionB}</th>
 											<th className="table__header">{deviceConditionC}</th>
+											<th className="table__header">{deviceConditionB}</th>
 										</tr>
 									</thead>
 									<tbody className="table__body">
@@ -147,40 +151,15 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 												Цена SmartPrice
 											</td>
 											<td className="table__data">
-												{gradePriceB}
+												{gradePriceC}
 											</td>
 											<td className="table__data">
-												{gradePriceC}{gradePriceD}
+												{gradePriceB}{gradePriceD}
 											</td>
 										</tr>
 									</tbody>
 								</table>
-								<table className="table">
-									<caption className="table__caption">
-									Дополнительные скидки на покупку следующих устройств:
-									</caption>
-									<thead className="table__head">
-										<tr className="table__row">
-											<th className="table__header">Устройство</th>
-											<th className="table__header">Дотация С</th>
-											<th className="table__header">Дотация В</th>
-											<th className="table__header">Дотация D</th>
-										</tr>
-									</thead>
-									<tbody className="table__body">
-										<tr className="table__row">
-											<td className="table__data" data-cell="">
-											
-											</td>
-											<td className="table__data">
-												
-											</td>
-											<td className="table__data">
-						
-											</td>
-										</tr>
-									</tbody>
-								</table>
+								{onPrelimsDiscounts === 1 ? <DiscountsDevices devicesDiscounts={discountsDevices}/>	: null}						
 								<div className="form__container	form__container--sm	form__container--center">
 									<button className="
 										form__btn
