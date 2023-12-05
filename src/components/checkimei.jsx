@@ -45,17 +45,17 @@ const CheckImei = ({onNextStep}) => {
 			}
 		});
 
-	const validateImei = (event) => {
-		const IMEI = new imei();
-		if (event) {
-			if(true && event.length === 15) {
-				setGetImei({...getImei, post:{ imei: + event}});
-				setInvalidImei(0);
-			}else {
-				setInvalidImei(1);
+		const validateImei = (event) => {
+			const IMEI = new imei();
+			if (event) {
+				if(IMEI.isValid(event) && event.length === 15) {
+					setGetImei({...getImei, post:{ imei: + event}});
+					setInvalidImei(0);
+				}else {
+					setInvalidImei(1);
+				}
 			}
-		}
-	};
+		};
 		
 	
  	const getBaseImeiInfo = () => {
@@ -65,10 +65,8 @@ const CheckImei = ({onNextStep}) => {
 				getImei,
 			)
 			responseImei.then((value) => {
-				if(value.data.data.MESSAGE === 'Это устройство в чёрном списке!') {
-					alert("Это устройство в чёрном списке!")
-				} else if(value.data.data.MESSAGE === 'Это устройство уже выкуплено!') {
-					alert("Это устройство уже выкуплено!")
+				if(value.data.data.STATUS === false) {
+					alert(value.data.data.MESSAGE)
 				} else if(value.data.data.Brand !== "Apple") {
 					const data = axios.post(
 						`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getDeviceSpecs`,

@@ -79,17 +79,17 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 
     return(
         <div>
-				<div className="form__step" id="check-device">
-					<div className="form__container form__container-sm">
-						<div className="form__content">
-							<div className="form__column">
-								<div className="form__container form__container--center">
-									<img className="form__img form__img--border" src={img} alt="Телефон" width="450" height="450"/>
-								</div>
+			<div className="form__step" id="check-device">
+				<div className="form__container form__container-sm">
+					<div className="form__content">
+						<div className="form__column">
+							<div className="form__container form__container--center">
+								<img className="form__img form__img--border" src={img} alt="Телефон" width="450" height="450"/>
 							</div>
-								<div className="tooltip form__column">
-									<div className="
-											form__container
+						</div>
+							<div className="tooltip form__column">
+								<div className="
+										form__container
 											form__container--sm
 											form__container--center">
 										<h1 className="form__title">Проверьте устройство</h1>

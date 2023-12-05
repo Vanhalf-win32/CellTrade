@@ -18,13 +18,26 @@ const DiscountsDevices = ({devicesDiscounts}) => {
 				</thead>
 				<tbody className="table__body">
 					<tr className="table__row">
-                        { typeof devicesDiscounts.data.data.ADDITIONAL_DISCOUNTS === 'object' ? 
-                          devicesDiscounts.data.data.ADDITIONAL_DISCOUNTS.map((key) => (
-                                <td className="table__data">
-                                !!!
-                                </td>
+                        {
+							devicesDiscounts.data.data.ADDITIONAL_DISCOUNTS.map((item, index) => (
+								<>
+									<td key={index} className="table__data">
+										{item.device}
+									</td>
+									<td className="table__data">
+										{item.C}
+									</td>
+									<td className="table__data">
+										{item.B}
+									</td>
+									<td className="table__data">
+										{item.C}
+									</td>
+								</>
+							
+								
                             )) 
-                        : null}
+                        }
 					</tr>
 				</tbody>
 			</table>
