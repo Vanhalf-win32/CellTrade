@@ -2,8 +2,12 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 import Config from "./variables";
+import DiscountsDevices from "./utils/discountsDevices";
 
 const TotalDiscount = ({props, onExit, onNextStep}) => {
+	const [onPrelimsDiscounts, setOnPrelimsDiscounts] = useState(0);
+	const [finalCondition, setFinalCondition] = useState('');
+	const [discountsDevices, setDiscountsDevices] = useState({});
 	const [productData, setProductData] = useState({
 		post: {
 			PRODUCT_DATA: JSON.stringify(props),
@@ -29,30 +33,40 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 		}
 	});
 
-	if(props.grade.CustomerCondition && props.grade.LimitCondition) {
-	  if(props.grade.CustomerCondition === 'D') {			
-		axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
-			  {post: {"FINAL_CONDITION" : "D",}});		 
+	useEffect(() => {
+		if(props.grade.CustomerCondition && props.grade.LimitCondition) {
+	  		if(props.grade.CustomerCondition === 'D') {			
+				axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+			  	{post: {"FINAL_CONDITION" : "D",}});
+			  	setFinalCondition('D');		 
 		} else if(props.grade.CustomerCondition === 'C' && props.grade.LimitCondition === 'D') {
 			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			  {post: {"FINAL_CONDITION" : "D",}});
+			  setFinalCondition('D');		 
 		} else if(props.grade.CustomerCondition === 'C' && props.grade.LimitCondition === 'C') {
 			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			  {post: {"FINAL_CONDITION" : "C",}});
+			  setFinalCondition('C');		 
 		} else if(props.grade.CustomerCondition === 'C' && props.grade.LimitCondition === 'B') {
 			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			  {post: {"FINAL_CONDITION" : "C",}});
+			  setFinalCondition('C');		 
 		} else if(props.grade.CustomerCondition === 'B' && props.grade.LimitCondition === 'D') {
 			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			  {post: {"FINAL_CONDITION" : "D",}});
+			  setFinalCondition('D');		 
 		} else if(props.grade.CustomerCondition === 'B' && props.grade.LimitCondition === 'C') {
 			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			  {post: {"FINAL_CONDITION" : "C",}});
+			  setFinalCondition('C');		 
 		} else if(props.grade.CustomerCondition === 'B' && props.grade.LimitCondition === 'B') {
 			axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
 			  {post: {"FINAL_CONDITION" : "B",}});
+			  setFinalCondition('B');		 
 		}
 	}
+	},[]);
+	
 	  
 		useEffect(() => {
 			if(getPrice.post.Condition === 'C') {
@@ -62,6 +76,8 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 				 data.then((value) => {
 					setFinalPrice(value.data.data.FINAL_PRICE);
 					setDefect(props.bot.bot_message);
+					setDiscountsDevices(value);
+					setOnPrelimsDiscounts(1);
 				 })
 			} else if (getPrice.post.Condition === 'D') {
 				setCondition('Плохое');
@@ -70,6 +86,8 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 				data.then((value) => {
 					setFinalPrice(value.data.data.FINAL_PRICE);
 					setDefect(props.bot.bot_message);
+					setDiscountsDevices(value);
+					setOnPrelimsDiscounts(1);
 				})
 			} else if (getPrice.post.Condition === 'B') {
 				setCondition('Отличное');
@@ -78,20 +96,25 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 				data.then((value) => {
 					setFinalPrice(value.data.data.FINAL_PRICE);
 					setDefect(props.bot.bot_message);
+					setDiscountsDevices(value);
+					setOnPrelimsDiscounts(1);
 				})
 			}
 		},[getPrice]);		
 		
 		useEffect(() => {
+			const data = axios.post(`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=getProductData`,{});
+			data.then((value) => {
 				setGetPrice({
 					post: {
 						"Manufacturer": props.data.Manufacturer,
 						"Model": props.data.Model,
 						"Memory": props.data.ProdCapacity,
-						"Condition": props.grade.FinalCondition,
+						"Condition": finalCondition,
 					}
 				});
-		},[]);
+			})	
+		},[finalCondition]);
 
 		const clientAgree = () => {
 			axios.post(
@@ -168,12 +191,13 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 										<td className="table__data" data-cell="">
 											Цена CellTrade
 										</td>
-	    									<td className="table__data" data-cell="Отличное">
+	    									<td className="table__data">
 												{finalPrice}
 											</td>
 									</tr>
 								</tbody>
 							</table>
+							{ onPrelimsDiscounts === 1 ? <DiscountsDevices discountsDevices={discountsDevices}/> : null}
 							<div className="
 								form__container
 								form__container--sm

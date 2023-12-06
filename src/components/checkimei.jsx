@@ -185,8 +185,8 @@ const CheckImei = ({onNextStep}) => {
 									</label>
 									<label disabled='disable' className="form__label">
 										<input className="form__input form__input--number form__input--numbers" 
-											type="text" maxLength={15} name="IMEI" placeholder="IMEI" 
-											disabled={butEnable} 
+											type="number" maxLength={15} name="IMEI" placeholder="IMEI" 
+											disabled={butEnable}
 											onChange={event => validateImei(event.target.value)}
 										/>
 									</label>

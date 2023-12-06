@@ -159,7 +159,7 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 										</tr>
 									</tbody>
 								</table>
-								{onPrelimsDiscounts === 1 ? <DiscountsDevices devicesDiscounts={discountsDevices}/>	: null}						
+								{onPrelimsDiscounts === 1 ? <DiscountsDevices discountsDevices={discountsDevices}/>	: null}						
 								<div className="form__container	form__container--sm	form__container--center">
 									<button className="
 										form__btn
