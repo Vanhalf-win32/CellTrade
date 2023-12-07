@@ -8,19 +8,6 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 	const [onPrelimsDiscounts, setOnPrelimsDiscounts] = useState(0);
 	const [finalCondition, setFinalCondition] = useState('');
 	const [discountsDevices, setDiscountsDevices] = useState({});
-	const [productData, setProductData] = useState({
-		post: {
-			PRODUCT_DATA: JSON.stringify(props),
-            FINAL_PRICE: props.price,
-			TRADEIN_STATUS: 'photoschecked',
-			LIMIT_CONDITION: props.grade.LimitCondition,			
-		}
-	});
-	axios.post(
-		`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
-		productData
-	);
-	
 	const [defect, setDefect] = useState('');
 	const [finalPrice, setFinalPrice] = useState(0);
 	const [condition, setCondition] = useState('Отличное')
@@ -32,6 +19,19 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 			"Condition": ""
 		}
 	});
+	const [productData, setProductData] = useState({
+		post: {
+			PRODUCT_DATA: JSON.stringify(props),
+            FINAL_PRICE: props.price,
+			TRADEIN_STATUS: 'photoschecked',
+			LIMIT_CONDITION: props.grade.LimitCondition,			
+		}
+	});
+	
+	axios.post(
+		`${Config.development}/bitrix/services/main/ajax.php?mode=class&c=voidvn%3Atradein&action=setProductData`,
+		productData
+	);
 
 	useEffect(() => {
 		if(props.grade.CustomerCondition && props.grade.LimitCondition) {
@@ -197,7 +197,7 @@ const TotalDiscount = ({props, onExit, onNextStep}) => {
 									</tr>
 								</tbody>
 							</table>
-							{ onPrelimsDiscounts === 1 ? <DiscountsDevices discountsDevices={discountsDevices}/> : null}
+							{onPrelimsDiscounts === 1 ? <DiscountsDevices discountsDevices={discountsDevices}/> : null}
 							<div className="
 								form__container
 								form__container--sm
