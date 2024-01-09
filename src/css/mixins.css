@@ -7,3 +7,7 @@
 /* Retina */
 @custom-media --retinadpi (min-resolution: 144dpi);
 @custom-media --retinadppx (min-resolution: 1.5dppx);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

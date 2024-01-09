@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import img from "../img/content/scanner.jpg";
 import axios from "axios";
-import CheckPhone from "./checkphone";
 import imei from "node-imei";
 import Config from "./variables";
 import InvalidImei from "./utils/invalidImei";
@@ -163,59 +162,55 @@ const CheckImei = ({onNextStep}) => {
 
 
     return(
-        <div>
-            <form className="form" action="" method="POST">
-					<div className="form__step" id="check-numbers">
-						<div className="form__container form__container--sm form__container--center">
-							<h1 className="form__title form__title--center">Проверка IMEI</h1>
-							<div className="form__content">
-								<div className="form__column">
-									<div className="form__description form__description--center">
-										<p className="form__paragraph">Введите IMEI для проверки</p>
+        <div class='flex justify-center'>
+            <form method="POST">
+						<div class="">
+							<h1 class="flex justify-center mt-20 mb-4 tracking-tight text-gray-900 lg:text-5xl">Проверка IMEI</h1>
+								<div class="">
+									<div class="">
+										<h2 class="flex justify-center mt-5 mb-10 lg:text-2xl">Введите IMEI для проверки</h2>
 									</div>
-									<label className="form__label form__label--radio">
-										<input className="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" onClick={event => setButEnable('')}/>
-										<span className="form__radio-custom"></span>
-										Телефон
-									</label>
-									<label className="form__label form__label--radio">
-										<input className="visually-hidden form__input form__input--radio" type="radio" name="RADIO_NUMBERS" onClick={event => setButEnable('')} />
-										<span className="form__radio-custom"></span>
-										Смарт-часы
-									</label>
-									<label disabled='disable' className="form__label">
-										<input className="form__input form__input--number form__input--numbers" 
+									<div class="flex flex-col ml-20 text-lg">
+										<div class="flex w-32 mb-1">
+											<input type="radio" name="RADIO_NUMBERS" onClick={event => setButEnable('')}/>
+											<h2 class="pl-3 ">Телефон</h2>
+										</div>
+										<div class="flex w-32">
+											<input type="radio" name="RADIO_NUMBERS" onClick={event => setButEnable('')} />
+											<h2 class="pl-3 ">Смарт-часы</h2>
+										</div>
+									</div>
+									<label class="flex justify-center" disabled='disable'>
+										<input class="w-72 mt-5 text-gray-700 p-2 pl-3 border-2 border-green-500 rounded-2xl"
 											type="number" maxLength={15} name="IMEI" placeholder="IMEI" 
 											disabled={butEnable}
 											onChange={event => validateImei(event.target.value)}
 										/>
 									</label>
 									{invalidImei === 1 ? <InvalidImei/> : null}
-									<button className="
-										form__btn
-										form__btn--fill-color-main
-										form__btn--indent-top
-										form__btn--resolve" type="button"  onClick={getBaseImeiInfo} disabled={butEnable}>
-										Проверить
-									</button>
-									<div className="tooltip">
-										<img className="tooltip__img" src={img} alt="Сканер" width="350" height="350" />
-										<div className="tooltip__content">
-											<p className="form__paragraph">
+									<label class="flex justify-center mt-2">
+										<button class="border-2 w-72 p-2 rounded-2xl bg-green-500" type="button"  onClick={getBaseImeiInfo} disabled={butEnable}>
+											Проверить
+										</button>
+									</label>
+									<div>
+										 <div class="flex justify-center mt-10 ml-20">
+											<img src={img} alt="Сканер" width="350" height="350"/>
+										</div>
+										<div class="flex flex-col mt-10">
+											<p class="ml-20 mb-5 p-2 rounded-xl bg-green-200 w-96">
 												IMEI устройства можно проверить запросом USSD-команды
-												<a className="form__link form__link--bold" href="tel:*#06#">*#06#</a>
-												в приложении "Телефон"
+												*#06#
+												в приложении "Телефон".
 											</p>
-											<p className="form__paragraph">
+											<p class=" ml-20 bg-green-200 p-2 rounded-xl w-96">
 												Отсканируйте штрих-код сканером или введите IMEI
 												устройства вручную
 											</p>
 										</div>
 									</div>
 								</div>
-							</div>
 						</div>
-					</div>
 				</form>
         </div>
     );

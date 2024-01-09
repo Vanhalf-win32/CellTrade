@@ -1,12 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Config from './components/variables';
 import Cookies from 'js-cookie';
 import Header from './components/header';
 import Footer from './components/footer';
-import './css/mixins.css';
-import './css/style.css';
-import './css/variables.css';
-import './css/blocks/footer.css';
 import CheckImei from './components/checkimei';
 import CheckPhone from './components/checkphone';
 import CheckDisplay from './components/checkdisplay';
@@ -20,6 +15,7 @@ import PickUpDevice from './components/pickupdevice';
 import ConsigAgree from './components/consigagree';
 import Contract from './components/contract';
 import Signed from './components/signed';
+import './index.css';
 
 
 export default function App() {
