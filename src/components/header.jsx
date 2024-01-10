@@ -11,12 +11,12 @@ const Header = ({onExit}) => {
    };
 	
     return(
-			    <div class="flex justify-between mt-3 pb-3 border-b-2 border-green-500">
-				    <div class="ml-15">
+			    <div class="flex justify-between mt-3 ml-40 mr-40 pb-3 border-b-2 border-green-500">
+				    <div class="ml-28">
 						<img
                             src={img}
                             alt="Логотип"
-                            width="250"
+                            width="270"
                             height="75"
 						/>
 			        </div>
@@ -24,8 +24,8 @@ const Header = ({onExit}) => {
 						<p>
                             Бесплатная линия поддержки (круглосуточно)
                         </p>
-						<p class="">
-                             +7 (800) 302-43-53 / +7 (495) 175-43-33
+						<p class="text-lg">
+                             <b class="">+7 (800) 302-43-53 / +7 (495) 175-43-33</b>
                         </p>
 					</div>
 				</div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
-import img from "../img/content/mobile.jpg";
+import img from "../img/content/checkdevice.png";
 import axios from "axios";
 import Selects from "./utils/selects";
 import CheckBoxImei from "./utils/checkboxImei";
@@ -79,74 +79,54 @@ const CheckPhone = ({props, onExit, onNextStep}) => {
 
     return(
         <div>
-			<div className="form__step" id="check-device">
-				<div className="form__container form__container-sm">
-					<div className="form__content">
-						<div className="form__column">
-							<div className="form__container form__container--center">
-								<img className="form__img form__img--border" src={img} alt="Телефон" width="450" height="450"/>
+			<div>
+				<div>
+					<div>
+						<div>
+							<div>
+								<img src={img} alt="Телефон" width="450" height="450"/>
 							</div>
 						</div>
-							<div className="tooltip form__column">
-								<div className="
-										form__container
-											form__container--sm
-											form__container--center">
-										<h1 className="form__title">Проверьте устройство</h1>
-										<h2 className="form__title">{props.data.Description}</h2>
-										<div className="form__description">
-											<p className="form__paragraph form__name"></p>
+							<div>
+								<div>
+										<h1> Проверьте устройство</h1>
+										<h2> {props.data.Description}</h2>
+										<div>
+											<p></p>
 										</div>
 										{selects === 1 ? <Selects props={productDataDefault} onCheckPhone={onCheckPhone}/> : null}
-										<label className="form__label form__label--checkbox form__label--bold">
-											<input className="
-														visually-hidden
-														form__input form__input--checkbox
-													" type="checkbox" name="DESCRIPTION_MATCHES" onClick={enable}/>
-											<span className="form__checkbox-custom"></span>
-											Описание совпадает по модели, памяти, цвету
+										<label>
+											<input type="checkbox" name="DESCRIPTION_MATCHES" onClick={enable}/>
+											<span>Описание совпадает по модели, памяти, цвету</span>
 										</label>
-										<label className="form__label form__label--checkbox form__label--bold">
-											<input className="
-														visually-hidden
-														form__input form__input--checkbox
-													" type="checkbox" name="MOBILE_ON" onClick={enable}/>
-											<span className="form__checkbox-custom"></span>
-												Телефон включается
+										<label>
+											<input type="checkbox" name="MOBILE_ON" onClick={enable}/>
+											<span>Телефон включается</span>
 										</label>
 										{stateBox === 1 ? <CheckBoxImei enable={enable}/> : null}
 										{getImages === 1 ? <ReactImageGallery 
 															items={images}
 															showPlayButton={false}
 															/> : null}
-										<div className="tooltip">
-											<button className="form__btn form__btn--fill-color-main"
+										<div>
+											<button>"
 												onClick={() => setGetImages(1)}>
 												Как это проверить?
 											</button>
-											<div className="tooltip__content">
-												<p className="form__paragraph">
+											<div>
+												<p>
 													Внутренний IMEI проверяется по запросу
-													<a className="form__link form__link--bold" href="tel:*#06#">*#06#</a>
+													<a href="tel:*#06#">*#06#</a>
 													Внешний IMEI находится либо на задней поверхности
 													корпуса, либо на отке SIM-карты.
 												</p>
 											</div>
 										</div>
-										<button className="
-													form__btn
-													form__btn--fill-color-main
-													form__btn--indent-bottom
-													form__btn--resolve
-												" type="button"
+										<button type="button"
 												disabled={button} onClick={checkProductData}>
 											Принять
 										</button>
-										<button className="
-													form__btn
-													form__btn--fill-transparent
-													form__btn--reject
-												" type="button"
+										<button type="button"
 												onClick={aborted}>
 											Отклонить
 										</button>

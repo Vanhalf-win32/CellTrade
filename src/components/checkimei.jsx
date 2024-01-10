@@ -162,7 +162,8 @@ const CheckImei = ({onNextStep}) => {
 
 
     return(
-        <div class='flex justify-center'>
+        <div class='flex justify-center ml-40 mr-40'>
+
             <form method="POST">
 						<div class="">
 							<h1 class="flex justify-center mt-20 mb-4 tracking-tight text-gray-900 lg:text-5xl">Проверка IMEI</h1>
@@ -170,14 +171,20 @@ const CheckImei = ({onNextStep}) => {
 									<div class="">
 										<h2 class="flex justify-center mt-5 mb-10 lg:text-2xl">Введите IMEI для проверки</h2>
 									</div>
-									<div class="flex flex-col ml-20 text-lg">
-										<div class="flex w-32 mb-1">
-											<input type="radio" name="RADIO_NUMBERS" onClick={event => setButEnable('')}/>
-											<h2 class="pl-3 ">Телефон</h2>
+									<div class="flex flex-col ml-24 lg:text-2xl">
+										<div>
+											<label class="inline-flex items-center rounded">
+												<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500"  
+													type="checkbox" onClick={event => setButEnable('')}/>
+												<span class="ml-2 ">Телефон</span>
+											</label>
 										</div>
-										<div class="flex w-32">
-											<input type="radio" name="RADIO_NUMBERS" onClick={event => setButEnable('')} />
-											<h2 class="pl-3 ">Смарт-часы</h2>
+										<div>
+											<label class="inline-flex items-center">
+												<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500" type="checkbox" onClick={event => setButEnable('')} />
+												<span class="ml-2">Смарт-часы</span>
+											</label>
+											
 										</div>
 									</div>
 									<label class="flex justify-center" disabled='disable'>
