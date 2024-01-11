@@ -163,7 +163,6 @@ const CheckImei = ({onNextStep}) => {
 
     return(
         <div class='flex justify-center ml-40 mr-40'>
-
             <form method="POST">
 						<div class="">
 							<h1 class="flex justify-center mt-20 mb-4 tracking-tight text-gray-900 lg:text-5xl">Проверка IMEI</h1>
@@ -205,12 +204,12 @@ const CheckImei = ({onNextStep}) => {
 											<img src={img} alt="Сканер" width="350" height="350"/>
 										</div>
 										<div class="flex flex-col mt-10">
-											<p class="ml-20 mb-5 p-2 rounded-xl bg-green-200 w-96">
+											<p class="ml-20 mb-5 p-2 rounded-xl bg-green-300 w-96">
 												IMEI устройства можно проверить запросом USSD-команды
 												*#06#
 												в приложении "Телефон".
 											</p>
-											<p class=" ml-20 bg-green-200 p-2 rounded-xl w-96">
+											<p class=" ml-20 bg-green-300 p-2 rounded-xl w-96">
 												Отсканируйте штрих-код сканером или введите IMEI
 												устройства вручную
 											</p>

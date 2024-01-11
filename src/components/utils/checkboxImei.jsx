@@ -4,14 +4,10 @@ import React from "react";
 
 const CheckBoxImei = ({enable}) => {
     return(
-        <div>
-            <label className="form__label form__label--checkbox form__label--bold">
-				<input className="
-							visually-hidden 
-							form__input form__input--checkbox
-							" type="checkbox" name="IMEI_MATCHES" onClick={enable}/>
-					<span className="form__checkbox-custom"></span>
-					Внешний IMEI есть и совпадает с внутренним
+        <div class="flex flex-col items-start">
+            <label class="inline-flex mt-2 justify-center items-center rounded">
+				<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500" type="checkbox" onClick={enable}/>
+				<span class="ml-2">Внешний IMEI есть и совпадает с внутренним</span>
 			</label>
         </div>
     )
