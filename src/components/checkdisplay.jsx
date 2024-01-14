@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import img from "../img/content/smashed.jpg";
-import img1 from "../img/content/no-smashed.jpg";
+import img from "../img/11.png";
+import img1 from "../img/22.png";
 import axios from "axios";
 import Config from "./variables";
 
@@ -99,45 +99,32 @@ const CheckDisplay = ({props, onNextStep}) => {
 	}
 
 	return(
-        <div className="form" action="" method="POST">
-            <div className="form__step" id="check-defect">
-				<div className="form__container">
-					<h1 className="form__title">
-						Экран не разбит / нет дефектов матрицы?
-					</h1>
-					<div className="form__content">
-						<div className="form__column">
-							<div className="form__container form__container--center">
-								<img className="form__img form__img--center form__img--fix-height" src={img} alt="" width="450" height="450" />
-									<button className="
-												form__btn
-												form__btn--fill-red
-												form__btn--center
-												form__btn--indent-top
-												form__btn--reject
-												" type="button" onClick={() => {setDisplay('damage')}}>
-											Экран разбит и/или имеет выгорания
-									</button>
-							</div>
+				<div class="flex justify-center" method="POST" >
+					<div class="mt-36 mr-10">
+						<div class="mt-1">
+							<img src={img} alt="" width="468" height="450" />
 						</div>
-						<div className="form__column">
-							<div className="form__container form__container--center">
-								<img className="form__img form__img--center form__img--fix-height" src={img1} alt="" width="450" height="450" />
-									<button className="
-										form__btn
-										form__btn--fill-green
-										form__btn--center
-										form__btn--indent-top
-										form__btn--resolve
-										" type="button" onClick={() => {setDisplay('good')}}>
-										Экран не разбит и не имеет выгораний
-									</button>
-							</div>
+						<div class="w-80 ml-16">
+							<label>
+								<button class="border-2 w-full mt-5 p-2 rounded-2xl bg-red-500" type="button" onClick={() => {setDisplay('damage')}}>
+									Экран разбит и/или имеет выгорания
+								</button>
+							</label>
 						</div>
+					</div>
+					<div class="mt-36">
+						<div >
+							<img src={img1} alt="" width="400" height="455" />
 						</div>
+						<div class="w-80 ml-12">
+							<label>
+								<button class="border-2 w-full mt-5 p-2 rounded-2xl bg-green-500" type="button" onClick={() => {setDisplay('good')}}>
+									Экран не разбит и не имеет выгораний
+								</button>								
+							</label>
+						</div>
+					</div>
 				</div>
-            </div>
-        </div>
     );
 };
 

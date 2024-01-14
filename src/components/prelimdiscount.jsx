@@ -116,44 +116,41 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
    };
 
     return(
-        <div>
-            <div className="" id="preliminary-discount">
-				<div className="form__container form__container--center">
-					<h1 className="form__title form__title--center">
+				<div class="flex bg-slate-500">
+					<h1>
 						Предварительная сумма скидки
 					</h1>
-					<h2 className="form__title form__title--center">
+					<h2>
 						{props.data.Description}
 					</h2>
-					<div className="form__content">
-						<div className="form__column">
-							<div className="form__description form__description--center">
-								<p className="form__paragraph form__paragraph--xl form__name"></p>
-									<p className="form__paragraph form__paragraph--red">
-										<b className="form__bold">Состояние устройства:<span className="form__device-state"></span></b>
-									</p>
+					<div>
+						<div>
+							<div>
+								<p>
+									<span><b>Состояние устройства:</b></span>
+								</p>
 									<h2>{condition}</h2>
 							</div>
-								<table className="table">
-									<caption className="table__caption">
+								<table>
+									<caption>
 										Сумма без дополнительной скидки
 									</caption>
-									<thead className="table__head">
-										<tr className="table__row">
-											<th className="table__header"></th>
-											<th className="table__header">{deviceConditionC}</th>
-											<th className="table__header">{deviceConditionB}</th>
+									<thead>
+										<tr>
+											<th></th>
+											<th>{deviceConditionC}</th>
+											<th>{deviceConditionB}</th>
 										</tr>
 									</thead>
-									<tbody className="table__body">
-										<tr className="table__row">
-											<td className="table__data" data-cell="">
+									<tbody>
+										<tr>
+											<td>
 												Цена SmartPrice
 											</td>
-											<td className="table__data">
+											<td>
 												{gradePriceC}
 											</td>
-											<td className="table__data">
+											<td>
 												{gradePriceB}{gradePriceD}
 											</td>
 										</tr>
@@ -161,23 +158,11 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 								</table>
 								{onPrelimsDiscounts === 1 ? <DiscountsDevices discountsDevices={discountsDevices}/>	: null}						
 								<div className="form__container	form__container--sm	form__container--center">
-									<button className="
-										form__btn
-										form__btn--fill-color-main
-										form__btn--center
-										form__btn--indent-top
-										form__btn--indent-bottom
-										form__btn--resolve
-										" type="button"
+									<button type="button"
 										onClick={clientAgree}>
 										Клиент согласен
 									</button>
-									<button className="
-										form__btn
-										form__btn--center
-										form__btn--fill-transparent
-										form__btn--reject
-										" type="button"
+									<button type="button"
 										onClick={aborted}>
 										Клиент отказался
 									</button>
@@ -185,8 +170,6 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
 						</div>
 					</div>
 				</div>
-			</div>
-        </div>
     );
 };
 

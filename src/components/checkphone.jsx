@@ -14,6 +14,7 @@ import img4 from "../img/content/imei_hint_4.jpg";
 
 
 
+
 const CheckPhone = ({ props, onExit, onNextStep }) => {
 	const images = [{ original: img1, }, { original: img2, }, { original: img3, }, { original: img4, },];
 	const [stateBox, setStateBox] = useState(1);
@@ -100,7 +101,9 @@ const CheckPhone = ({ props, onExit, onNextStep }) => {
 						</label>
 					</div>
 					{stateBox === 1 ? <CheckBoxImei enable={enable} /> : null}
-					{getImages === 1 ? <ReactImageGallery items={images} showPlayButton={false} /> : null}
+				
+						{getImages === 1 ? <ReactImageGallery items={images} showPlayButton={false}/> : null}
+				
 					<div class="mt-2">
 						<label>
 							<button class=" flex border-2 mt-3 w-34 h-10 p-2 rounded-lg  bg-green-500" type="button" onClick={() => setGetImages(1)}>
