@@ -116,59 +116,59 @@ const PrelimDiscount = ({props, onExit, onNextStep}) => {
    };
 
     return(
-				<div class="flex bg-slate-500">
-					<h1>
+				<div class="flex flex-col">
+					<h1 class="flex justify-center mt-20 mb-4 tracking-tight text-gray-900 lg:text-5xl">
 						Предварительная сумма скидки
 					</h1>
-					<h2>
+					<h2 class=" flex mt-5 justify-center lg:text-3xl">
 						{props.data.Description}
 					</h2>
-					<div>
-						<div>
-							<div>
-								<p>
-									<span><b>Состояние устройства:</b></span>
-								</p>
-									<h2>{condition}</h2>
-							</div>
-								<table>
-									<caption>
-										Сумма без дополнительной скидки
-									</caption>
-									<thead>
-										<tr>
-											<th></th>
-											<th>{deviceConditionC}</th>
-											<th>{deviceConditionB}</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>
-												Цена SmartPrice
-											</td>
-											<td>
-												{gradePriceC}
-											</td>
-											<td>
-												{gradePriceB}{gradePriceD}
-											</td>
-										</tr>
-									</tbody>
-								</table>
-								{onPrelimsDiscounts === 1 ? <DiscountsDevices discountsDevices={discountsDevices}/>	: null}						
-								<div className="form__container	form__container--sm	form__container--center">
-									<button type="button"
-										onClick={clientAgree}>
-										Клиент согласен
-									</button>
-									<button type="button"
-										onClick={aborted}>
-										Клиент отказался
-									</button>
+					<div class="flex flex-col">
+						<div class="flex justify-start ml-80 mt-10 w-1/2  lg:text-2xl">
+							<h2 class="mr-2"><b>Состояние устройства:</b></h2> <p class="">{condition}</p> 
+						</div>
+						<div class=" flex justify-start w-1/2 ml-80">
+							<span>
+								<h2 class="mt-10 sm:text-2xl text-green-500">
+									<b>Сумма без учета дополнительной скидки</b>
+								</h2>
+							</span>							
+						</div>
+							<div class="flex flex-col mt-5">
+									<div class=" flex justify-between ml-80 w-1/2 ">
+											<div></div>
+											<div class="lg:text-2xl ml-36"><b>{deviceConditionC}</b></div>
+											<div class="lg:text-2xl mr-2"><b>{deviceConditionB}</b></div>
+									</div>
+									<div class=" flex mt-5 justify-between ml-80 border-2 rounded-xl border-green-500 w-1/2 p-3 ">
+											<div class="lg:text-2xl">
+												Цена CellTrade
+											</div>
+											<div class="lg:text-2xl">
+												{gradePriceC} ₽
+											</div>
+											<div class="lg:text-2xl">
+												{gradePriceB} ₽{gradePriceD}
+											</div>
+									</div>
+							</div>	
+							{onPrelimsDiscounts === 1 ? <DiscountsDevices discountsDevices={discountsDevices}/>	: null}						
+								<div class="flex justify-center">
+									<div class="mr-5">
+										<button class="border-2 w-full mt-5 p-3 text-white rounded-2xl bg-green-500" type="button"
+											onClick={clientAgree}>
+											Клиент согласен
+										</button>
+									</div>
+									<div>
+										<button class="border-2 w-full mt-5 p-3 text-white rounded-2xl bg-red-500" 
+											type="button"
+											onClick={aborted}>
+											Клиент отказался
+										</button>										
+									</div>
 								</div>
 						</div>
-					</div>
 				</div>
     );
 };
