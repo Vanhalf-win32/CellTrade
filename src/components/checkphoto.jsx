@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import img from "../img/content/qr-code.jpg";
+import img from "../img/qr-code.png";
 import axios from "axios";
 import Config from "./variables";
+import img_mob from "../img/mobile.png";
+import img_pc from "../img/desktop.png";
+
 
 
 const CheckPhoto = ({props, reshoots, onNextStep}) => {
@@ -52,54 +55,47 @@ const CheckPhoto = ({props, reshoots, onNextStep}) => {
 	},[productDataDefault]);
 	
     return (
-        <div>
-            <div className="" id="check-photos">
-				<div className="form__container form__container--sm form__container--center">
-					<h1 className="form__title form__title--center">
-						Проверка фотографий устройства
-					</h1>
-					<h2 className="form__title form__title--center" >
-						{statusBot}
-					</h2>
-					<div className="form__content">
-						<div className="form__column">
-							<div className="form__description">
-								<p className="form__paragraph">
-									<b className="form__bold">Перейдите по ссылке с помощью QR-кода, ссылки или
-										номера заявки</b>
-								</p>
-								<h2 className="form__title form__title--center" style={{color: "red"}}>
-									{reshoots}
-								</h2>
-								
-							</div>
-							<div className="
-								form__container
-								form__container--light-gray
-								form__container--padding
-								form__container--indent-bottom"
-                                >
-								<p className="form__paragraph">Сфотографируйте QR-код</p>
-									<img className="form__img" src={qrCode} alt="" width="450" height="450"
-										aria-hidden="true" />
-							</div>
-								<div className="
-									form__container
-									form__container--light-gray
-									form__container--padding
-									form__container--indent-bottom
-									">
-									<p className="form__paragraph">
-										или перейдите по этой ссылке<br/>
-											<a className="form__link form__link--bold"
-												href={link}>{link}</a>		
-									</p>
-								</div>
-						</div>
+			<div class=" flex justify-center">
+				<div class="flex flex-col w-[560px] h-[671px] items-center mt-[125px]">
+					<div class="w-[471px] h-[107px]">
+						<h1 class="tracking-tight text-gray-900 text-[35px]">
+							Проверка фотографий устройства
+						</h1>						
+					</div>
+					<div class="w-[471px] h-[107px]">
+						<h2>
+							{statusBot}
+						</h2>						
+					</div>
+					<div class="flex items-center w-[471px] h-[107px]">
+						<img src={img_mob}></img>
+						<p class="w-[222px] h-[58px]  text-green-500 text-[20px] ml-7">
+							<b>Если Вы загружаете фото с телефона</b>
+						</p>
+					</div>
+					<div class="flex items-center w-[471px] h-[107px]">
+						<p>Отсканируй QR-код</p>
+						<img class="w-[283px] h-[90px] ml-3" src={qrCode}></img>
+					</div>
+					<div class="flex items-center w-[471px] h-[107px]">
+						<img src={img_pc}></img>
+						<p class="w-[222px] h-[58px]  text-green-500 text-[20px]">
+							<b>Если Вы загружаете фото с телефона</b>
+						</p>
+					</div>
+					<div class=" w-[442px] h-[87px]">
+						<p>
+							Перейдите по прямой ссылке:<br/>
+							<b>https://dev-celltrade.ru/tradein/upload/?sessid=345345345</b>
+						</p>
+					</div>
+					<div>
+						<h2 style={{color: "red"}}>
+							{reshoots}
+						</h2>
 					</div>
 				</div>
-			</div>			
-        </div>
+		</div>				
     );
 };
 

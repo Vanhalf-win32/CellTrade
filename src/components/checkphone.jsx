@@ -124,12 +124,12 @@ const CheckPhone = ({ props, onExit, onNextStep }) => {
 						</div>
 					<div class="flex justify-around">
 						<label>
-							<button class="border-2 w-48 mt-5 p-2 disabled:bg-gray-400 rounded-2xl bg-green-500" type="button" disabled={button} onClick={checkProductData}>
+							<button class="border-2 w-48 mt-5 p-2 disabled:bg-gray-400 rounded-2xl bg-green-500 text-white" type="button" disabled={button} onClick={checkProductData}>
 								Принять
 							</button>						
 						</label>
 						<label>
-							<button class="border-2 w-48 mt-5 p-2 rounded-2xl bg-red-500" type="button" onClick={aborted}>
+							<button class="border-2 w-48 mt-5 p-2 rounded-2xl bg-red-500 text-white" type="button" onClick={aborted}>
 								Отклонить
 							</button>						
 						</label>						

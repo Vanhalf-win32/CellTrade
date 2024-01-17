@@ -119,15 +119,15 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
    };
 
     return(
-				<div class="flex flex-col items-center">
-					<div class="">
-						<h1 class="mt-20 mb-4 tracking-tight text-gray-900 lg:text-5xl">
+				<div class="flex flex-col items-center w-[1718px] h-[791]">
+					<div class=" flex w-[647px] ">
+						<h1 class="mt-[125px] mb-4 tracking-tight text-gray-900 text-[40px]">
 							Проверьте дефекты устройства
 						</h1>						
 					</div>
-						<div class="flex flex-col">
-							<div class="inline-flex justify-start">
-								<p class="ml-20 mb-5 p-2 rounded-xl bg-green-200 w-96">
+						<div class="flex flex-col ">
+							<div class="flex items-start">
+								<p class=" w-[564px] h-[115px] mb-5 p-3 rounded-xl bg-green-200 text-[19px]">
 									Обратите внимание, что перед
 									проверкой экрана с него необходимо
 									снять все защитные элементы:
@@ -198,18 +198,12 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
 										<button class="border-2 w-24 mt-5 p-3 text-white rounded-2xl bg-green-500" type="button" onClick={clientAgree}>
 											Далее
 										</button>
-										<button class="border-2 w-26 mt-5 p-3 text-white rounded-2xl bg-red-500" type="button"
+										<button class="border-2 w-26 mt-5 p-3 text-white rounded-2xl bg-red-500 ml-2" type="button"
 												onClick={aborted}>
 											Отклонить
 										</button>
 									</div>
 								</div>
-								<div class="absolute bottom-0 w-full h-14">
-									<div class="flex justify-center ml-40 mr-40 border-t-2 border-green-500  ">
-										<h1 class="mt-2">CellTrade &copy; 2024</h1>
-									</div>
-									
-								</div>  
 							</div>
     );
 };

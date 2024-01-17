@@ -106,7 +106,7 @@ const CheckDisplay = ({props, onNextStep}) => {
 						</div>
 						<div class="w-80 ml-16">
 							<label>
-								<button class="border-2 w-full mt-5 p-2 rounded-2xl bg-red-500" type="button" onClick={() => {setDisplay('damage')}}>
+								<button class="border-2 w-full mt-5 p-2 rounded-2xl bg-red-500 text-white" type="button" onClick={() => {setDisplay('damage')}}>
 									Экран разбит и/или имеет выгорания
 								</button>
 							</label>
@@ -118,7 +118,7 @@ const CheckDisplay = ({props, onNextStep}) => {
 						</div>
 						<div class="w-80 ml-12">
 							<label>
-								<button class="border-2 w-full mt-5 p-2 rounded-2xl bg-green-500" type="button" onClick={() => {setDisplay('good')}}>
+								<button class="border-2 w-full mt-5 p-2 rounded-2xl bg-green-500 text-white" type="button" onClick={() => {setDisplay('good')}}>
 									Экран не разбит и не имеет выгораний
 								</button>								
 							</label>

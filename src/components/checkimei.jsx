@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import img from "../img/content/scanner.jpg";
+import img from "../img/checkImei.png";
 import axios from "axios";
 import imei from "node-imei";
 import Config from "./variables";
@@ -162,63 +162,60 @@ const CheckImei = ({onNextStep}) => {
 
 
     return(
-        <div class='flex justify-center ml-40 mr-40'>
-            <form method="POST">
-						<div class="">
-							<h1 class="flex justify-center mt-20 mb-4 tracking-tight text-gray-900 lg:text-5xl">Проверка IMEI</h1>
-								<div class="">
-									<div class="">
-										<h2 class="flex justify-center mt-5 mb-10 lg:text-2xl">Введите IMEI для проверки</h2>
-									</div>
-									<div class="flex flex-col ml-24 lg:text-2xl">
-										<div>
-											<label class="inline-flex items-center rounded">
-												<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500"  
-													type="checkbox" onClick={event => setButEnable('')}/>
-												<span class="ml-2 ">Телефон</span>
-											</label>
-										</div>
-										<div>
-											<label class="inline-flex items-center">
-												<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500" type="checkbox" onClick={event => setButEnable('')} />
-												<span class="ml-2">Смарт-часы</span>
-											</label>
-											
-										</div>
-									</div>
-									<label class="flex justify-center" disabled='disable'>
-										<input class="w-72 mt-5 text-gray-700 p-2 pl-3 border-2 border-green-500 rounded-2xl"
-											type="number" maxLength={15} name="IMEI" placeholder="IMEI" 
-											disabled={butEnable}
-											onChange={event => validateImei(event.target.value)}
-										/>
-									</label>
-									{invalidImei === 1 ? <InvalidImei/> : null}
-									<label class="flex justify-center mt-2">
-										<button class="border-2 w-72 p-2 rounded-2xl bg-green-500" type="button"  onClick={getBaseImeiInfo} disabled={butEnable}>
-											Проверить
-										</button>
-									</label>
-									<div>
-										 <div class="flex justify-center mt-10 ml-20">
-											<img src={img} alt="Сканер" width="350" height="350"/>
-										</div>
-										<div class="flex flex-col mt-10">
-											<p class="ml-20 mb-5 p-2 rounded-xl bg-green-300 w-96">
-												IMEI устройства можно проверить запросом USSD-команды
-												*#06#
-												в приложении "Телефон".
-											</p>
-											<p class=" ml-20 bg-green-300 p-2 rounded-xl w-96">
-												Отсканируйте штрих-код сканером или введите IMEI
-												устройства вручную
-											</p>
-										</div>
-									</div>
-								</div>
-								
-						</div>
+        <div class='flex justify-center'>
+			<div class=" flex mt-[125px] w-[452px] h-[915px]" >
+            	<form method="POST">
+					<div class=" flex w-[296px] h-[53px] ml-4">
+						<h1 class=" text-black text-[42px]">
+							Проверка IMEI
+						</h1>						
+					</div>
+					<div class=" flex w-[299px] h-[29px] mt-4 ml-4 mb-4" >
+						<h2 class=" text-gray-700 text-[19px]">
+							Введите IMEI для проверки
+						</h2>
+					</div>
+					<div class=" flex ml-4 mb-4 items-center">
+						<input class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500"  
+							type="checkbox" onClick={event => setButEnable('')}/>
+						<span class="ml-2 text-[20px]">Телефон</span>						
+					</div>
+					<div class=" flex ml-4 items-center">
+						<input class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500" type="checkbox" onClick={event => setButEnable('')} />
+						<span class="ml-2 text-[20px]">Смарт-часы</span>
+					</div>
+					<div class="w-[400px] h-[60px] mt-6">
+						<label disabled='disable'>
+							<input class="w-full h-full text-[20px] text-gray-700 p-2 pl-3 border-2 border-green-500 rounded-2xl"
+								type="number" maxLength={15} name="IMEI" placeholder="IMEI" 
+								disabled={butEnable}
+								onChange={event => validateImei(event.target.value)}
+							/>
+						</label>
+					</div>
+					{invalidImei === 1 ? <InvalidImei/> : null}
+					<div class="w-[400px] h-[60px]">
+						
+						<label class="flex justify-center mt-6">
+							<button class="w-full h-full border-2 p-2 rounded-2xl bg-green-500 text-white text-[20px]" type="button"  onClick={getBaseImeiInfo} disabled={butEnable}>
+								Проверить
+							</button>
+						</label>
+					</div>
+					<div class="flex justify-center mt-2">
+						<img src={img} alt="Сканер" width="250" height="250"/>
+					</div>
+					<div class="w-[450px] h-[200px] mt-6">
+						<p class=" w-full h-full p-3 text-[20px] rounded-xl bg-green-200">
+							IMEI устройства можно проверить запросом USSD-команды
+							<b>*#06#</b> в приложении "Телефон"
+							<br/><br/>
+							Отсканируйте штрих-код сканером или введите IMEI
+							устройства вручную
+						</p>						
+					</div>
 				</form>
+			</div>
         </div>
     );
 };
