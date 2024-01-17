@@ -119,130 +119,98 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
    };
 
     return(
-        <div>
-			<div className="" id="check-defect-device">
-				<div className="form__container form__container--center">
-					<h1 className="form__title form__title--center">
-						Проверьте дефекты устройства
-					</h1>
-					<div className="form__content">
-						<div className="form__column">
-							<div className="form__description form__alert">
-								<p className="form__paragraph">
-									<b className="form__bold">Обратите внимание</b>, что перед
-										проверкой экрана с него необходимо
-										<b className="form__bold">снять все защитные элементы</b>:
-										плёнки, защитные стекла и т.п.
+				<div class="flex flex-col items-center">
+					<div class="">
+						<h1 class="mt-20 mb-4 tracking-tight text-gray-900 lg:text-5xl">
+							Проверьте дефекты устройства
+						</h1>						
+					</div>
+						<div class="flex flex-col">
+							<div class="inline-flex justify-start">
+								<p class="ml-20 mb-5 p-2 rounded-xl bg-green-200 w-96">
+									Обратите внимание, что перед
+									проверкой экрана с него необходимо
+									снять все защитные элементы:
+									<b class="ml-1">плёнки, защитные стекла и т.п.</b>
 								</p>
 							</div>
-							<div className="defects-list">
-								<div className="defects-list__item">
-									<label className="form__label form__label--bold form__label--checkbox">
-										<input className="
-											visually-hidden 
-											form__input 
-											form__input--checkbox" 
+							<div class="w-[877px]">
+								<div class="flex justify-between w-full mb-2">
+									<div>
+										<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500"
 											type="checkbox" 
 											name="SCREEN_IS_BROKEN"
-											onClick={() => {condition === '' ? setCondition('D') : setCondition('') }} />
-											<span className="form__checkbox-custom"></span>
-											Экран разбит или есть отслоения
-									</label>
-									<button className="defects-list__link defects-list__link--no-indent-top-mobile smart-photo"
-									onClick={() => {setExamples("displayDamage")}}>
+											onClick={() => {condition === '' ? setCondition('D') : setCondition('') }}
+										/>
+										<span class="ml-2">Экран разбит или есть отслоения</span>										
+									</div>
+									<div class="">
+										<button class=" text-green-500" onClick={() => {setExamples("displayDamage")}}>
+											Примеры
+										</button>										
+									</div>
+								</div>
+								<div class="flex justify-between w-full mb-2">
+									<div>
+										<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500 w"
+											type="checkbox" 
+											name="SCREEN_WITH_IMAGE"	
+											onClick={() => {condition === '' ? setCondition('C') : setCondition('') }} 
+										/>
+										<span class="ml-2">Экран с различными повреждениями (потёртости, царапины)</span>										
+									</div>
+									<button class=" text-green-500" onClick={() => {setExamples("displaySmallDefects")}}>
 										Примеры
 									</button>
 								</div>
-								<div className="defects-list__item">
-									<label className="form__label form__label--bold form__label--checkbox">
-										<input className="
-											visually-hidden
-											form__input 
-											form__input--checkbox
-											" type="checkbox" 
-											name="SCREEN_WITH_IMAGE"
-											onClick={() => {condition === '' ? setCondition('C') : setCondition('') }} />
-											<span className="form__checkbox-custom"></span>
-												Экран с различными повреждениями (потёртости,
-												царапины)
-									</label>
-										<button className="defects-list__link defects-list__link--no-indent-top-mobile smart-photo"
-											onClick={() => {setExamples("displaySmallDefects")}} >
-											Примеры
-										</button>
-								</div>
-								<div className="defects-list__item">
-									<label className="form__label form__label--bold form__label--checkbox">
-										<input 
-										className="
-										visually-hidden 
-										form__input 
-										form__input--checkbox" 
-										type="checkbox" 
-										name="DETECTIVE_PIXELS"
-										onClick={() => {condition === '' ? setCondition('D') : setCondition('') }} />
-											<span className="form__checkbox-custom"></span>
-											Есть выгорания, битые пиксели, полосы, пятна
-									</label>
-										<button className="defects-list__link defects-list__link--no-indent-top-mobile smart-photo"
-											onClick={() => {setExamples("displayBadPixels")}}>
-											Примеры
-										</button>
-							
-								</div>
-									<div className="defects-list__item">
-										<label className="form__label form__label--bold form__label--checkbox">
-											<input className="
-												visually-hidden
-												form__input form__input--checkbox
-												" type="checkbox" 
-												name="CASE_IS_DAMAGED"
-												onClick={() => {condition === '' ? setCondition('C') : setCondition('') }} />
-												<span className="form__checkbox-custom"></span>
-												Корпус имеет видемые повреждения
-										</label>
-										<button className="defects-list__link defects-list__link--no-indent-top-mobile smart-photo"
-											onClick={() => {setExamples("bodyVisibleDamage")}}>
-											Примеры
-										</button>
-										</div>
+								<div class="flex justify-between  w-full mb-2">
+									<div>
+										<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500"
+											type="checkbox" 
+											name="DETECTIVE_PIXELS"	
+											onClick={() => {condition === '' ? setCondition('D') : setCondition('') }} 
+										/>
+										<span class="ml-2">Есть выгорания, битые пиксели, полосы, пятна</span>										
 									</div>
+									<button class=" text-green-500" onClick={() => {setExamples("displayBadPixels")}}>
+											Примеры
+									</button>
+								</div>
+								<div class="flex justify-between  w-full mb-2">
+									<div>
+										<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500"
+											type="checkbox" 
+											name="CASE_IS_DAMAGED" 
+											onClick={() => {condition === '' ? setCondition('C') : setCondition('') }}
+										/>
+										<span class="ml-2">Корпус имеет видемые повреждения</span>										
+									</div>
+										<button class="text-green-500"	onClick={() => {setExamples("bodyVisibleDamage")}}>
+											Примеры
+										</button>
+									</div>
+								</div>
 									{examples === 'displayDamage' ? <ReactImageGallery items={imagesDisplayDamages} showPlayButton={false} /> : null}
 									{examples === 'displaySmallDefects' ? <ReactImageGallery items={imagesDisplaySmallScratches} showPlayButton={false}/> : null}
 									{examples === 'displayBadPixels' ? <ReactImageGallery items={imagesBadPixels} showPlayButton={false}/> : null}
 									{examples === 'bodyVisibleDamage' ? <ReactImageGallery items={imagesBodyScrathes} showPlayButton={false}/> : null}
-									<div className="
-												form__container
-												form__container--sm
-												form__container--center
-											">
-										<button className="
-													form__btn
-													form__btn--fill-color-main
-													form__btn--center
-													form__btn--indent-top
-													form__btn--indent-bottom
-													form__btn--resolve
-												" type="button"
-												onClick={clientAgree}
-										>
+									<div>
+										<button class="border-2 w-24 mt-5 p-3 text-white rounded-2xl bg-green-500" type="button" onClick={clientAgree}>
 											Далее
 										</button>
-										<button className="
-													form__btn
-													form__btn--center
-													form__btn--fill-transparent
-													form__btn--reject
-												" type="button"
+										<button class="border-2 w-26 mt-5 p-3 text-white rounded-2xl bg-red-500" type="button"
 												onClick={aborted}>
 											Отклонить
 										</button>
 									</div>
 								</div>
+								<div class="absolute bottom-0 w-full h-14">
+									<div class="flex justify-center ml-40 mr-40 border-t-2 border-green-500  ">
+										<h1 class="mt-2">CellTrade &copy; 2024</h1>
+									</div>
+									
+								</div>  
 							</div>
-						</div>
-					</div>
-        </div>
     );
 };
 

@@ -216,6 +216,7 @@ const CheckImei = ({onNextStep}) => {
 										</div>
 									</div>
 								</div>
+								
 						</div>
 				</form>
         </div>

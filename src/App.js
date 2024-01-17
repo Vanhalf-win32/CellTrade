@@ -144,7 +144,7 @@ export default function App() {
         {step === 10 ? <ConsigAgree props={productDataDefault} onExit={onExit} onNextStep={onConsigAgree} /> : null}  
         {step === 11 ? <Contract props={productDataDefault} onNextStep={onContract} onBackStep={onBackStepPhone} /> : null}
         {step === 12 ? <Signed props={productDataDefault} onNextStep={onExit} /> : null}
-      <Footer/>
+      {/* <Footer/> */}
     </div>
 	)  
 };
