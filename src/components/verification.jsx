@@ -6,7 +6,7 @@ import Config from "./variables";
 
 
 const Verification = ({props, setReshoots, onExit, onNextStep, onBackStep}) => {
-	 const [bot, setBot] = useState ({});
+	const [bot, setBot] = useState ({});
 	const [productData, setProductData] = useState({
 		post: {
 			"PRODUCT_DATA": JSON.stringify(props),		
@@ -66,31 +66,23 @@ const Verification = ({props, setReshoots, onExit, onNextStep, onBackStep}) => {
 
 
     return(
-        <div>
-            <div className="form__step" id="verification">
-				<div className="form__container form__container--sm form__container--center">
-					<h1 className="form__title">Ожидается проверка в Celltrade</h1>
-						<div className="form__content">
-							<div className="form__column">
-								<div className="counter"><br/>
-                                <div className="form__title">
-									<Loader/>
-								</div><br/>
-									{/* <svg class="counter__svg" width="150" height="150" viewBox="0 0 150 150">
-										<circle class="counter__circle counter__circle--bg" cx="75" cy="75" r="65" />
-										<circle class="counter__circle counter__circle--fill" cx="75" cy="75" r="65" />
-									</svg> */}
-									<div className="counter__number"></div>
-                                  
-								</div>
-								<div className="form__description">
-									<p className="form__paragraph">
-										Если ожидание составило более 5 минут, пожалуйста,
-										обратитесь в группу поддержки по Trade-In в мессенджере
-									</p>
-								</div>
-							</div>
-						</div>
+        <div class="flex justify-center">
+            <div class=" w-[700px] h-[600px] mt-[127px] ">
+				<div class=" flex justify-center w-[700px] h-[53px] " >
+					<h1 class="tracking-tight text-gray-900 text-[40px]">
+						Ожидается проверка в Celltrade
+					</h1>
+				</div>
+				<div class="ml-[189px] mt-[126px] mr-[194px] mb-[138px]">
+					<div class=" flex justify-center w-[317px] h-[192px]">
+						<Loader/>
+					</div>
+				</div>
+				<div class="w-[700px] h-[86px] rounded-xl bg-green-200">
+					<p  class=" w-full h-full p-3 text-[20px] ">
+						Если ожидание составило более 5 минут, пожалуйста,
+						обратитесь в группу поддержки по Trade-In в мессенджере
+					</p>
 				</div>
 			</div> 
         </div>

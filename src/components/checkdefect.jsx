@@ -119,92 +119,99 @@ const CheckDefect = ({props, onExit, onNextStep}) => {
    };
 
     return(
-				<div class="flex flex-col items-center w-[1718px] h-[791]">
-					<div class=" flex w-[647px] ">
-						<h1 class="mt-[125px] mb-4 tracking-tight text-gray-900 text-[40px]">
+		<div class=" flex justify-center">
+			<div class="w-[877px] h-[537]">
+				<div class="">
+						<h1 class="mt-[125px] mb-4 tracking-tight text-gray-900 text-[42px]">
 							Проверьте дефекты устройства
 						</h1>						
+				</div>
+				<div class="mb-8">
+					<p class=" w-[564px] h-[115px] p-3 rounded-xl bg-green-200 text-[20px]">
+						Обратите внимание, что перед
+						проверкой экрана с него необходимо
+						снять все защитные элементы:<br/>
+						<b>плёнки, защитные стекла и т.п.</b>
+					</p>
+				</div>
+				<div class="flex justify-between mb-4 ">
+					<div class="flex items-center">
+						<input class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500"
+							type="checkbox" 
+							name="SCREEN_IS_BROKEN"
+							onClick={() => {condition === '' ? setCondition('D') : setCondition('') }}
+						/>
+						<span class="ml-2 text-[20px]">Экран разбит или есть отслоения</span>						
 					</div>
-						<div class="flex flex-col ">
-							<div class="flex items-start">
-								<p class=" w-[564px] h-[115px] mb-5 p-3 rounded-xl bg-green-200 text-[19px]">
-									Обратите внимание, что перед
-									проверкой экрана с него необходимо
-									снять все защитные элементы:
-									<b class="ml-1">плёнки, защитные стекла и т.п.</b>
-								</p>
-							</div>
-							<div class="w-[877px]">
-								<div class="flex justify-between w-full mb-2">
-									<div>
-										<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500"
-											type="checkbox" 
-											name="SCREEN_IS_BROKEN"
-											onClick={() => {condition === '' ? setCondition('D') : setCondition('') }}
-										/>
-										<span class="ml-2">Экран разбит или есть отслоения</span>										
-									</div>
-									<div class="">
-										<button class=" text-green-500" onClick={() => {setExamples("displayDamage")}}>
-											Примеры
-										</button>										
-									</div>
-								</div>
-								<div class="flex justify-between w-full mb-2">
-									<div>
-										<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500 w"
-											type="checkbox" 
-											name="SCREEN_WITH_IMAGE"	
-											onClick={() => {condition === '' ? setCondition('C') : setCondition('') }} 
-										/>
-										<span class="ml-2">Экран с различными повреждениями (потёртости, царапины)</span>										
-									</div>
-									<button class=" text-green-500" onClick={() => {setExamples("displaySmallDefects")}}>
-										Примеры
-									</button>
-								</div>
-								<div class="flex justify-between  w-full mb-2">
-									<div>
-										<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500"
-											type="checkbox" 
-											name="DETECTIVE_PIXELS"	
-											onClick={() => {condition === '' ? setCondition('D') : setCondition('') }} 
-										/>
-										<span class="ml-2">Есть выгорания, битые пиксели, полосы, пятна</span>										
-									</div>
-									<button class=" text-green-500" onClick={() => {setExamples("displayBadPixels")}}>
-											Примеры
-									</button>
-								</div>
-								<div class="flex justify-between  w-full mb-2">
-									<div>
-										<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500"
-											type="checkbox" 
-											name="CASE_IS_DAMAGED" 
-											onClick={() => {condition === '' ? setCondition('C') : setCondition('') }}
-										/>
-										<span class="ml-2">Корпус имеет видемые повреждения</span>										
-									</div>
-										<button class="text-green-500"	onClick={() => {setExamples("bodyVisibleDamage")}}>
-											Примеры
-										</button>
-									</div>
-								</div>
-									{examples === 'displayDamage' ? <ReactImageGallery items={imagesDisplayDamages} showPlayButton={false} /> : null}
+					<button class="text-green-500 text-[20px]" onClick={() => {setExamples("displayDamage")}}>
+						Примеры
+					</button>	
+				</div>
+				<div class="flex justify-between mb-4">
+					<div class="flex items-center">
+						<input class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500"
+							type="checkbox" 
+							name="SCREEN_WITH_IMAGE"	
+							onClick={() => {condition === '' ? setCondition('C') : setCondition('') }} 
+						/>
+						<span class="ml-2 text-[20px]">Экран с различными повреждениями (потёртости, царапины)</span>
+					</div>
+					<button class="text-green-500 text-[20px]" onClick={() => {setExamples("displaySmallDefects")}}>
+						Примеры
+					</button>
+				</div>
+				<div class="flex justify-between mb-4">
+					<div class="flex items-center">
+						<input class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500"
+							type="checkbox" 
+							name="DETECTIVE_PIXELS"	
+							onClick={() => {condition === '' ? setCondition('D') : setCondition('') }} 
+						/>
+						<span class="ml-2 text-[20px]">Есть выгорания, битые пиксели, полосы, пятна</span>
+					</div>
+					<button class="text-green-500 text-[20px]" onClick={() => {setExamples("displayBadPixels")}}>
+						Примеры
+					</button>
+				</div>
+				<div class="flex justify-between mb-4">
+					<div class="flex items-center">
+						<input class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500"
+							type="checkbox" 
+							name="CASE_IS_DAMAGED" 
+							onClick={() => {condition === '' ? setCondition('C') : setCondition('') }}
+						/>
+						<span class="ml-2 text-[20px]">Корпус имеет видемые повреждения</span>	
+					</div>
+					<button class="text-green-500 text-[20px]"	onClick={() => {setExamples("bodyVisibleDamage")}}>
+						Примеры
+					</button>				
+				</div>
+				<div class=" flex h-[58px] mt-6">
+					<button class="border-2 w-[124px] h-[58px] p-3 text-white text-[20px] rounded-2xl bg-green-500" type="button" onClick={clientAgree}>
+						Далее
+					</button>
+					<button class="border-2 w-[162px] h-[58px] p-3 text-white text-[20px] rounded-2xl bg-red-500 ml-2" 
+						type="button"
+						onClick={aborted}
+					>
+						Отклонить
+					</button>
+				</div>
+			</div>
+							
+												
+							
+								
+									
+								
+								
+									{/* {examples === 'displayDamage' ? <ReactImageGallery items={imagesDisplayDamages} showPlayButton={false} /> : null}
 									{examples === 'displaySmallDefects' ? <ReactImageGallery items={imagesDisplaySmallScratches} showPlayButton={false}/> : null}
 									{examples === 'displayBadPixels' ? <ReactImageGallery items={imagesBadPixels} showPlayButton={false}/> : null}
 									{examples === 'bodyVisibleDamage' ? <ReactImageGallery items={imagesBodyScrathes} showPlayButton={false}/> : null}
-									<div>
-										<button class="border-2 w-24 mt-5 p-3 text-white rounded-2xl bg-green-500" type="button" onClick={clientAgree}>
-											Далее
-										</button>
-										<button class="border-2 w-26 mt-5 p-3 text-white rounded-2xl bg-red-500 ml-2" type="button"
-												onClick={aborted}>
-											Отклонить
-										</button>
-									</div>
-								</div>
-							</div>
+	 */}
+		</div>			
+	
     );
 };
 

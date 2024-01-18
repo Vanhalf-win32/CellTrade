@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
-import img from "../img/content/checkdevice.png";
+import img from "../img/checkPhone.png";
 import axios from "axios";
 import Selects from "./utils/selects";
 import CheckBoxImei from "./utils/checkboxImei";
@@ -79,62 +79,58 @@ const CheckPhone = ({ props, onExit, onNextStep }) => {
 	};
 
 	return (
-		<div class="flex justify-center">
-			<div>
-				<div>
+		<div class="">
+			<div class="flex justify-center">
+				<div class="mt-[127px]">
 					<img src={img} alt="Телефон" width="450" height="450" />
 				</div>
-			</div>
-			<div>
-				<div class="flex flex-col justify-center">
-					<h1 class="flex justify-center mt-20 tracking-tight text-gray-900 lg:text-5xl"> Проверьте устройство</h1>
-					<h2 class="flex justify-center mt-10 mb-4 tracking-tight text-gray-900 lg:text-4xl"> {props.data.Description}</h2>
-					{selects === 1 ? <Selects props={productDataDefault} onCheckPhone={onCheckPhone} /> : null}
-					<div class="flex flex-col items-start">
-						<label class="inline-flex mt-2 justify-center items-center rounded">
-							<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500" type="checkbox" name="DESCRIPTION_MATCHES" onClick={enable} />
-							<span class="ml-2">Описание совпадает по модели, памяти, цвету</span>
-						</label>
-						<label class="inline-flex mt-2 justify-center items-center rounded">
-							<input class="w-6 h-6 rounded-full text-green-500 focus:ring-green-500" type="checkbox" name="MOBILE_ON" onClick={enable} />
-							<span class="ml-2">Телефон включается</span>
-						</label>
+				<div class="mt-[127px]">
+					<div>
+						<h1 class="flex justify-center tracking-tight text-gray-900 lg:text-5xl"> Проверьте устройство</h1>
 					</div>
-					{stateBox === 1 ? <CheckBoxImei enable={enable} /> : null}
-				
-						{getImages === 1 ? <ReactImageGallery items={images} showPlayButton={false}/> : null}
-				
-					<div class="mt-2">
-						<label>
-							<button class=" flex border-2 mt-3 w-34 h-10 p-2 rounded-lg  bg-green-500" type="button" onClick={() => setGetImages(1)}>
-								<span class="text-sm">Как это проверить?</span>
-							</button>								
-						</label>
+					<div>
+						<h2 class="flex justify-center mt-5 mb-4 tracking-tight text-gray-900 lg:text-4xl"> {props.data.Description}</h2>
 					</div>
-						<div class="flex flex-col justify-center mt-5 bg-green-300 rounded-xl w-80">
-							<p class="p-2">
-								Внутренний IMEI проверяется <br/> по запросу
-								<b>*#06#</b>
-							</p>
-							<p class="p-2 ">
-								Внешний IMEI находится либо на <br/>
-								задней поверхности корпуса, либо<br/> 
+					<div>
+						{selects === 1 ? <Selects props={productDataDefault} onCheckPhone={onCheckPhone} /> : null}
+					</div>	
+					<div class="flex items-center mb-4">
+						<input class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500" type="checkbox" name="DESCRIPTION_MATCHES" onClick={enable} />
+						<span class="ml-2 text-[20px]">Описание совпадает по модели, памяти, цвету</span>
+					</div>
+					<div class="flex items-center mb-4">
+						<input class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500" type="checkbox" name="MOBILE_ON" onClick={enable} />
+						<span class="ml-2 text-[20px]">Телефон включается</span>
+					</div>
+					<div>
+						{stateBox === 1 ? <CheckBoxImei enable={enable} /> : null}
+					</div>
+					<div>
+						<button class=" flex border-2 mt-3 w-34 h-10 p-2 rounded-lg  bg-green-500" type="button" onClick={() => setGetImages(1)}>
+							<span class="text-sm text-white">Как это проверить?</span>
+						</button>								
+					</div>
+					<div class="w-[453px] h-[201px]   mt-6">
+						<p class="w-full h-full p-2 bg-green-200 rounded-xl text-[20px]">
+							Внутренний IMEI проверяется<br/>
+							по запросу <b>*#06#</b>
+							<br/><br/>
+										Внешний IMEI находится либо на 
+								задней поверхности корпуса, либо
 								на отке SIM-карты.								
-							</p>
-						</div>
-					<div class="flex justify-around">
-						<label>
-							<button class="border-2 w-48 mt-5 p-2 disabled:bg-gray-400 rounded-2xl bg-green-500 text-white" type="button" disabled={button} onClick={checkProductData}>
-								Принять
-							</button>						
-						</label>
-						<label>
-							<button class="border-2 w-48 mt-5 p-2 rounded-2xl bg-red-500 text-white" type="button" onClick={aborted}>
-								Отклонить
-							</button>						
-						</label>						
+						</p>
 					</div>
-
+					<div class=" flex justify-around h-[58px] mt-6">
+						<button class=" w-[124px] h-full border-2  p-2 text-[20px] disabled:bg-gray-400 rounded-2xl bg-green-500 text-white" type="button" disabled={button} onClick={checkProductData}>
+							Далее
+						</button>
+						<button class=" w-[124px] h-full border-2 p-2 text-[20px] rounded-2xl bg-red-500 text-white" type="button" onClick={aborted}>
+							Отклонить
+						</button>	
+					</div>
+					<div class="mt-6">
+						{getImages === 1 ? <ReactImageGallery items={images} showPlayButton={false}/> : null}
+					</div>
 				</div>
 			</div>
 		</div>

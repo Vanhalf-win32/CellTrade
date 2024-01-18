@@ -55,47 +55,43 @@ const CheckPhoto = ({props, reshoots, onNextStep}) => {
 	},[productDataDefault]);
 	
     return (
-			<div class=" flex justify-center">
-				<div class="flex flex-col w-[560px] h-[671px] items-center mt-[125px]">
+			<div class="flex justify-center">
+				<div class="w-[560px] h-[671px] mt-[127px]">
 					<div class="w-[471px] h-[107px]">
-						<h1 class="tracking-tight text-gray-900 text-[35px]">
+						<h1 class="tracking-tight text-gray-900 text-[40px]">
 							Проверка фотографий устройства
 						</h1>						
 					</div>
-					<div class="w-[471px] h-[107px]">
-						<h2>
+					<div class=" mt-4 mb-4 text-red-500 text-[20px]">
+						<h2 class="text">
+							{reshoots}
 							{statusBot}
 						</h2>						
 					</div>
-					<div class="flex items-center w-[471px] h-[107px]">
-						<img src={img_mob}></img>
-						<p class="w-[222px] h-[58px]  text-green-500 text-[20px] ml-7">
-							<b>Если Вы загружаете фото с телефона</b>
+					<div class="flex items-center w-[471px] h-[58px] mb-4">
+						<img alt="mobile" width={33} height={53} src={img_mob}/>
+						<p class="w-[222px] h-[58px] ml-4 text-green-500 text-[20px]">
+							Если Вы загружаете фото с телефона
 						</p>
 					</div>
 					<div class="flex items-center w-[471px] h-[107px]">
 						<p>Отсканируй QR-код</p>
-						<img class="w-[283px] h-[90px] ml-3" src={qrCode}></img>
+						<img alt="qrcode" class="w-[283px] h-[90px] ml-3" src={qrCode}></img>
 					</div>
-					<div class="flex items-center w-[471px] h-[107px]">
-						<img src={img_pc}></img>
-						<p class="w-[222px] h-[58px]  text-green-500 text-[20px]">
-							<b>Если Вы загружаете фото с телефона</b>
+					<div class="flex items-center w-[471px] h-[58px] mt-4">
+						<img alt="pc" width={54} height={52} src={img_pc}/>
+						<p class="w-[222px] h-[58px] ml-3 text-green-500 text-[20px]">
+							Если Вы загружаете фото с телефона
 						</p>
 					</div>
-					<div class=" w-[442px] h-[87px]">
+					<div class="w-[442px] h-[87px] mt-6">
 						<p>
 							Перейдите по прямой ссылке:<br/>
 							<b>https://dev-celltrade.ru/tradein/upload/?sessid=345345345</b>
 						</p>
 					</div>
-					<div>
-						<h2 style={{color: "red"}}>
-							{reshoots}
-						</h2>
-					</div>
 				</div>
-		</div>				
+			</div>				
     );
 };
 

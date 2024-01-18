@@ -35,10 +35,10 @@ const Selects = ({props, onCheckPhone}) => {
 
     return (
         <div>
-     		<label className="form__label form__label--checkbox form__label--bold">
+     		<label>
 				Select colors 
 				<br/>
-				<select onClick={(event) => {setSpecColors(event.target.value)}}>
+				<select class="rounded-2xl border-2 border-green-500 mt-2 mb-2" onClick={(event) => {setSpecColors(event.target.value)}}>
 					{ typeof props.data.Color === 'object' 
 						? 
 						props.data.Color.map((color) => (
@@ -50,10 +50,10 @@ const Selects = ({props, onCheckPhone}) => {
 						<option value={props.data.Color}>{props.data.Color}</option>}
 				</select>
 			</label><br/>
-			<label className="form__label form__label--checkbox form__label--bold">
+			<label className="">
 				Select memory
 				<br/>
-				<select onClick={(event) => {setSpecMemory(event.target.value)}}>
+				<select class="rounded-2xl border-2 border-green-500 mt-2 mb-2" onClick={(event) => {setSpecMemory(event.target.value)}}>
 					{typeof props.data.ProdCapacity === 'object' 
 						? 
 						props.data.ProdCapacity.map((memory) => (

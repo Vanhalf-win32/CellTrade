@@ -195,7 +195,6 @@ const CheckImei = ({onNextStep}) => {
 					</div>
 					{invalidImei === 1 ? <InvalidImei/> : null}
 					<div class="w-[400px] h-[60px]">
-						
 						<label class="flex justify-center mt-6">
 							<button class="w-full h-full border-2 p-2 rounded-2xl bg-green-500 text-white text-[20px]" type="button"  onClick={getBaseImeiInfo} disabled={butEnable}>
 								Проверить
