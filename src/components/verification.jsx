@@ -67,24 +67,26 @@ const Verification = ({props, setReshoots, onExit, onNextStep, onBackStep}) => {
 
     return(
         <div class="flex justify-center">
-            <div class=" w-[700px] h-[600px] mt-[127px] ">
-				<div class=" flex justify-center w-[700px] h-[53px] " >
-					<h1 class="tracking-tight text-gray-900 text-[40px]">
-						Ожидается проверка в Celltrade
-					</h1>
-				</div>
-				<div class="ml-[189px] mt-[126px] mr-[194px] mb-[138px]">
-					<div class=" flex justify-center w-[317px] h-[192px]">
-						<Loader/>
+			<div class="flex justify-center w-full h-full p-4 lg:p-0 lg:w-[1920px] lg:h-[1146px]">
+				<div class="w-full h-full mt-10 lg:w-[700px] lg:h-[600px] lg:mt-[127px] ">
+					<div class="flex justify-center w-full h-full lg:w-[700px] lg:h-[53px] " >
+						<h1 class="tracking-tight text-gray-900 text-[36px] lg:text-[40px]">
+							Ожидается проверка в CellTrade
+						</h1>
+					</div>
+					<div class="mt-10 lg:ml-[189px] lg:mt-[126px] lg:mr-[194px] lg:mb-[138px]">
+						<div class="flex justify-center ml-10 lg:ml-0 w-[317px] h-[192px]">
+							<Loader/>
+						</div>
+					</div>
+					<div class="w-full h-full mt-14 lg:mt-0 lg:w-[700px] lg:h-[86px] rounded-xl bg-green-200">
+						<p  class=" w-full h-full p-3 lg:text-[20px] ">
+							Если ожидание составило более 5 минут, пожалуйста,
+							обратитесь в группу поддержки по Trade-In в мессенджере
+						</p>
 					</div>
 				</div>
-				<div class="w-[700px] h-[86px] rounded-xl bg-green-200">
-					<p  class=" w-full h-full p-3 text-[20px] ">
-						Если ожидание составило более 5 минут, пожалуйста,
-						обратитесь в группу поддержки по Trade-In в мессенджере
-					</p>
-				</div>
-			</div> 
+			</div>
         </div>
     );
 };

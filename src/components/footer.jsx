@@ -2,9 +2,18 @@ import React from "react";
 
 const Footer = () => {
     return (
-		<div class="flex justify-center mt-10 ml-40 mr-40 border-t-2 border-green-500 bottom-0 ">
-			<h1 class="mt-5 mb-5">CellTrade &copy; 2024</h1>
-		</div>   
+		<div class="block lg:hidden mt-10">
+			<div class="border-t-2 border-green-500 bottom-0">
+				<div class="flex flex-col items-center w-full h-full mt-[40px] ">
+					<p class="text-[17px]">
+						Бесплатная линия поддержки (круглосуточно)
+					</p>
+					<p class="text-[20px]">
+						<b class="">+7 (800) 302-43-53 / +7 (495) 175-43-33</b>
+					</p>	
+				</div>
+			</div>   
+		</div>
     );
 };
 

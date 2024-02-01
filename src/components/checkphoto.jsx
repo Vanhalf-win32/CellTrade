@@ -4,6 +4,7 @@ import axios from "axios";
 import Config from "./variables";
 import img_mob from "../img/mobile.png";
 import img_pc from "../img/desktop.png";
+import Reshoots from "./utils/reshoots";
 
 
 
@@ -56,39 +57,36 @@ const CheckPhoto = ({props, reshoots, onNextStep}) => {
 	
     return (
 			<div class="flex justify-center">
-				<div class="w-[560px] h-[671px] mt-[127px]">
-					<div class="w-[471px] h-[107px]">
-						<h1 class="tracking-tight text-gray-900 text-[40px]">
-							Проверка фотографий устройства
-						</h1>						
-					</div>
-					<div class=" mt-4 mb-4 text-red-500 text-[20px]">
-						<h2 class="text">
-							{reshoots}
-							{statusBot}
-						</h2>						
-					</div>
-					<div class="flex items-center w-[471px] h-[58px] mb-4">
-						<img alt="mobile" width={33} height={53} src={img_mob}/>
-						<p class="w-[222px] h-[58px] ml-4 text-green-500 text-[20px]">
-							Если Вы загружаете фото с телефона
-						</p>
-					</div>
-					<div class="flex items-center w-[471px] h-[107px]">
-						<p>Отсканируй QR-код</p>
-						<img alt="qrcode" class="w-[283px] h-[90px] ml-3" src={qrCode}></img>
-					</div>
-					<div class="flex items-center w-[471px] h-[58px] mt-4">
-						<img alt="pc" width={54} height={52} src={img_pc}/>
-						<p class="w-[222px] h-[58px] ml-3 text-green-500 text-[20px]">
-							Если Вы загружаете фото с телефона
-						</p>
-					</div>
-					<div class="w-[442px] h-[87px] mt-6">
-						<p>
-							Перейдите по прямой ссылке:<br/>
-							<b>https://dev-celltrade.ru/tradein/upload/?sessid=345345345</b>
-						</p>
+				<div class="flex justify-center w-full h-full p-4 lg:w-[1920px] lg:h-[1146px]">
+					<div class="w-full h-full mt-10 lg:w-[560px] lg:h-[671px] lg:mt-[127px]">
+						<div class="w-full h-full lg:w-[471px] lg:h-[107px]">
+							<h1 class="tracking-tight text-gray-900 text-[36px] lg:text-[40px]">
+								Проверка фотографий устройства
+							</h1>						
+						</div>
+						{reshoots ? <Reshoots reshoots={reshoots} statusBot={statusBot}/> : null}
+						<div class="flex items-center w-full h-full lg:w-[471px] lg:h-[58px] mb-4">
+							<img alt="mobile" width={33} height={53} src={img_mob}/>
+							<p class="w-full h-full lg:w-[222px] lg:h-[58px] ml-4 text-green-500 lg:text-[20px]">
+								Если Вы загружаете фото с телефона
+							</p>
+						</div>
+						<div class="flex items-center w-full h-full lg:w-[471px] lg:h-[107px]">
+							<p>Отсканируй QR-код</p>
+							<img alt="qrcode" class="w-[150px] lg:w-[283px] lg:h-[90px] ml-3" src={qrCode}></img>
+						</div>
+						<div class="flex items-center lg:w-[471px] lg:h-[58px] mt-4">
+							<img alt="pc" width={54} height={52} src={img_pc}/>
+							<p class="w-full h-full lg:w-[222px] lg:h-[58px] ml-3 text-green-500 lg:text-[20px]">
+								Если Вы загружаете фото с телефона
+							</p>
+						</div>
+						<div class="mt-10 lg:w-[442px] lg:h-[87px] lg:mt-6">
+							<p>
+								Перейдите по прямой ссылке:<br/>
+								<b>https://dev-celltrade.ru/tradein/upload/?sessid=345345345</b>
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>				

@@ -11,24 +11,28 @@ const Header = ({onExit}) => {
    };
 	
     return(
-			    <div class="flex justify-between mt-3 ml-40 mr-40 pb-3 border-b-2 border-green-500">
-				    <div class="ml-28">
+		<div class="flex justify-center">
+			<div class="flex justify-center w-full h-full 2xl:w-[1920px] 2xl:h-[191px]">
+				<div class="flex flex-col items-center justify-between lg:flex-row w-[1718px] h-[130px] mt-[48px] border-b-2 border-green-500">
+					<div class="lg:w-[305px] lg:h-[66px]">
 						<img
-                            src={img}
-                            alt="Логотип"
-                            width="270"
-                            height="75"
+							class="size-100"
+							src={img}
+							alt="Логотип"
 						/>
-			        </div>
-					<div class="flex flex-col justify-center mr-10">
-						<p>
-                            Бесплатная линия поддержки (круглосуточно)
-                        </p>
-						<p class="text-lg">
-                             <b class="">+7 (800) 302-43-53 / +7 (495) 175-43-33</b>
-                        </p>
 					</div>
-				</div>
+					<div class="hidden lg:block">
+						<p class="text-[17px]">
+							Бесплатная линия поддержки (круглосуточно)
+						</p>
+						<p class="text-[20px]">
+							<b class="">+7 (800) 302-43-53 / +7 (495) 175-43-33</b>
+						</p>
+					</div>
+				</div>	
+			</div>
+		</div>
+
     );
 };
 

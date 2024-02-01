@@ -15,11 +15,9 @@ const Interval = ({setEnableButton}) => {
     }, [ seconds, timerActive]);
   
     return(
-        <div>
-            <p className="form__paragraph form__paragraph--indent-top-desktop">
-				Повторная отправка СМС возможна через {seconds} ...
-			</p>
-        </div>
+        <div class="flex items-center justify-center text-[60px] lg:w-[128px] lg:h-[77px]  lg:text-[85px]">
+        	 <p class="text-green-500">0:</p>{seconds}
+			  </div>
     )
 }
 

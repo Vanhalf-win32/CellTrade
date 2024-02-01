@@ -16,6 +16,7 @@ import ConsigAgree from './components/consigagree';
 import Contract from './components/contract';
 import Signed from './components/signed';
 import './index.css';
+import CreatePhotos from './components/createPhotos';
 
 
 export default function App() {
@@ -132,7 +133,7 @@ export default function App() {
   return( 
     <div>
       <Header onExit={onExit}/>
-        {step === 1 ? <CheckImei onNextStep={onCheckIMEI}/> : null}
+        {step === 0 ? <CheckImei onNextStep={onCheckIMEI}/> : null}
         {step === 2 ? <CheckPhone props={productDataDefault} onExit={onExit} onNextStep={onCheckPhone}/> : null}
         {step === 3 ? <CheckDisplay props={productDataDefault} onNextStep={onCheckDisplay}/> : null}
         {step === 4 ? <PrelimDiscount props={productDataDefault} onExit={onExit} onNextStep={onPrelimDiscount}/> : null}
@@ -144,7 +145,8 @@ export default function App() {
         {step === 10 ? <ConsigAgree props={productDataDefault} onExit={onExit} onNextStep={onConsigAgree} /> : null}  
         {step === 11 ? <Contract props={productDataDefault} onNextStep={onContract} onBackStep={onBackStepPhone} /> : null}
         {step === 12 ? <Signed props={productDataDefault} onNextStep={onExit} /> : null}
-      {/* <Footer/> */}
+        {step === 1 ? <CreatePhotos/> : null}
+      <Footer/>
     </div>
 	)  
 };

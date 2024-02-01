@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import img from "../img/11.png";
-import img1 from "../img/22.png";
+import displayDamage_1 from "../img/displayDamage_1.png";
+import displayDamage_2 from "../img/displayDemage_2.png";
+import wellDisplay from "../img/wellDisplay.png";
 import axios from "axios";
 import Config from "./variables";
 
@@ -99,32 +100,41 @@ const CheckDisplay = ({props, onNextStep}) => {
 	}
 
 	return(
-				<div class="flex justify-center" method="POST" >
-					<div class="mt-36 mr-10">
-						<div class="mt-1">
-							<img src={img} alt="" width="468" height="450" />
-						</div>
-						<div class="w-80 ml-16">
-							<label>
-								<button class="border-2 w-full mt-5 p-2 rounded-2xl bg-red-500 text-white" type="button" onClick={() => {setDisplay('damage')}}>
-									Экран разбит и/или имеет выгорания
-								</button>
-							</label>
-						</div>
+			<div class="flex justify-center">
+				<div class="flex justify-center w-full h-full p-4 lg:p-0 lg:w-[1920px] lg:h-[1146px]">
+					<div class="flex flex-col mt-14 lg:flex-row lg:justify-between lg:w-[1000px] lg:h-[535px] lg:mt-[133px]">
+							<div class="w-full h-full lg:w-[410px] ">
+								<div class="flex justify-around w-full h-[300px]  lg:justify-between lg:h-[387px]">
+									<img src={displayDamage_1} alt="damage"/>
+									<img src={displayDamage_2} alt="damage"/>
+								</div>
+								<div class="w-full h-[68px] mt-8">
+									<button 
+										class="w-full h-[58px] p-2 rounded-xl text-white text-[18px] lg:text-[20px] bg-red-500"
+										type="button" 
+										onClick={() => {setDisplay('damage')}}
+									>
+										Экран разбит и/или имеет выгорания
+									</button>
+								</div>																
+							</div>
+							<div class="w-full h-full mt-8 lg:mt-0 lg:w-[410px] ">
+									<div class="flex w-full lg:h-[400px] mt-[-12px]">
+										<img src={wellDisplay} alt="wellDisplay"/>
+									</div>
+									<div class="w-full h-[68px] mt-8">
+										<button 
+											class="w-full h-[58px] p-2  rounded-xl text-white text-[18px] lg:text-[20px] bg-green-500 "
+											type="button" 
+											onClick={() => {setDisplay('good')}}
+										>
+											Экран не разбит и не имеет выгораний
+										</button>							
+									</div>										
+							</div>						
 					</div>
-					<div class="mt-36">
-						<div >
-							<img src={img1} alt="" width="400" height="455" />
-						</div>
-						<div class="w-80 ml-12">
-							<label>
-								<button class="border-2 w-full mt-5 p-2 rounded-2xl bg-green-500 text-white" type="button" onClick={() => {setDisplay('good')}}>
-									Экран не разбит и не имеет выгораний
-								</button>								
-							</label>
-						</div>
-					</div>
-				</div>
+				</div>					
+			</div>
     );
 };
 

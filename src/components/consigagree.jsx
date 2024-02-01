@@ -66,84 +66,93 @@ const ConsigAgree = ({props, onExit, onNextStep}) => {
 
 
     return(
-        <div>
-			<div className="form__step container" id="consignment-agreements">
-				<div className="form__container">
-					<h1 className="form__title">
-						Заполните информацию для договора Консигнации.
-					</h1>
-					<div className="form__content">
-						<div className="form__column">
-							<div className="form__container">
-								<div className="form__description">
-									<p className="form__paragraph">Укажите данные клиента</p>
-									<p className="form__paragraph">
-										Удостоверение личности: Паспорт
-									</p>
-								</div>
-								<label className="form__label">
-									<input className="form__input form__input--text" type="text" name="NAME" placeholder="Имя" 
-									required onChange={event => setFio({...fio, name: event.target.value})}/>
-										<span className="error"></span>
-								</label>
-									<label className="form__label">
-										<input className="form__input form__input--text" type="text" name="SURNAME" placeholder="Фамилия"
-											required onChange={event => setFio({...fio, family: event.target.value})}/>
-										<span className="error"></span>
-								</label>
-									<label className="form__label">
-										<input className="form__input form__input--text" type="text" name="PATRONYMIC" placeholder="Отчество"
-											required onChange={event => setFio({...fio, otche: event.target.value})}/>
-				    							<span className="error"></span>
-									</label>
-									<fieldset className="form__fieldset">
-										<label className="form__label">
-											<InputMask mask="99/99/9999" className="form__input form__input--text" type="text" name="DATE_OF_BIRTH"
-												placeholder="Дата рождения" required onChange={event => setFio({...fio, date: event.target.value})}/>
-											<span className="error"></span>
-										</label>
-										<label className="form__label">
-											<InputMask mask="+7(999)-999-99-99" className="form__input form__input--text" type="text"
-												placeholder="Контактный телефон" onChange={event => setFio({...fio, phone: event.target.value})}/>
-												<span className="error"></span>
-										</label>
-										<label className="form__label">
-											<InputMask className="form__input form__input--text" type="text"
-												placeholder="Место рождения" onChange={event => setFio({...fio, place: event.target.value})}/>
-												<span className="error"></span>
-										</label>
-										<label className="form__label">
-											<InputMask  placeholder="email" className="form__input form__input--text"
-												 onChange={event => setFio({...fio, email: event.target.value})}/>
-												<span className="error"></span>
-										</label>
-									</fieldset>
-							</div>
+        <div class="flex justify-center">
+			<div class="flex justify-center lg:w-[1920px] lg:h-[1146px]">
+				<div class="w-full h-full mt-10 p-4 lg:p-0 lg:w-[567px] lg:h-[669px] lg:mt-[127px]">
+					<div class="mb-4 tracking-tight text-gray-900 text-[30px] lg:text-[44px]">
+						<h1>
+							Заполните информацию для Договора Консигнации.
+						</h1>					
+					</div>
+					<div class="mb-6">
+						<h2 class="text-[22px] text-gray-500">
+							Укажите данные клиента
+						</h2>
+					</div>
+					<div class="w-full lg:w-[522px] h-[68px] mb-6">
+						<input
+							class="w-full h-full border-2 border-green-500 text-[20px] rounded-2xl" 
+							type="text" 
+							name="SURNAME" 
+							placeholder="Фамилия"
+							required onChange={event => setFio({...fio, family: event.target.value})}
+						/>	
+					</div>
+					<div class="w-full lg:w-[522px] h-[68px] mb-6">
+						<input
+							class="w-full h-full border-2 border-green-500 text-[20px] rounded-2xl" 
+							type="text" 
+							name="NAME" 
+							placeholder="Имя" 
+							required onChange={event => setFio({...fio, name: event.target.value})}
+						/>
+					</div>
+					<div class="w-full lg:w-[522px] h-[68px] mb-6">
+						<input
+							class="w-full h-full border-2 border-green-500 text-[20px] rounded-2xl"
+							type="text" 
+							name="PATRONYMIC" 
+							placeholder="Отчество"
+							required onChange={event => setFio({...fio, otche: event.target.value})}
+						/>					
+					</div>
+					<div class="w-full lg:w-[522px] h-[68px] mb-6">
+						<InputMask
+							class="w-full h-full border-2 border-green-500 text-[20px] rounded-2xl" 
+							mask="+7(999)-999-99-99" 
+							type="text"
+							placeholder="Контактный телефон" 
+							onChange={event => setFio({...fio, phone: event.target.value})}
+						/>
+					</div>
+					<div class="flex justify-between w-full lg:w-[522px] h-[68px]">
+						<div class="flex justify-center rounded-2xl lg:w-[257px] lg:h-[68px] bg-green-500">
+							<button
+								class="text-white p-4 lg:p-0 lg:text-[20px]" 
+								type="submit"
+								onClick={getFIO}
+							>
+								Подписать договор
+							</button>
+						</div>
+						<div class="flex justify-center rounded-2xl lg:w-[257px] lg:h-[68px] bg-red-500">
+							<button
+								class="text-white p-4 lg:p-0 lg:text-[20px]"
+								type="button"
+								onClick={aborted}
+							>
+								Отменить проверку
+							</button>
 						</div>
 					</div>
-					<div className="form__content">
-						<div className="form__column">
-							<button className="
-									form__btn
-									form__btn--fill-color-main
-									form__btn--indent-bottom
-									form__btn--resolve
-					    			" type="submit"
-									onClick={getFIO}>
-									Подписать договор
-							</button>
-						</div>
-						<div className="form__column form__column--no-indent-top-mobile">
-							<button className="
-								form__btn form__btn--fill-transparent form__btn--reject
-								" type="button"
-								onClick={aborted}>
-										Отменить проверку
-							</button>
-				        </div>
-			        </div>
-		        </div>
-	        </div>
+					{/* <div>
+						<InputMask 
+							mask="99/99/9999" 
+							type="text" name="DATE_OF_BIRTH" 
+							placeholder="Дата рождения" 
+								required onChange={event => setFio({...fio, date: event.target.value})}
+						/>
+						<InputMask 
+							type="text"
+							placeholder="Место рождения" 
+							onChange={event => setFio({...fio, place: event.target.value})}
+						/>
+						<InputMask  
+							placeholder="email"
+							onChange={event => setFio({...fio, email: event.target.value})}/>
+					</div> */}
+				</div>
+			</div>
         </div>
     )
 }

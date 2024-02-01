@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Cookies from 'js-cookie';
-import img from "../img/content/barcode.png";
+import Cookies from 'js-cookie'; 
+import checkForSigned from "../img/checkForSigned.png";
 import axios from "axios";
 import Config from "./variables";
 
@@ -59,63 +59,60 @@ const Signed = ({props, onNextStep}) => {
 		});
 	}
 	return (
-        <div>
-            <div className="form__step" id="contract-is-signed">
-				<div className="form__container form__container--md form__container--center">
-					<h1 className="form__title">Договор подписан</h1>
-						<div className="form__content">
-							<div className="form__column form__column--full-width">
-								<div className="contract">
-									<div className="contract__item">
-										<div className="form__content">
-											<div className="form__column">
-												<p className="
-													form__paragraph
-													form__paragraph--xl
-													form__paragraph--bold
-													form__paragraph--no-wrap
-													">
-													{props.price}
-												</p>
-											</div>
-											<div className="form__column form__column--no-indent-top-mobile">
-												<button className="
-													form__btn
-													form__btn--fill-color-main
-													form__btn--indent-top-mobile
-													form__btn--resolve
-													" type="button"
-													onClick={confirmContract}>
-													Завершить операцию
-												</button>
-											</div>
-										</div>
-									    <p className="form__paragraph form__paragraph--indent-top-desktop">
-											Финальная скидка на покупку
-										</p>
-									</div>
-									<div className="contract__item">
-										<h4 className="list-title">
-											Перед тем, как сдать своё устройство в Trade-In,
-											рекомендуем:
-										</h4>
-											<ul className="list">
-												<li className="list__item">
-													на устройствах Appple: октлючить функцию "Найти
-													iPhone";
-												</li>
-												<li className="list__item">
-													сделать резервную копию на устройстве;
-												</li>
-												<li className="list__item">
-													снять все защитные пленки/стёкла c экрана.
-												</li>
-											</ul>
-									</div>
-									<img className="form__img" src={barCode} alt="" aria-hidden="true" />
-								</div>
-							</div>
+        <div class="flex justify-center">
+			<div class="flex justify-center w-full h-full p-4 lg:w-[1920px] lg:h-[1146px]">
+				<div class=" mt-10 lg:mt-[127px] lg:w-[462] lg:h-[610px]">
+					<div class="flex items-center mb-4">
+						<div class="tracking-tight text-gray-900 text-[36px] lg:text-[42px]">
+							<h1>
+								Договор подписан
+							</h1>
 						</div>
+						<div class="ml-2 mt-2">
+							<img class="size-10" src={checkForSigned} alt="check"/>
+						</div>
+					</div>
+					<div>
+						<h2>
+							{props.price}
+						</h2>
+					</div>
+					<div class="lg:w-[452px] h-[87px] mt-4">
+						<p class="text-[16px] lg:text-[20px]">
+							Отсканируйте или скопируйте данный 
+							штрих-код в свою систему и продолжите
+							оформление продажи там
+						</p>
+					</div>
+					<div class="lg:w-[460px] h-[162px] mt-6">
+						<img src={barCode} alt="QRcode"/>
+					</div>
+					<div class="lg:w-[461px] lg:h-[356px] bg-green-200 rounded-2xl p-4 lg:text-[22px]">
+						<p class="">
+							<b>
+								Перед тем, как сдать своё устройство в Trade-in,
+								рекомендуем: 
+							</b>	
+						</p>
+						<p class="mt-5">
+							- На устройствах Apple отключить функцию "Найти Iphone";
+						</p>
+						<p class="mt-5">
+							- Сделать резервную копию на устройстве;
+						</p>
+						<p class="mt-5">
+							- Снять все защитные пленки/стекла с экрана.
+						</p>
+					</div>
+					<div class="flex justify-center mt-6 rounded-2xl w-[200px] bg-green-500 lg:w-[287px] h-[68px] ">
+						<button 
+							class="text-white lg:text-[20px]"
+							type="button"
+							onClick={confirmContract}
+						>
+							Завершить операцию
+						</button>
+					</div>
 				</div>
 			</div>        
          </div>

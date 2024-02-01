@@ -63,7 +63,7 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
             {"post": {"device": props.data.IMEI}}
         );
         data.then((value) => {
-            if (value.data.data.STATUS === true) { 
+            if (value.data.data.STATUS !== true) { 
                 onNextStep({
                     current: {
                         number: 10,
@@ -97,73 +97,85 @@ const PickUpDevice = ({props, onExit, onNextStep}) => {
    };
 
     return(
-        <div>
-            <div className="form__step" id="pick-up-device">
-               <div className="form__container form__container--sm form__container--center">
-                  <h1 className="form__subtitle form__subtitle--center">Заберите устройство</h1>
-                    <div className="form__content">
-                        <div className="form__item">
-                            <div className="form__description">
-                                <h3 className="form__paragraph">Подтвердите продукты</h3>
-                            </div>
-                            <div className="custom-field">
-                                <label className="form__label form__label--bold form__label--checkbox">
-                                    <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
-                                        name="CHECK_THE_QUALITY" onClick={() => {setSpec(spec + 1)}}/>
-                                            <span className="custom-field__checkbox-custom"></span>
-                                                Я проверил качество
-                                </label>
-                            </div>
-                            <div className="custom-field">
-                                <label className="form__label form__label--bold form__label--checkbox">
-                                    <input className="custom-field__input custom-field__input--checkbox" type="checkbox" name="SIMCARD_IS_MISSING" 
-                                    onClick={() => {setSpec(spec + 1)}}/>
-                                        <span className="custom-field__checkbox-custom"></span>
-                                        Симкарта отсутствует
-                                </label>
-                            </div>
-                            <div className="custom-field">
-                                <label className="form__label form__label--bold form__label--checkbox">
-                                    <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
-                                        name="UNLINKED_FROM_THE_DEVICE" onClick={() => {setSpec(spec + 1)}}/>
-                                            <span className="custom-field__checkbox-custom"></span>
-                                                Все учетные записи Клиента отвязаны от устройства
-                                </label>
-                            </div>
-                            <label className="form__label form__label--bold form__label--checkbox">
-                                 <input className="custom-field__input custom-field__input--checkbox" type="checkbox"
-                                    name="RESET_TO_FACTORY" onClick={() => {setSpec(spec + 1)}}/>
-                                     <span className="custom-field__checkbox-custom"></span>
-                                   Устройство сброшено к заводским установкам 
-                            </label>
-                            <div>
-                               {howCheck === 1 ? <ReactImageGallery items={images} showPlayButton={false}/> : null}
-                            </div>
-                            <div className="defects-list__item">
-                                <button className="form__link check-it__link smart-photo"
-                                onClick={() => {setHowCheck(1)}}>
-                                    Как это проверить?
-                                </button>
-                            </div>
-                            <button className="
-										form__btn
-										form__btn--fill-color-main
-										form__btn--indent-top
-										form__btn--resolve" type="button" tabIndex="-1"
-                                        disabled={button}
-                                        onClick={() => {checkIcloud()}}
-                                        >
-                                    Принять устройство
-                            </button>
-                            <button className="
-										form__btn
-										form__btn--fill-color-main
-										form__btn--indent-top
-										form__btn--resolve" type="button"
-                                        onClick={aborted}>
+        <div class="flex justify-center">
+            <div class="flex justify-center w-full h-full p-4 lg:p-0 lg:w-[1920px] lg:h-[1146px]">
+                <div class="w-full h-full mt-10 lg:w-[394px] lg:h-[510px] lg:mt-[125px]">
+                    <div class="mb-4 tracking-tight text-gray-900 text-[36px] lg:text-[41px]">
+                        <h1>Заберите устройство</h1>
+                    </div>
+                    <div class="mb-6">
+                        <h2 class="text-[22px] text-gray-500">
+                            Подтвердите продукты
+                        </h2>                    
+                    </div>
+                    <div class="flex mb-4">
+                        <input 
+                            class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500" 
+                            type="checkbox"
+                            name="CHECK_THE_QUALITY" 
+                            onClick={() => {setSpec(spec + 1)}}
+                        />
+                        <span class="ml-2 text-[20px]">Я проверил качество</span>
+                    </div>
+                    <div class="flex mb-4">
+                        <input
+                            class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500"  
+                            type="checkbox" 
+                            name="SIMCARD_IS_MISSING" 
+                            onClick={() => {setSpec(spec + 1)}}
+                        />
+                        <span class="ml-2 text-[20px]">SIM-карта отсутствует</span>
+                    </div>
+                    <div class="flex mb-2">
+                        <input
+                            class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500"  
+                            type="checkbox"
+                            name="UNLINKED_FROM_THE_DEVICE" 
+                            onClick={() => {setSpec(spec + 1)}}
+                        />
+                        <span class="ml-2 text-[20px]">Все учетные записи Клиента отвязаны от устройства</span>
+                    </div>
+                    <div class="flex mb-4">
+                        <input
+                            class="w-8 h-8 rounded-full text-green-500 focus:ring-green-500"
+                            type="checkbox"
+                            name="RESET_TO_FACTORY" 
+                            onClick={() => {setSpec(spec + 1)}}
+                        />
+                        <span class="ml-2 text-[20px]">Устройство сброшено к заводским установкам </span>
+                    </div>
+                    <div >
+                        <button
+                            class="flex border-2 mt-3 w-34 h-10 p-2 rounded-lg  bg-green-500" 
+                            onClick={() => {setHowCheck(1)}}
+                        >
+                        <span class="text-sm text-white">Как это проверить?</span>
+                        </button>
+                    </div>
+                    <div class="flex justify-around lg:justify-between w-full h-[68px] mt-10 lg:mt-6">
+                        <div class="flex justify-center w-[200px] lg:w-[256px] h-[68px] rounded-2xl bg-red-500">
+                            <button 
+                                class="text-white lg:text-[22px]"
+                                type="button"
+                                onClick={aborted}
+                            >
                                 Отменить операцию
-                            </button>
+                            </button>                        
                         </div>
+                        <div class="flex justify-center w-[123px] h-[68px] ">
+                            <button 
+                                class="w-full lg:text-[22px] disabled:bg-gray-400 text-white rounded-2xl bg-green-500"
+                                type="button" 
+                                tabIndex="-1"
+                                disabled={button}
+                                onClick={() => {checkIcloud()}}
+                            >
+                                Далее
+                            </button>
+                        </div>                    
+                    </div>                
+                    <div class="size-45 mt-6">
+                        {howCheck === 1 ? <ReactImageGallery items={images} showPlayButton={false}/> : null}
                     </div>
                 </div>
             </div> 
